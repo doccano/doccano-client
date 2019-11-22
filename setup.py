@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='doccano_api_client',
@@ -18,7 +18,7 @@ setup(
     author='Andrew Parsons',
     author_email='parsonsandrew1@gmail.com',
     license='MIT',
-    packages=['src'],
+    packages=['doccano_api_client'],
     install_requires=[
         'requests'
     ],

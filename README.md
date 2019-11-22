@@ -30,7 +30,13 @@ This project seeks to provide a temporary solution while the `chakki-works/docca
 
 ## Installation
 
-TODO: write installation directions, add a `setup.py` file...
+```bash
+git clone <THIS REPOSITORY>
+
+cd <THIS REPOSITORY>
+
+pip install -e ./
+```
 
 ## Usage
 
@@ -38,7 +44,7 @@ TODO: write installation directions, add a `setup.py` file...
 - All methods return a `requests.models.Response` object.
 
 ```python
-from DoccanoClient import DoccanoClient
+from doccano_api_client import DoccanoClient
 
 # instantiate a client and log in to a Doccano instance
 doccano_client = DoccanoClient(
