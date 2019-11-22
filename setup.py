@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='src',
+    name='doccano_api_client',
     version='0.1',
     description='A simple API wrapper for the doccano API.',
     long_description='This simple API wrapper allows users to easily get data from and send data to a doccano instance.',
@@ -20,8 +20,7 @@ setup(
     license='MIT',
     packages=['src'],
     install_requires=[
-        'requests',
-        'urllib'
+        'requests'
     ],
     zip_safe=False
 )
