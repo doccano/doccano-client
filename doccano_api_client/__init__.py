@@ -325,6 +325,7 @@ class DoccanoClient(_Router):
         project_id: int,
     ) -> requests.models.Response:
         """
+        Currently broken!
         """
         return self.get(
             'v1/projects/{project_id}/docs/download'.format(
@@ -350,7 +351,7 @@ class DoccanoClient(_Router):
         rolemapping_id: int,
     ) -> requests.models.Response:
         """
-        Currently broken.
+        Currently broken!
         """
         return self.get(
             'v1/projets/{project_id}/roles/{rolemapping_id}'.format(
