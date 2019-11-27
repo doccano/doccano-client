@@ -323,13 +323,14 @@ class DoccanoClient(_Router):
     def get_doc_download(
         self,
         project_id: int,
+        file_format: str = 'json'
     ) -> requests.models.Response:
         """
-        Currently broken!
         """
         return self.get(
-            'v1/projects/{project_id}/docs/download'.format(
-                project_id=project_id
+            'v1/projects/{project_id}/docs/download/?q={file_format}'.format(
+                project_id=project_id,
+                file_format=file_format
             )
         )
 
