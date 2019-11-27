@@ -110,7 +110,10 @@ class DoccanoClient(_Router):
         print(response)
         token = response.json()['token']
         self.session.headers.update(
-            {'Authorization': 'Token {token}'.format(token=token)}
+            {
+                'Authorization': 'Token {token}'.format(token=token),
+                'Accept': 'application/json'
+            }
         )
         return response
 
