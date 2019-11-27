@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='doccano_api_client',
-    version='0.1',
-    description='A simple API wrapper for the doccano API.',
+    version='0.2',
+    description='A simple client wrapper for the doccano API.',
     long_description='This simple API wrapper allows users to easily get data from and send data to a doccano instance.',
     classifiers=[
         'Development Status :: 3 - Alpha',

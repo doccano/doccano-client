@@ -328,7 +328,7 @@ class DoccanoClient(_Router):
         """
         """
         return self.get(
-            'v1/projects/{project_id}/docs/download/?q={file_format}'.format(
+            'v1/projects/{project_id}/docs/download?q={file_format}'.format(
                 project_id=project_id,
                 file_format=file_format
             )

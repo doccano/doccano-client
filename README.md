@@ -1,10 +1,10 @@
 # Doccano API Client
 
-A simple API wrapper for the doccano API.
+A simple client wrapper for the doccano API.
 
 **History**
 
-doccano users have consistently been interested in a way to programmatically access a Doccano instance.
+doccano users have consistently been interested in a way to programmatically access a doccano instance.
 
 - In [Issue #6](https://github.com/chakki-works/doccano/issues/6#issuecomment-489924577), Hironsan provided a sample class to illustrate interaction with the doccano API. 
 
@@ -95,7 +95,7 @@ Endpoint Names:
 - ✔️ `approve_labels`
 - ✔️ `annotation_list`
 - ⚠️ `annotation_detail`
-- ⚠️ `doc_downloader`
+- ✔️ `doc_downloader`
 - ✔️ `rolemapping_list`
 - ⚠️ `rolemapping_detail`
 
