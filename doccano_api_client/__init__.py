@@ -417,3 +417,30 @@ class DoccanoClient(_Router):
                 doc_id=doc_id
             )
         )
+
+    def _get_any_endpoint(
+        self,
+        endpoint: str
+    ) -> requests.models.Response:
+        """
+        """
+        # project_id: int,
+        # limit: int,
+        # offset: int
+        return self.get(endpoint)
+
+    def exp_get_doc_list(
+        self,
+        project_id: int,
+        limit: int,
+        offset: int
+    ) -> requests.models.Response:
+        """
+        """ 
+        return self.get(
+            'v1/projects/{project_id}/docs?limit={limit}&offset={offset}'.format(
+                project_id=project_id,
+                limit=limit,
+                offset=offset
+            )
+        )
