@@ -106,6 +106,7 @@ Endpoint Names:
 - ✔️ `statistics`
 - ✔️ `label_list`
 - ✔️ `label_detail`
+- ❌ `label_upload`
 - ✔️ `doc_list`
 - ✔️ `doc_detail`
 - ✔️ `doc_uploader`
