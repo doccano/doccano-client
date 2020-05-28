@@ -33,6 +33,7 @@ class _Router:
     def get(
         self,
         endpoint: str,
+        params: dict = {},
     ) -> requests.models.Response:
         """
         Args:
@@ -42,7 +43,7 @@ class _Router:
             requests.models.Response: The request response.
         """
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.get(request_url)
+        return self.session.get(request_url, params=params)
 
     def post(
         self,
@@ -357,10 +358,10 @@ class DoccanoClient(_Router):
         """
         """
         return self.get(
-            'v1/projects/{project_id}/docs/download?q={file_format}'.format(
-                project_id=project_id,
-                file_format=file_format
-            )
+            'v1/projects/{project_id}/docs/download'.format(
+                project_id=project_id
+            ),
+            params={'q': file_format}
         )
 
     def get_rolemapping_list(
@@ -463,10 +464,10 @@ class DoccanoClient(_Router):
     ) -> requests.models.Response:
         """
         """
+        params = {'limit': limit, 'offset': offset}
         return self.get(
-            'v1/projects/{project_id}/docs?limit={limit}&offset={offset}'.format(
+            'v1/projects/{project_id}/docs'.format(
                 project_id=project_id,
-                limit=limit,
-                offset=offset
-            )
+            ),
+            params
         )
