@@ -22,9 +22,7 @@ import os
 import requests
 from urllib.parse import urljoin
 
-# ------------------------------------------------------------------------
-# ROUTER
-# ------------------------------------------------------------------------
+
 class _Router:
     """
     Provides generic `get` and `post` methods. Implemented by DoccanoClient.
@@ -64,11 +62,11 @@ class _Router:
         return self.session.get(url, params=params)
 
     def post(
-        self,
-        endpoint: str,
-        data: dict = {},
-        files: dict = {}
-    ) -> requests.models.Response:
+            self,
+            endpoint: str,
+            data: dict = {},
+            files: dict = {}
+            ) -> requests.models.Response:
         """
         """
         request_url = urljoin(self.baseurl, endpoint)
@@ -77,7 +75,7 @@ class _Router:
     def delete(
             self,
             endpoint: str,
-        ) -> requests.models.Response:
+            ) -> requests.models.Response:
         """
         Deletes something at the given endpoint.
         """
@@ -85,9 +83,9 @@ class _Router:
         return self.session.delete(request_url)
 
     def build_url_parameter(
-        self,
-        url_parameter: dict
-    ) -> str:
+            self,
+            url_parameter: dict
+            ) -> str:
         """
         Format url_parameters.
 
@@ -97,11 +95,11 @@ class _Router:
         Returns:
             A URL parameter string. Ex: `?key1=u1&key1=u2&key2=v1&...`
         """
-        return ''.join(['?', '&'.join(['&'.join(['='.join([tup[0], str(value)]) for value in tup[1]]) for tup in url_parameter.items()])])
+        return ''.join(['?', '&'.join(['&'.join(['='.join(
+            [tup[0], str(value)])
+                    for value in tup[1]]) for tup in url_parameter.items()])])
 
-# ------------------------------------------------------------------------
-# CLIENT
-# ------------------------------------------------------------------------
+
 class DoccanoClient(_Router):
     """
     TODO: investigate alternatives to plaintext login
@@ -173,7 +171,8 @@ class DoccanoClient(_Router):
         """
         return self.get('v1/projects')
 
-    def create_project(self,
+    def create_project(
+            self,
             name: str,
             description: str = "",
             project_type: str = "DocumentClassification",
@@ -199,7 +198,8 @@ class DoccanoClient(_Router):
                 }
         return self.post('v1/projects', data=payload).json()
 
-    def create_document(self,
+    def create_document(
+            self,
             project_id: int,
             text: str,
             annotations: list = [],
@@ -227,14 +227,16 @@ class DoccanoClient(_Router):
 
         return self.post(url, data=data)
 
-    def delete_document(self,
+    def delete_document(
+            self,
             project_id: int,
             document_id: int,
             ) -> requests.models.Response:
         url = 'v1/projects/{}/docs/{}'.format(project_id, document_id)
         return self.delete(url)
 
-    def create_label(self,
+    def create_label(
+            self,
             project_id: int,
             text: str,
             text_color: str = "#ffffff",
@@ -432,10 +434,10 @@ class DoccanoClient(_Router):
         """
         """
         return self.get(
-            'v1/projects/{project_id}/docs/{doc_id}/annotations/{annotation_id}'.format(
-                project_id=project_id,
-                doc_id=doc_id,
-                annotation_id=annotation_id
+            'v1/projects/{p_id}/docs/{d_id}/annotations/{a_id}'.format(
+                p_id=project_id,
+                d_id=doc_id,
+                a_id=annotation_id
             )
         )
 
@@ -493,7 +495,8 @@ class DoccanoClient(_Router):
 
         Args:
             project_id (int): The project id number.
-            file_format (str): The file format, ex: `plain`, `json`, or `conll`.
+            file_format (str): The file format, ex: `plain`, `json`, or
+                               `conll`.
             file_name (str): The name of the file.
             file_path (str): The parent path of the file. Defaults to `./`.
 
