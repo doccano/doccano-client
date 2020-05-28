@@ -183,7 +183,6 @@ class DoccanoClient(_Router):
             project_id: int,
             text: str,
             annotations: list = [],
-            meta: dict = {},
             annotation_approver: int = None
             ) -> requests.models.Response:
         """
@@ -193,7 +192,6 @@ class DoccanoClient(_Router):
           project_id (int): project identifier
           text (str): your text
           annotations (list): annotations
-          meta (dict): metadata
           annotation_approver (int): account that approved
 
         Returns:
@@ -202,7 +200,6 @@ class DoccanoClient(_Router):
         url = 'v1/projects/{}/docs'.format(project_id)
         data = {'text': text,
                 'annotations': annotations,
-                'meta': meta,
                 'annotation_approver': annotation_approver}
 
         return self.post(url, data=data)
