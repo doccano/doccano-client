@@ -74,6 +74,16 @@ class _Router:
         request_url = urljoin(self.baseurl, endpoint)
         return self.session.post(request_url, data=data, files=files).json()
 
+    def delete(
+            self,
+            endpoint: str,
+        ) -> requests.models.Response:
+        """
+        Deletes something at the given endpoint.
+        """
+        request_url = urljoin(self.baseurl, endpoint)
+        return self.session.delete(request_url)
+
     def build_url_parameter(
         self,
         url_parameter: dict
@@ -216,6 +226,13 @@ class DoccanoClient(_Router):
                 'annotation_approver': annotation_approver}
 
         return self.post(url, data=data)
+
+    def delete_document(self,
+            project_id: int,
+            document_id: int,
+            ) -> requests.models.Response:
+        url = 'v1/projects/{}/docs/{}'.format(project_id, document_id)
+        return self.delete(url)
 
     def create_label(self,
             project_id: int,
