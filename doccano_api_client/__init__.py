@@ -199,6 +199,32 @@ class DoccanoClient(_Router):
 
         return self.post(url, data=data)
 
+    def create_label(self,
+            project_id: int,
+            text: str,
+            text_color: str = "#ffffff",
+            background_color: str = "#cdcdcd",
+            prefix_key: str = None,
+            suffix_key: str = None
+            ) -> requests.models.Response:
+        """
+        Creates a label to be used for annotating a document.
+        """
+        url = 'v1/projects/{}/labels'.format(project_id)
+        label_payload = {
+            "projectId": project_id,
+            "text": text,
+            "prefix_key": prefix_key,
+            "suffix_key": suffix_key,
+            "background_color": background_color,
+            "text_color": text_color
+        }
+
+        try:
+            return self.post(url, data=label_payload)
+        except Exception as e:
+            return "Failed (duplicate?): {}".format(e)
+
     def get_user_list(self) -> requests.models.Response:
         """
         Gets user list.
