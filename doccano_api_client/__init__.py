@@ -43,7 +43,7 @@ class _Router:
             requests.models.Response: The request response.
         """
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.get(request_url, params=params)
+        return self.session.get(request_url, params=params).json()
 
     def post(
         self,
@@ -54,7 +54,7 @@ class _Router:
         """
         """
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.post(request_url, data=data, files=files)
+        return self.session.post(request_url, data=data, files=files).json()
 
     def build_url_parameter(
         self,
@@ -109,7 +109,7 @@ class DoccanoClient(_Router):
         auth = {'username': username, 'password': password}
         response = self.post(url, auth)
         print(response)
-        token = response.json()['token']
+        token = response['token']
         self.session.headers.update(
             {
                 'Authorization': 'Token {token}'.format(token=token),
