@@ -144,6 +144,32 @@ class DoccanoClient(_Router):
         """
         return self.get('v1/projects')
 
+    def create_project(self,
+            name: str,
+            description: str = "",
+            project_type: str = "DocumentClassification",
+            guideline: str = "",
+            resourcetype: str = "TextClassificationProject",
+            randomize_document_order: bool = False,
+            collaborative_annotation: bool = False
+            ) -> requests.models.Response:
+        """
+        Creates a new project.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        payload = {
+                "name": name,
+                "description": description,
+                "project_type": project_type,
+                "guideline": guideline,
+                "resourcetype": resourcetype,
+                "randomize_document_order": randomize_document_order,
+                "collaborative_annotation": collaborative_annotation
+                }
+        return self.post('v1/projects', data=payload).json()
+
     def get_user_list(self) -> requests.models.Response:
         """
         Gets user list.
