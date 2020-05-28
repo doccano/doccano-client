@@ -171,6 +171,34 @@ class DoccanoClient(_Router):
                 }
         return self.post('v1/projects', data=payload).json()
 
+    def create_document(self,
+            project_id: int,
+            text: str,
+            annotations: list = [],
+            meta: dict = {},
+            annotation_approver: int = None
+            ) -> requests.models.Response:
+        """
+        Creates a document.
+
+        Args:
+          project_id (int): project identifier
+          text (str): your text
+          annotations (list): annotations
+          meta (dict): metadata
+          annotation_approver (int): account that approved
+
+        Returns:
+            requests.models.Response: The request response
+        """
+        url = 'v1/projects/{}/docs'.format(project_id)
+        data = {'text': text,
+                'annotations': annotations,
+                'meta': meta,
+                'annotation_approver': annotation_approver}
+
+        return self.post(url, data=data)
+
     def get_user_list(self) -> requests.models.Response:
         """
         Gets user list.
