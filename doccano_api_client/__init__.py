@@ -40,10 +40,28 @@ class _Router:
             endpoint (str): An API endpoint to query.
 
         Returns:
-            requests.models.Response: The request response.
+            requests.models.Response: The request response (JSON).
         """
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.get(request_url, params=params).json()
+        return self._get(request_url, params=params).json()
+
+    def get_file(
+            self,
+            endpoint: str,
+            params: dict = {},
+            ) -> requests.models.Response:
+        """
+        Gets a file.
+        """
+        request_url = urljoin(self.baseurl, endpoint)
+        return self._get(request_url, params=params)
+
+    def _get(
+            self,
+            url: str,
+            params: dict = {},
+            ) -> requests.models.Response:
+        return self.session.get(url, params=params)
 
     def post(
         self,
@@ -410,8 +428,9 @@ class DoccanoClient(_Router):
         file_format: str = 'json'
     ) -> requests.models.Response:
         """
+        Downloads the dataset in specified format.
         """
-        return self.get(
+        return self.get_file(
             'v1/projects/{project_id}/docs/download'.format(
                 project_id=project_id
             ),
