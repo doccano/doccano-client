@@ -1,20 +1,20 @@
 """
-Permission is hereby granted, free of charge, to any person obtaining a 
-copy of this software and associated documentation files (the "Software"), 
-to deal in the Software without restriction, including without limitation 
-the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the 
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in 
+The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
@@ -61,10 +61,10 @@ class _Router:
     ) -> str:
         """
         Format url_parameters.
-        
+
         Args:
             url_parameter (dict): Every value must be a list.
-        
+
         Returns:
             A URL parameter string. Ex: `?key1=u1&key1=u2&key2=v1&...`
         """
@@ -89,7 +89,7 @@ class DoccanoClient(_Router):
         self.baseurl = baseurl if baseurl[-1] == '/' else baseurl+'/'
         self.session = requests.Session()
         self._login(username, password)
-        
+
     def _login(
         self,
         username: str,
@@ -129,7 +129,7 @@ class DoccanoClient(_Router):
     def get_features(self) -> requests.models.Response:
         """
         Gets features.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -138,7 +138,7 @@ class DoccanoClient(_Router):
     def get_project_list(self) -> requests.models.Response:
         """
         Gets projects list.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -147,7 +147,7 @@ class DoccanoClient(_Router):
     def get_user_list(self) -> requests.models.Response:
         """
         Gets user list.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -155,7 +155,7 @@ class DoccanoClient(_Router):
 
     def get_roles(self) -> requests.models.Response:
         """
-        Gets available Doccano user roles. 
+        Gets available Doccano user roles.
 
         Returns:
             requests.models.Response: The request response.
@@ -171,7 +171,7 @@ class DoccanoClient(_Router):
 
         Args:
             project_id (int): A project ID to query.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -190,7 +190,7 @@ class DoccanoClient(_Router):
 
         Args:
             project_id (int): A project ID to query.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -209,7 +209,7 @@ class DoccanoClient(_Router):
 
         Args:
             project_id (int): A project ID to query.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -230,7 +230,7 @@ class DoccanoClient(_Router):
         Args:
             project_id (int): A project ID to query.
             label_id (int): A label ID to query.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -274,7 +274,7 @@ class DoccanoClient(_Router):
         Args:
             project_id (int): A project ID to query.
             doc_id (int): A document ID to query.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -296,7 +296,7 @@ class DoccanoClient(_Router):
         Args:
             project_id (int): A project ID to query.
             doc_id (int): A document ID to query.
-        
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -351,7 +351,7 @@ class DoccanoClient(_Router):
 
     def get_rolemapping_detail(
         self,
-        project_id: int, 
+        project_id: int,
         rolemapping_id: int,
     ) -> requests.models.Response:
         """
@@ -378,8 +378,8 @@ class DoccanoClient(_Router):
             project_id (int): The project id number.
             file_format (str): The file format, ex: `plain`, `json`, or `conll`.
             file_name (str): The name of the file.
-            file_path (str): The parent path of the file. Defaults to `./`.       
-        
+            file_path (str): The parent path of the file. Defaults to `./`.
+
         Returns:
             requests.models.Response: The request response.
         """
@@ -436,7 +436,7 @@ class DoccanoClient(_Router):
         offset: int
     ) -> requests.models.Response:
         """
-        """ 
+        """
         return self.get(
             'v1/projects/{project_id}/docs?limit={limit}&offset={offset}'.format(
                 project_id=project_id,
