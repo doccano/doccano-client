@@ -120,7 +120,6 @@ class DoccanoClient(_Router):
         url = 'v1/auth-token'
         auth = {'username': username, 'password': password}
         response = self.post(url, auth)
-        print(response)
         token = response['token']
         self.session.headers.update(
             {
