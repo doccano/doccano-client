@@ -176,7 +176,7 @@ class DoccanoClient(_Router):
                 "randomize_document_order": randomize_document_order,
                 "collaborative_annotation": collaborative_annotation
                 }
-        return self.post('v1/projects', data=payload).json()
+        return self.post('v1/projects', data=payload)
 
     def create_document(
             self,
