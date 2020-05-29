@@ -45,10 +45,16 @@ class _Router:
             self,
             endpoint: str,
             data: dict = {},
+            json: dict = {},
             files: dict = {}
             ) -> requests.models.Response:
         """
+        Used to POST arbitrary (form) data or explicit JSON.
+        Both will have the correct Content-Type header set.
         """
+        if json and data:
+            return "Error: cannot have both data and json"
+
         request_url = urljoin(self.baseurl, endpoint)
         return self.session.post(request_url, data=data, files=files).json()
 
@@ -238,6 +244,24 @@ class DoccanoClient(_Router):
             return self.post(url, data=label_payload)
         except Exception as e:
             return "Failed (duplicate?): {}".format(e)
+
+    def add_annotation(
+            self,
+            project_id: int,
+            annotation_id: int,
+            document_id: int
+            ) -> requests.models.Response:
+        """
+        Adds an annotation to a given document.
+        """
+        url = '/v1/projects/{p_id}/docs/{d_id}/annotations'.format(
+                p_id=project_id,
+                d_id=document_id)
+        payload = {
+                "label": annotation_id,
+                "projectId": project_id
+                }
+        return self.post(url, json=payload)
 
     def get_user_list(self) -> requests.models.Response:
         """
