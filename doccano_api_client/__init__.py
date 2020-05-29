@@ -27,19 +27,21 @@ class _Router:
             self,
             endpoint: str,
             params: dict = {},
+            headers: dict = {},
             ) -> requests.models.Response:
         """
         Gets a file.
         """
         request_url = urljoin(self.baseurl, endpoint)
-        return self._get(request_url, params=params)
+        return self._get(request_url, params=params, headers=headers)
 
     def _get(
             self,
             url: str,
             params: dict = {},
+            headers: dict = {},
             ) -> requests.models.Response:
-        return self.session.get(url, params=params)
+        return self.session.get(url, params=params, headers=headers)
 
     def post(
             self,
@@ -450,11 +452,18 @@ class DoccanoClient(_Router):
         """
         Downloads the dataset in specified format.
         """
+        accept_headers = {
+                'json': 'application/json',
+                'csv': 'text/csv'
+                }
+        headers = {'accept': accept_headers[file_format]}
+
         return self.get_file(
             'v1/projects/{project_id}/docs/download'.format(
                 project_id=project_id
             ),
-            params={'q': file_format}
+            params={'q': file_format},
+            headers=headers
         )
 
     def get_rolemapping_list(
