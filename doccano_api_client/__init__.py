@@ -189,7 +189,7 @@ class DoccanoClient(_Router):
             project_id: int,
             text: str,
             annotations: list = [],
-            annotation_approver: int = None
+            annotation_approver: str = None
             ) -> requests.models.Response:
         """
         Creates a document.
@@ -198,7 +198,7 @@ class DoccanoClient(_Router):
           project_id (int): project identifier
           text (str): your text
           annotations (list): annotations
-          annotation_approver (int): account that approved
+          annotation_approver (str): account that approved
 
         Returns:
             requests.models.Response: The request response
