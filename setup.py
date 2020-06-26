@@ -15,7 +15,7 @@ setup(
         'Topic :: Text Processing :: Linguistic'
     ],
     keywords='doccano api client wrapper',
-    url='http://github.com/afparsons/doccano_api_client',
+    url='http://github.com/doccano/doccano_api_client',
     author='Andrew Parsons',
     author_email='parsonsandrew1@gmail.com',
     license='MIT',
