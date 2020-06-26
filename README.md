@@ -18,7 +18,7 @@ A simple client wrapper for the doccano API.
 
 doccano users have consistently been interested in a way to programmatically access a doccano instance.
 
-- In [Issue #6](https://github.com/doccano/doccano/issues/6#issuecomment-489924577), Hironsan provided a sample class to illustrate interaction with the doccano API. 
+- In [Issue #6](https://github.com/doccano/doccano/issues/6#issuecomment-489924577), Hironsan provided a sample class to illustrate interaction with the doccano API.
 
 - In [Issue #410](https://github.com/doccano/doccano/issues/410), louisguitton asked for assistance in using the API endpoints.
 
@@ -32,7 +32,7 @@ This project seeks to provide a temporary solution while the `doccano/doccano` t
 
 - investigate more secure alternatives to plaintext login
 - improve docstrings
-  
+
 ---
 
 ## Prerequisites
@@ -119,7 +119,7 @@ Endpoint Names:
 - ⚠️ `rolemapping_detail`
 
 ## Preemptive FAQ
-> Why doesn't this package's source code use f-strings (PEP 498)? 
+> Why doesn't this package's source code use f-strings (PEP 498)?
 
 F-strings are available for Python 3.6+. I wanted to be able to support slightly older versions of Python.
 
@@ -132,7 +132,7 @@ I've not yet prescribed a style guide. However:
 > Does this API client support <some_feature> in doccano (deleting, etc.)?
 
 Probably not (yet). A few things to note:
-- everything I know about the endpoints is listed in the [README.md](https://github.com/doccano/doccano_api_client/blob/master/README.md#history) file. 
+- everything I know about the endpoints is listed in the [README.md](https://github.com/doccano/doccano_api_client/blob/master/README.md#history) file.
 - this was only supposed to be a temporary solution! I guess the doccano team hasn't yet [made their own client](https://github.com/doccano/doccano/issues/299#issuecomment-557037552)?
 - I based the API client code off of what I could find in [doccano's source code](https://github.com/doccano/doccano/blob/master/app/api/urls.py), but I wasn't able to find much documentation to begin with.
 - I originally created this API client to quickly solve a problem I had at work; the [supported endpoints](https://github.com/doccano/doccano_api_client/blob/master/README.md#completion) came in order of my own personal requirement!
@@ -146,8 +146,16 @@ Please do! See _[Contributing]()_
 1. Fork the main project.
 2. Create an issue on [doccano/doccano_api_client](https://github.com/doccano/doccano_api_client/issues).
 3. Make a feature or bugfix branch *on your fork* referencing the newly-created issue.
-4. Commit to that branch. 
+4. Commit to that branch.
 5. Submit a pull request when ready.
+
+## Development
+
+Once you've cloned the repository and created a virtual environement, just run the following command
+
+```sh
+make develop
+```
 
 ## Credits
 
