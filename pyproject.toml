@@ -1,0 +1,17 @@
+[tool.black]
+# https://github.com/psf/black#pyprojecttoml
+line-length = 100
+
+
+[tool.isort]
+# https://github.com/timothycrosley/isort#configuring-isort
+line_length=100
+atomic=true
+force_grid_wrap=0
+include_trailing_comma=true
+lines_after_imports=2
+lines_between_types=1
+multi_line_output=3
+not_skip="__init__.py"
+use_parentheses=true
+known_third_party = ["requests", "setuptools"]
