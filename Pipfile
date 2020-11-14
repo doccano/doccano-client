@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+isort = "*"
+
+[packages]
+requests = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+isort = "isort . -c"
+flake8 = "flake8 doccano_api_client --ignore=F401,E741"
