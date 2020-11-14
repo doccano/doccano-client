@@ -1,6 +1,8 @@
 import os
-import requests
+
 from urllib.parse import urljoin
+
+import requests
 
 
 class _Router:
