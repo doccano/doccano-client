@@ -253,18 +253,34 @@ class DoccanoClient(_Router):
             self,
             project_id: int,
             annotation_id: int,
-            document_id: int
+            document_id: int,
+            **kwargs
             ) -> requests.models.Response:
         """
         Adds an annotation to a given document.
+
+        Variable keyword arguments \*\*kwargs give support to doccano
+        annotations for different project types.
+
+        For example, for SequenceLabeling one should call using start_offset
+        and end_offset keyword arguments.
+
+        Args:
+            project_id (int): Project database identifier.
+            annotation_id (int): Annotation identifier.
+            document_id (int): Document identifier.
+            **kwargs: Arbitrary keyword arguments.
+
+        Returns:
+            requests.models.Response: The request response.
         """
         url = '/v1/projects/{p_id}/docs/{d_id}/annotations'.format(
                 p_id=project_id,
                 d_id=document_id)
         payload = {
-                "label": annotation_id,
-                "projectId": project_id
-                }
+            "label": annotation_id,
+            "projectId": project_id,
+            **kwargs}
         return self.post(url, json=payload)
 
     def get_user_list(self) -> requests.models.Response:
