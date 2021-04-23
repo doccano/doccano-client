@@ -122,16 +122,12 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The authorization request response.
         """
-        url = 'v1/auth-token'
-        auth = {'username': username, 'password': password}
+        url = urljoin(self.baseurl, 'admin/')
+        response = self.session.get(url)  # to get csrf token.
+        csrf = response.cookies['csrftoken']
+        url = 'v1/auth/login/'
+        auth = {'username': username, 'password': password, 'csrfmiddlewaretoken': csrf}
         response = self.post(url, auth)
-        token = response['token']
-        self.session.headers.update(
-            {
-                'Authorization': 'Token {token}'.format(token=token),
-                'Accept': 'application/json'
-            }
-        )
         return response
 
     def get_me(self) -> requests.models.Response:
