@@ -489,7 +489,7 @@ class DoccanoClient(_Router):
             'v1/projects/{project_id}/docs/download'.format(
                 project_id=project_id
             ),
-            params={'q': file_format, 'onlyApproved': only_approved},
+            params={'q': file_format, 'onlyApproved': str(only_approved).lower()},
             headers=headers
         )
 
