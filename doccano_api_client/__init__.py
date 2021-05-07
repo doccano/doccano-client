@@ -473,7 +473,8 @@ class DoccanoClient(_Router):
     def get_doc_download(
         self,
         project_id: int,
-        file_format: str = 'json'
+        file_format: str = 'json',
+        only_approved: bool = False
     ) -> requests.models.Response:
         """
         Downloads the dataset in specified format.
@@ -488,7 +489,7 @@ class DoccanoClient(_Router):
             'v1/projects/{project_id}/docs/download'.format(
                 project_id=project_id
             ),
-            params={'q': file_format},
+            params={'q': file_format, 'onlyApproved': only_approved},
             headers=headers
         )
 
