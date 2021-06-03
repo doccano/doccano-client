@@ -1,4 +1,5 @@
 import os
+import typing
 
 from urllib.parse import urljoin
 
@@ -50,7 +51,9 @@ class _Router:
             endpoint: str,
             data: dict = {},
             json: dict = {},
-            files: dict = {}
+            files: dict = {},
+            headers: typing.Optional[dict] = None,
+            as_json=True
             ) -> requests.models.Response:
         """
         Used to POST arbitrary (form) data or explicit JSON.
@@ -60,18 +63,25 @@ class _Router:
             return "Error: cannot have both data and json"
 
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.post(
-                request_url, data=data, files=files, json=json).json()
+        result = self.session.post(
+                request_url, data=data, files=files, json=json, headers=headers)
+        # return json if requested
+        if as_json:
+            return result.json()
+        return result
 
     def delete(
             self,
             endpoint: str,
-            ) -> requests.models.Response:
+            data: typing.Optional[dict] = None,
+            files: typing.Optional[dict] = None,
+            headers: typing.Optional[dict] = None,
+        ) -> requests.models.Response:
         """
         Deletes something at the given endpoint.
         """
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.delete(request_url)
+        return self.session.delete(request_url, data=data, files=files, headers=headers)
 
     def build_url_parameter(
             self,
@@ -518,12 +528,72 @@ class DoccanoClient(_Router):
             )
         )
 
+    def post_doc_upload_binary(
+        self,
+        project_id: int,
+        files: typing.List[typing.IO],
+        column_data: str = "text",
+        column_label: str = "label",
+        delimiter: str  = "",
+        encoding: str = "utf_8",
+        format: str = "JSONL"
+    ) -> dict:
+        """
+        Upload documents to doccano
+
+        Args:
+            project_id (int): The project id number.
+            files (typing.List[typing.IO]): List of files to be uploaded
+            column_data (str): Name of the column with data (text for annotation)
+            column_label (str): Name of the column with labels (labels for annotation)
+            delimiter (str): Delimeter for the current dataset
+            encoding (str): Current file encoding
+            format (str): The file format, ex: `plain`, `json`, or `conll`.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+
+        # upload files with filepond
+        if not isinstance(files, (list, tuple)):
+            # this check is very important
+            # as file object is iterable and this function will
+            # try to upload file line by line
+            raise TypeError("Please provide a list with files")
+
+        upload_ids = []
+        for file_ in files:
+            try:
+                fp_resp = self.post("v1/fp/process/", files={"filepond": file_}, as_json=False)
+                fp_resp.raise_for_status()
+                upload_ids.append(fp_resp.text)
+            except Exception as e:
+                # revert previous uploads if we have a problem
+                for upload_id in upload_ids:
+                    self.delete("v1/fp/revert/", data=upload_id, headers={'Content-Type': 'text/plain'})
+                raise e
+
+        # confirm uploads and run processing
+        upload_data = {
+            "column_data": column_data,
+            "column_label": column_label,
+            "delimiter": delimiter,
+            "encoding": encoding,
+            "format": format,
+            "uploadIds": upload_ids
+        }
+        return self.post("v1/projects/1/upload", json=upload_data)
+
     def post_doc_upload(
         self,
         project_id: int,
-        file_format: str,
         file_name: str,
         file_path: str = './',
+        column_data: str = "text",
+        column_label: str = "label",
+        delimiter: str  = "",
+        encoding: str = "utf_8",
+        format: str = "JSONL"
     ) -> requests.models.Response:
         """
         Uploads a file to a Doccano project.
@@ -534,29 +604,24 @@ class DoccanoClient(_Router):
                                `conll`.
             file_name (str): The name of the file.
             file_path (str): The parent path of the file. Defaults to `./`.
+            column_data (str): Name of the column with data (text for annotation)
+            column_label (str): Name of the column with labels (labels for annotation)
+            delimiter (str): Delimeter for the current dataset
+            encoding (str): Current file encoding
+            format (str): The file format, ex: `plain`, `json`, or `conll`.
+
 
         Returns:
             requests.models.Response: The request response.
         """
-        files = {
-            'file': (
-                file_name,
-                open(os.path.join(file_path, file_name), 'rb')
-            )
-        }
-        data = {
-            'file': (
-                file_name,
-                open(os.path.join(file_path, file_name), 'rb')
-            ),
-            'format': file_format
-        }
-        return self.post(
-            'v1/projects/{project_id}/docs/upload'.format(
-                project_id=project_id
-            ),
-            files=files,
-            data=data
+        return self.post_doc_upload_binary(
+            project_id=project_id,
+            files=[open(os.path.join(file_path, file_name), 'rb')],
+            column_data=column_data,
+            column_label=column_label,
+            delimiter=delimiter,
+            encoding=encoding,
+            format=format
         )
 
     def post_approve_labels(
