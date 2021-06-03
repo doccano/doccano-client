@@ -63,7 +63,6 @@ class _Router:
             return "Error: cannot have both data and json"
 
         request_url = urljoin(self.baseurl, endpoint)
-        self._update_csrf_token()
         result = self.session.post(
                 request_url, data=data, files=files, json=json, headers=headers)
         # return json if requested
@@ -82,7 +81,6 @@ class _Router:
         Deletes something at the given endpoint.
         """
         request_url = urljoin(self.baseurl, endpoint)
-        self._update_csrf_token()
         return self.session.delete(request_url, data=data, files=files, headers=headers)
 
     def build_url_parameter(
@@ -101,20 +99,6 @@ class _Router:
         return ''.join(['?', '&'.join(['&'.join(['='.join(
             [tup[0], str(value)])
                     for value in tup[1]]) for tup in url_parameter.items()])])
-
-    def _update_csrf_token(self):
-        """
-        Saves csrf token to requests sessions
-        (required for post requests)
-        """
-        csrf = self.session.cookies.get('csrftoken')
-        if csrf is None:
-            # before the login we do not have a token
-            # so just execute a dummy call to get it
-            url = urljoin(self.baseurl, 'admin/')
-            self.session.get(url)  # to get csrf token.
-            csrf = self.session.cookies.get('csrftoken')
-        self.session.headers['X-CSRFToken'] = csrf
 
 
 class DoccanoClient(_Router):
@@ -151,7 +135,21 @@ class DoccanoClient(_Router):
         url = 'v1/auth/login/'
         auth = {'username': username, 'password': password}
         response = self.post(url, auth)
+        self._set_csrf_header()
         return response
+
+    def _set_csrf_header(self):
+        """
+        Sets the CSRF token required for the POST
+        requests.
+
+        NB: this function has to be called
+        after the login endpoint.
+        Even if it's the post endpoint too it doesn't require
+        CSRF verification, but the token can be received from the cookies
+        """
+        csrf = self.session.cookies.get('csrftoken')
+        self.session.headers['X-CSRFToken'] = csrf
 
     def get_me(self) -> requests.models.Response:
         """
@@ -483,7 +481,8 @@ class DoccanoClient(_Router):
     def get_doc_download(
         self,
         project_id: int,
-        file_format: str = 'json'
+        file_format: str = 'json',
+        only_approved: bool = False
     ) -> requests.models.Response:
         """
         Downloads the dataset in specified format.
@@ -498,7 +497,7 @@ class DoccanoClient(_Router):
             'v1/projects/{project_id}/docs/download'.format(
                 project_id=project_id
             ),
-            params={'q': file_format},
+            params={'q': file_format, 'onlyApproved': str(only_approved).lower()},
             headers=headers
         )
 
