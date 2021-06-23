@@ -93,6 +93,9 @@ class _Router:
         Args:
             url_parameter (dict): Every value must be a list.
 
+        Example:
+            client.build_url_parameter(2, {'limit': [10], 'offset': [20]})
+
         Returns:
             A URL parameter string. Ex: `?key1=u1&key1=u2&key2=v1&...`
         """
@@ -106,7 +109,7 @@ class DoccanoClient(_Router):
     TODO: investigate alternatives to plaintext login
 
     Args:
-        baseurl (str): The baseurl of a Doccano instance.
+        baseurl (str): The baseurl of a Doccano instance, eg. http://localhost:8000
         username (str): The Doccano username to use for the client session.
         password (str): The respective username's password.
 
@@ -416,6 +419,9 @@ class DoccanoClient(_Router):
         Args:
             project_id (int):
             url_parameters (dict): `limit` and `offset`
+
+        Example:
+            client.get_document_list(2, {'limit': [10], 'offset': [20]})
 
         Returns:
             requests.models.Response: The request response.
