@@ -238,6 +238,15 @@ class DoccanoClient(_Router):
         url = 'v1/projects/{}/docs/{}'.format(project_id, document_id)
         return self.delete(url)
 
+    def delete_annotation(
+            self,
+            project_id: int,
+            document_id: int,
+            annotation_id: int,
+            ) -> requests.models.Response:
+        url = 'v1/projects/{}/docs/{}/annotations/{}'.format(project_id, document_id, annotation_id)
+        return self.delete(url)
+
     def create_label(
             self,
             project_id: int,
