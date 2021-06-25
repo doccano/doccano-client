@@ -639,6 +639,34 @@ class DoccanoClient(_Router):
             format=format
         )
 
+    def post_approval(
+        self,
+        project_id: int,
+        doc_id: int,
+        approved: bool):
+        """
+        Marks a document as approved or not
+
+        Args:
+            project_id (int): The project id number
+            doc_id (int): The document to have its approval setting changed
+            approved (bool): If true, the approver will be set to the
+                             logged in user, else the approver will be set to None
+
+        Returns
+            dict: {'id': <document id>, 'annotation_approver': <username>}
+        """
+        return self.post(
+            'v1/projects/{project_id}/approval/{doc_id}'.format(
+                project_id=project_id,
+                doc_id=doc_id
+            ),
+            json={
+                'approved': approved
+            }
+        )
+
+
     def post_approve_labels(
         self,
         project_id: int,
