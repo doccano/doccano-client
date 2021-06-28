@@ -582,7 +582,7 @@ class DoccanoClient(_Router):
             "format": format,
             "uploadIds": upload_ids
         }
-        return self.post("v1/projects/1/upload", json=upload_data)
+        return self.post(f"v1/projects/{project_id}/upload", json=upload_data)
 
     def post_doc_upload(
         self,
