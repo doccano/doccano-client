@@ -213,7 +213,7 @@ class DoccanoClient(_Router):
         Deletes a project.
 
         Args:
-            project_id (int)" project identifier
+            project_id (int): A project identifier.
 
         Returns:
             requests.models.Response: The request response.
