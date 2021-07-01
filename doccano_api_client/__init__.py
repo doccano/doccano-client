@@ -624,6 +624,30 @@ class DoccanoClient(_Router):
             format=format
         )
 
+    def post_label_upload(
+        self,
+        project_id: int,
+        file_name: str,
+        file_path: str = './'
+    ) -> requests.models.Response:
+        """
+        Uploads a label file to a Doccano project.
+
+        Args:
+            project_id (int): The project id number.
+            file_name (str): The name of the file.
+            file_path (str): The parent path of the file. Defaults to `./`.
+
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.post(
+            'v1/projects/{project_id}/label-upload'.format(project_id=project_id),
+            files={'file': open(os.path.join(file_path, file_name), 'rb')},
+            as_json=False
+        )
+
     def post_approve_labels(
         self,
         project_id: int,
