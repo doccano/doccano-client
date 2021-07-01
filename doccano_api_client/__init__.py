@@ -205,6 +205,22 @@ class DoccanoClient(_Router):
                 }
         return self.post('v1/projects', data=payload)
 
+    def delete_project(
+        self,
+        project_id: int
+    ) -> requests.models.Response:
+        """
+        Deletes a project.
+
+        Args:
+            project_id (int)" project identifier
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        url = 'v1/projects/{}'.format(project_id)
+        return self.delete(url)
+
     def create_document(
             self,
             project_id: int,
