@@ -83,6 +83,24 @@ class _Router:
         request_url = urljoin(self.baseurl, endpoint)
         return self.session.delete(request_url, data=data, files=files, headers=headers)
 
+    def update(
+        self,
+        endpoint: str,
+        data: dict = {}
+    ) -> requests.models.Response:
+        """
+        Updates a content specified by the endpoint with the data.
+
+        Args:
+            endpoint (str): An API endpoint to query.
+            data (dict): A payload for update.
+
+        Returns:
+            requests.models.Response: The request response (JSON).
+        """
+        request_url = urljoin(self.baseurl, endpoint)
+        return self.session.put(request_url, data=data)
+
     def build_url_parameter(
             self,
             url_parameter: dict
@@ -204,6 +222,35 @@ class DoccanoClient(_Router):
                 "collaborative_annotation": collaborative_annotation
                 }
         return self.post('v1/projects', data=payload)
+
+    def update_project(
+        self,
+        project_id: int,
+        name: str,
+        description: str = "",
+        project_type: str = "DocumentClassification",
+        guideline: str = "",
+        resourcetype: str = "TextClassificationProject",
+        randomize_document_order: bool = False,
+        collaborative_annotation: bool = False
+    ) -> requests.models.Response:
+        """
+        Updates a project.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        url = 'v1/projects/{}'.format(project_id)
+        payload = {
+            "name": name,
+            "description": description,
+            "project_type": project_type,
+            "guideline": guideline,
+            "resourcetype": resourcetype,
+            "randomize_document_order": randomize_document_order,
+            "collaborative_annotation": collaborative_annotation
+        }
+        return self.update(url, data=payload)
 
     def create_document(
             self,
