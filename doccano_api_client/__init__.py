@@ -99,7 +99,7 @@ class _Router:
             requests.models.Response: The request response (JSON).
         """
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.put(request_url, data=data)
+        return self.session.patch(request_url, data=data)
 
     def build_url_parameter(
             self,
