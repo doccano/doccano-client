@@ -18,3 +18,4 @@ python_version = "3.8"
 [scripts]
 isort = "isort . -c"
 flake8 = "flake8 doccano_api_client --ignore=F401,E741"
+darglint = "darglint"
