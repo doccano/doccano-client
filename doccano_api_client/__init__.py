@@ -687,6 +687,50 @@ class DoccanoClient(_Router):
             format=format
         )
 
+    def post_members(
+        self,
+        project_id: int,
+        usernames: typing.List[str],
+        roles: typing.List[str]
+    ) -> typing.List[requests.models.Response]:
+        """
+        Add members to a Doccano project.
+
+        Args:
+            project_id (int): The project id number.
+            usernames (typing.List[str]): Names to be added to the project.
+            roles (typing.List[str]): Roles to be assigned to the users respectively.
+
+        Returns:
+            typing.List[requests.models.Response]: The request responses.
+        """
+        res_roles = self.get_roles()
+        res_users = self.get_user_list()
+
+        arr_response = []
+        for username, rolename in zip(usernames,roles):
+            user = list(filter(lambda user_info:user_info['username']==username,res_users))
+            assert len(user) >= 1, 'username {username} not found'.format(username=username)
+            user=user[0]
+
+            role = list(filter(lambda role_info:role_info['rolename']==rolename,res_roles))
+            assert len(role) >= 1, 'rolename {rolename} not found'.format(rolename=rolename)
+            role=role[0]
+
+            arr_response.append(
+                self.post('v1/projects/{project_id}/roles'.format(project_id=project_id),
+                    data={
+                        'id': 0,
+                        'role': role['id'],
+                        'rolename': rolename,
+                        'user': user['id'],
+                        'username': username
+                    }
+                )
+            )
+
+        return arr_response
+    
     def post_approve_labels(
         self,
         project_id: int,
