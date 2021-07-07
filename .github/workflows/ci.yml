@@ -24,3 +24,7 @@ jobs:
     - name: Lint with isort
       run: |
         pipenv run isort
+    - name: Lint with darglint
+      run: |
+        find . -name "*.py" | xargs pipenv run darglint
+      working-directory: ./doccano_api_client
