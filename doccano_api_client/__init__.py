@@ -707,3 +707,110 @@ class DoccanoClient(_Router):
             ),
             params
         )
+
+    def get_auto_labeling_configs(
+        self,
+        project_id: int
+    ) -> requests.models.Response:
+        """ Returns a list of auto-labeling configs
+
+        Args:
+            project_id (int): The project id number
+
+        Returns: a list of dicts like:
+            [{'id': 3,
+              'model_name': 'Custom REST Request',
+              'model_attrs': {
+               'url': 'http://localhost:9999/your/custom/api/here',
+               'method': 'GET',
+               'params': {'text': '{{ text }}'},
+               'headers': {},
+               'body': {}},
+              'template': ('[\n{% for item in input %}\n{\n'
+                           ' "label": "{{ item.label }}",'
+                           '\n "start_offset": {{ item.start_offset }},\n'
+                           ' "end_offset": {{item.end_offset }}\n'
+                           '}{% if not loop.last %},{% endif %}\n\n'
+                           '{% endfor %}\n]'),
+              'label_mapping': {
+               'EXTERNALLABEL1': 'DOCCANOLABEL1',
+               'EXTERNALLABEL2': 'DOCCANOLABEL2',
+              },
+              'default': False}]
+
+        In this dict,
+            id (int): a unique id that can be used to delete this
+                      config entry
+            model_name (str): the name of the labeller
+            model_attrs (dict): the settings for the labeller, with the
+                                following keys
+                url (str): the url of the labeling endpoint
+                method (str): either 'GET' or 'POST'
+                params (dict): this dict will be processed by the template
+                    engine before being turned into query arguments to the
+                    endpoint
+                headers (dict): any custom headers needed by the endpoint,
+                    eg. token auth, encoding types, etc.
+                body (dict): this dict will be processed by the template
+                    engine before being turned into JSON data which is
+                    posted in the body to the endpoint.
+            template (str): processed by the jinja engine to convert the
+                endpoint's JSON output into a format suitable for doccano.
+                The whole response is in the input context variable,
+                which needs to be rendered into a format like:
+                [
+                    {'label': label,
+                     'start_offset': xx,
+                     'end_offset': xx,},
+                    ...
+                ]
+            label_mapping (dict): contains a mapping of the endpoint's
+                label strings to the corresponding doccano label strings
+            default (bool): whether the auto-labeler is the default.
+        """
+        return self.get(
+            'v1/projects/{project_id}/auto-labeling-configs'.format(
+                project_id=project_id,
+            )
+        )
+
+    def create_auto_labeling_configs(
+        self,
+        project_id: int,
+        config: dict
+    ) -> requests.models.Response:
+        """ Creates a new auto-labeling config for a project.
+
+        Args:
+            project_id (int): The project id number
+            config (dict): a config record in the same format as is
+                           returned by get_auto_labeling_configs
+
+        Returns:
+            a single config dict, like an entry from get_auto_labeling_configs
+        """
+        return self.post(
+            'v1/projects/{project_id}/auto-labeling-configs'.format(
+                project_id=project_id,
+            ),
+            json=config
+        )
+
+    def delete_auto_labeling_configs(
+        self,
+        project_id: int,
+        config_id: int
+    ) -> requests.models.Response:
+        """ Delete an auto-labeling config
+
+        Args:
+            project_id (int): The project id number
+            config_id (int): a config id number, which can be obtained
+                             through get_auto_labeling_configs
+        """
+        return self.delete(
+            'v1/projects/{project_id}/auto-labeling-configs/{config_id}'.format(
+                project_id=project_id,
+                config_id=config_id,
+            ),
+        )
