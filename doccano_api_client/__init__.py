@@ -111,6 +111,9 @@ class _Router:
         Args:
             url_parameter (dict): Every value must be a list.
 
+        Example:
+            client.build_url_parameter(2, {'limit': [10], 'offset': [20]})
+
         Returns:
             A URL parameter string. Ex: `?key1=u1&key1=u2&key2=v1&...`
         """
@@ -124,7 +127,7 @@ class DoccanoClient(_Router):
     TODO: investigate alternatives to plaintext login
 
     Args:
-        baseurl (str): The baseurl of a Doccano instance.
+        baseurl (str): The baseurl of a Doccano instance, eg. http://localhost:8000
         username (str): The Doccano username to use for the client session.
         password (str): The respective username's password.
 
@@ -301,6 +304,15 @@ class DoccanoClient(_Router):
         url = 'v1/projects/{}/docs/{}'.format(project_id, document_id)
         return self.delete(url)
 
+    def delete_annotation(
+            self,
+            project_id: int,
+            document_id: int,
+            annotation_id: int,
+            ) -> requests.models.Response:
+        url = 'v1/projects/{}/docs/{}/annotations/{}'.format(project_id, document_id, annotation_id)
+        return self.delete(url)
+
     def create_label(
             self,
             project_id: int,
@@ -470,6 +482,9 @@ class DoccanoClient(_Router):
         Args:
             project_id (int):
             url_parameters (dict): `limit` and `offset`
+
+        Example:
+            client.get_document_list(2, {'limit': [10], 'offset': [20]})
 
         Returns:
             requests.models.Response: The request response.
@@ -754,6 +769,34 @@ class DoccanoClient(_Router):
             files={'file': open(os.path.join(file_path, file_name), 'rb')},
             as_json=False
         )
+
+    def post_approval(
+        self,
+        project_id: int,
+        doc_id: int,
+        approved: bool):
+        """
+        Marks a document as approved or not
+
+        Args:
+            project_id (int): The project id number
+            doc_id (int): The document to have its approval setting changed
+            approved (bool): If true, the approver will be set to the
+                             logged in user, else the approver will be set to None
+
+        Returns
+            dict: {'id': <document id>, 'annotation_approver': <username>}
+        """
+        return self.post(
+            'v1/projects/{project_id}/approval/{doc_id}'.format(
+                project_id=project_id,
+                doc_id=doc_id
+            ),
+            json={
+                'approved': approved
+            }
+        )
+
 
     def post_approve_labels(
         self,

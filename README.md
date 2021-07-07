@@ -35,10 +35,10 @@ doccano_client = DoccanoClient(
 r_me = doccano_client.get_me()
 
 # print the details from the above query
-print(r_me())
+print(r_me)
 
 # get the label text from project 1, label 3
-label_text = doccano_client.get_label_detail(1, 3)()['text']
+label_text = doccano_client.get_label_detail(1, 3)['text']
 
 # upload a json file to project 1. If file is in current directory, file_path is omittable
 r_json_upload = doccano_client.post_doc_upload(1, 'json', 'file.json', '/path/to/file/without/filename/')
