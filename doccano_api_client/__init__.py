@@ -1,6 +1,5 @@
 import os
 import typing
-
 from urllib.parse import urljoin
 
 import requests
