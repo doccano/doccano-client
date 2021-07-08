@@ -8,6 +8,7 @@ flake8 = "*"
 isort = "*"
 mypy = "*"
 darglint = "*"
+black = "*"
 
 [packages]
 requests = "*"
@@ -17,5 +18,6 @@ python_version = "3.8"
 
 [scripts]
 isort = "isort . -c"
-flake8 = "flake8 doccano_api_client --ignore=F401,E741"
+flake8 = "flake8 doccano_api_client"
 darglint = "darglint"
+black = "black --check ."
