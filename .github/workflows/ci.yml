@@ -21,6 +21,8 @@ jobs:
     - name: Lint with flake8
       run: |
         pipenv run flake8
+    - name: Run black
+      run: pipenv run black
     - name: Lint with isort
       run: |
         pipenv run isort
