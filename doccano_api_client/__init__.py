@@ -300,11 +300,11 @@ class DoccanoClient(_Router):
         return self.update(url, data=payload)
 
     def create_document(
-        self, 
-        project_id: int, 
-        text: str, 
-        annotations: typing.Optional[typing.List] = None, 
-        annotation_approver: str = None
+        self,
+        project_id: int,
+        text: str,
+        annotations: typing.Optional[typing.List] = None,
+        annotation_approver: str = None,
     ) -> requests.models.Response:
         """Creates a document.
 
@@ -317,10 +317,10 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response
         """
-        
+
         if annotations == None:
             annotations = []
-        
+
         url = "v1/projects/{}/docs".format(project_id)
         data = {
             "text": text,
