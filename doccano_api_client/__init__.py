@@ -346,7 +346,7 @@ class DoccanoClient(_Router):
         url = "v1/projects/{}/docs/{}/annotations/{}".format(project_id, document_id, annotation_id)
         return self.delete(url)
 
-    def create_label(
+    def create_span_type(
         self,
         project_id: int,
         text: str,
@@ -355,7 +355,7 @@ class DoccanoClient(_Router):
         prefix_key: str = None,
         suffix_key: str = None,
     ) -> requests.models.Response:
-        """Creates a label to be used for annotating a document.
+        """Creates a span_type to be used for annotating a document.
 
         Args:
             project_id (int): The project id.
@@ -368,7 +368,7 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        url = "v1/projects/{}/labels".format(project_id)
+        url = "v1/projects/{}/span-types".format(project_id)
         label_payload = {
             "projectId": project_id,
             "text": text,
