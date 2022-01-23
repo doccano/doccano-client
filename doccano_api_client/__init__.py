@@ -458,19 +458,19 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/span-types".format(project_id=project_id))
 
-    def get_label_detail(self, project_id: int, label_id: int) -> requests.models.Response:
-        """Gets details of a specific label.
+    def get_span_type_detail(self, project_id: int, span_type_id: int) -> requests.models.Response:
+        """Gets details of a specific span type.
 
         Args:
             project_id (int): The project id.
-            label_id (int): A label ID to query.
+            label_id (int): A span_type ID to query.
 
         Returns:
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/labels/{label_id}".format(
-                project_id=project_id, label_id=label_id
+            "v1/projects/{project_id}/span-types/{span_type_id}".format(
+                project_id=project_id, span_type_id=span_type_id
             )
         )
 
