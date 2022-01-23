@@ -721,10 +721,10 @@ class DoccanoClient(_Router):
 
         return arr_response
 
-    def post_label_upload(
+    def post_span_type_upload(
         self, project_id: int, file_name: str, file_path: str = "./"
     ) -> requests.models.Response:
-        """Uploads a label file to a Doccano project.
+        """Uploads a span_type file to a Doccano project.
 
         Args:
             project_id (int): The project id.
@@ -735,7 +735,7 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.post(
-            "v1/projects/{project_id}/label-upload".format(project_id=project_id),
+            "v1/projects/{project_id}/span-type-upload".format(project_id=project_id),
             files={"file": open(os.path.join(file_path, file_name), "rb")},
             as_json=False,
         )
