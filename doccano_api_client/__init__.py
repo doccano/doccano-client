@@ -463,7 +463,7 @@ class DoccanoClient(_Router):
 
         Args:
             project_id (int): The project id.
-            label_id (int): A span_type ID to query.
+            span_type_id (int): A span_type ID to query.
 
         Returns:
             requests.models.Response: The request response.
