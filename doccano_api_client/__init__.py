@@ -346,7 +346,7 @@ class DoccanoClient(_Router):
         url = "v1/projects/{}/docs/{}/annotations/{}".format(project_id, document_id, annotation_id)
         return self.delete(url)
 
-    def create_label(
+    def create_span_type(
         self,
         project_id: int,
         text: str,
@@ -355,7 +355,7 @@ class DoccanoClient(_Router):
         prefix_key: str = None,
         suffix_key: str = None,
     ) -> requests.models.Response:
-        """Creates a label to be used for annotating a document.
+        """Creates a span_type to be used for annotating a document.
 
         Args:
             project_id (int): The project id.
@@ -368,7 +368,7 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        url = "v1/projects/{}/labels".format(project_id)
+        url = "v1/projects/{}/span-types".format(project_id)
         label_payload = {
             "projectId": project_id,
             "text": text,
@@ -447,8 +447,8 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/statistics".format(project_id=project_id))
 
-    def get_label_list(self, project_id: int) -> requests.models.Response:
-        """Gets a list of labels in a given project.
+    def get_span_type_list(self, project_id: int) -> requests.models.Response:
+        """Gets a list of span_types in a given project.
 
         Args:
             project_id (int): The project id.
@@ -456,21 +456,21 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects/{project_id}/labels".format(project_id=project_id))
+        return self.get("v1/projects/{project_id}/span-types".format(project_id=project_id))
 
-    def get_label_detail(self, project_id: int, label_id: int) -> requests.models.Response:
-        """Gets details of a specific label.
+    def get_span_type_detail(self, project_id: int, span_type_id: int) -> requests.models.Response:
+        """Gets details of a specific span type.
 
         Args:
             project_id (int): The project id.
-            label_id (int): A label ID to query.
+            span_type_id (int): A span_type ID to query.
 
         Returns:
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/labels/{label_id}".format(
-                project_id=project_id, label_id=label_id
+            "v1/projects/{project_id}/span-types/{span_type_id}".format(
+                project_id=project_id, span_type_id=span_type_id
             )
         )
 
@@ -721,10 +721,10 @@ class DoccanoClient(_Router):
 
         return arr_response
 
-    def post_label_upload(
+    def post_span_type_upload(
         self, project_id: int, file_name: str, file_path: str = "./"
     ) -> requests.models.Response:
-        """Uploads a label file to a Doccano project.
+        """Uploads a span_type file to a Doccano project.
 
         Args:
             project_id (int): The project id.
@@ -735,7 +735,7 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.post(
-            "v1/projects/{project_id}/label-upload".format(project_id=project_id),
+            "v1/projects/{project_id}/span-type-upload".format(project_id=project_id),
             files={"file": open(os.path.join(file_path, file_name), "rb")},
             as_json=False,
         )
