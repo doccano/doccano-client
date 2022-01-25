@@ -592,6 +592,7 @@ class DoccanoClient(_Router):
         delimiter: str = "",
         encoding: str = "utf_8",
         format: str = "JSONL",
+        response_as_json: bool = True
     ) -> requests.models.Response:
         """Upload documents to doccano
 
@@ -642,7 +643,7 @@ class DoccanoClient(_Router):
             "format": format,
             "uploadIds": upload_ids,
         }
-        return self.post(f"v1/projects/{project_id}/upload", json=upload_data)
+        return self.post(f"v1/projects/{project_id}/upload", json=upload_data, as_json=response_as_json)
 
     def post_doc_upload(
         self,
@@ -654,6 +655,7 @@ class DoccanoClient(_Router):
         delimiter: str = "",
         encoding: str = "utf_8",
         format: str = "JSONL",
+        response_as_json: bool = True
     ) -> requests.models.Response:
         """Uploads a file to a Doccano project.
 
@@ -678,6 +680,7 @@ class DoccanoClient(_Router):
             delimiter=delimiter,
             encoding=encoding,
             format=format,
+            response_as_json=response_as_json
         )
 
     def post_members(
