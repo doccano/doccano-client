@@ -741,23 +741,5 @@ class DoccanoClient(_Router):
             as_json=False,
         )
 
-    def post_approve_labels(self, project_id: int, doc_id: int) -> requests.models.Response:
-        return self.post(
-            "v1/projects/{project_id}/docs/{doc_id}/approve-labels".format(
-                project_id=project_id, doc_id=doc_id
-            )
-        )
-
     def _get_any_endpoint(self, endpoint: str) -> requests.models.Response:
         return self.get(endpoint)
-
-    def exp_get_doc_list(
-        self, project_id: int, limit: int, offset: int
-    ) -> requests.models.Response:
-        params = {"limit": limit, "offset": offset}
-        return self.get(
-            "v1/projects/{project_id}/docs".format(
-                project_id=project_id,
-            ),
-            params,
-        )
