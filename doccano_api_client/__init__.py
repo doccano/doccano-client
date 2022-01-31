@@ -338,13 +338,15 @@ class DoccanoClient(_Router):
         url = "v1/projects/{}/examples/{}".format(project_id, example_id)
         return self.delete(url)
 
-    def delete_annotation(
+    def delete_span(
         self,
         project_id: int,
-        document_id: int,
-        annotation_id: int,
+        example_id: int,
+        span_id: int,
     ) -> requests.models.Response:
-        url = "v1/projects/{}/docs/{}/annotations/{}".format(project_id, document_id, annotation_id)
+        url = "v1/projects/{project_id}/examples/{example_id}/spans/{span_id}".format(
+            project_id=project_id, example_id=example_id, span_id=span_id
+        )
         return self.delete(url)
 
     def create_span_type(
@@ -384,10 +386,10 @@ class DoccanoClient(_Router):
         except Exception as e:
             return "Failed (duplicate?): {}".format(e)
 
-    def add_annotation(
-        self, project_id: int, annotation_id: int, document_id: int, **kwargs
+    def create_span(
+        self, project_id: int, example_id: int, label_id: int, **kwargs
     ) -> requests.models.Response:
-        """Adds an annotation to a given document.
+        """Creates a span to a given example.
 
         Variable keyword arguments \*\*kwargs give support to doccano
         annotations for different project types.
@@ -397,17 +399,17 @@ class DoccanoClient(_Router):
 
         Args:
             project_id (int): The project id.
-            annotation_id (int): Annotation identifier.
-            document_id (int): Document identifier.
+            label_id (int): Label identifier.
+            example_id (int): Example identifier.
             **kwargs: Arbitrary keyword arguments.
 
         Returns:
             requests.models.Response: The request response.
         """
-        url = "/v1/projects/{p_id}/docs/{d_id}/annotations".format(
-            p_id=project_id, d_id=document_id
+        url = "/v1/projects/{project_id}/examples/{example_id}/spans".format(
+            project_id=project_id, example_id=example_id
         )
-        payload = {"label": annotation_id, "projectId": project_id, **kwargs}
+        payload = {"label": label_id, **kwargs}
         return self.post(url, json=payload)
 
     def get_user_list(self) -> requests.models.Response:
@@ -521,19 +523,36 @@ class DoccanoClient(_Router):
             "v1/projects/{project_id}/examples/{example_id}".format(project_id=project_id, example_id=example_id)
         )
 
-    def get_annotation_list(self, project_id: int, doc_id: int) -> requests.models.Response:
-        """Gets a list of annotations in a given project and document.
+    def get_spans(self, project_id: int, example_id: int) -> requests.models.Response:
+        """Gets a list of spans in a given project and example.
 
         Args:
             project_id (int): The project id.
-            doc_id (int): A document ID to query.
+            example_id (int): A example ID to query.
 
         Returns:
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/docs/{doc_id}/annotations".format(
-                project_id=project_id, doc_id=doc_id
+            "v1/projects/{project_id}/examples/{example_id}/spans".format(
+                project_id=project_id, example_id=example_id
+            )
+        )
+
+    def get_span_detail(self, project_id: int, example_id: int, span_id: int) -> requests.models.Response:
+        """Gets a span.
+
+        Args:
+            project_id (int): The project id.
+            example_id (int): A example ID to query.
+            span_id (int): The span id.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.get(
+            "v1/projects/{project_id}/examples/{example_id}/spans/{span_id}".format(
+                project_id=project_id, example_id=example_id, span_id=span_id
             )
         )
 
