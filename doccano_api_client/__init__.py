@@ -300,14 +300,14 @@ class DoccanoClient(_Router):
         }
         return self.update(url, data=payload)
 
-    def create_document(
+    def create_example(
         self,
         project_id: int,
         text: str,
         annotations: typing.Optional[typing.List] = None,
         annotation_approver: str = None,
     ) -> requests.models.Response:
-        """Creates a document.
+        """Creates a example.
 
         Args:
             project_id (int): The project id.
@@ -322,7 +322,7 @@ class DoccanoClient(_Router):
         if annotations == None:
             annotations = []
 
-        url = "v1/projects/{}/docs".format(project_id)
+        url = "v1/projects/{}/examples".format(project_id)
         data = {
             "text": text,
             "annotations": annotations,
@@ -330,12 +330,12 @@ class DoccanoClient(_Router):
         }
         return self.post(url, data=data)
 
-    def delete_document(
+    def delete_example(
         self,
         project_id: int,
-        document_id: int,
+        example_id: int,
     ) -> requests.models.Response:
-        url = "v1/projects/{}/docs/{}".format(project_id, document_id)
+        url = "v1/projects/{}/examples/{}".format(project_id, example_id)
         return self.delete(url)
 
     def delete_annotation(
@@ -475,39 +475,39 @@ class DoccanoClient(_Router):
             )
         )
 
-    def get_document_list(
+    def get_examples(
         self, project_id: int, url_parameters: dict = {}
     ) -> requests.models.Response:
-        """Gets a list of documents in a project.
+        """Gets a list of examples in a project.
 
         Args:
             project_id (int): The project id.
             url_parameters (dict): `limit` and `offset`
 
         Example:
-            client.get_document_list(2, {'limit': [10], 'offset': [20]})
+            client.get_examples(2, {'limit': [10], 'offset': [20]})
 
         Returns:
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/docs{url_parameters}".format(
+            "v1/projects/{project_id}/examples{url_parameters}".format(
                 project_id=project_id, url_parameters=self.build_url_parameter(url_parameters)
             )
         )
 
-    def get_document_detail(self, project_id: int, doc_id: int) -> requests.models.Response:
-        """Gets details of a given document.
+    def get_example_detail(self, project_id: int, example_id: int) -> requests.models.Response:
+        """Gets details of a given example.
 
         Args:
             project_id (int): The project id.
-            doc_id (int): A document ID to query.
+            example_id (int): A example ID to query.
 
         Returns:
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/docs/{doc_id}".format(project_id=project_id, doc_id=doc_id)
+            "v1/projects/{project_id}/examples/{example_id}".format(project_id=project_id, example_id=example_id)
         )
 
     def get_annotation_list(self, project_id: int, doc_id: int) -> requests.models.Response:
