@@ -556,22 +556,19 @@ class DoccanoClient(_Router):
             )
         )
 
-    def get_annotation_detail(
-        self, project_id: int, doc_id: int, annotation_id: int
-    ) -> requests.models.Response:
-        """Get an annotation.
+    def get_example_states(self, project_id: int, example_id: int) -> requests.models.Response:
+        """Gets example states of a given example.
 
         Args:
             project_id (int): The project id.
-            doc_id (int): The document id.
-            annotation_id (int): The annotation id.
+            example_id (int): A example ID to query.
 
         Returns:
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{p_id}/docs/{d_id}/annotations/{a_id}".format(
-                p_id=project_id, d_id=doc_id, a_id=annotation_id
+            "v1/projects/{project_id}/examples/{example_id}/states".format(
+                project_id=project_id, example_id=example_id
             )
         )
 
