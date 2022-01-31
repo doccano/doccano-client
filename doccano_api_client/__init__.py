@@ -448,7 +448,9 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects/{project_id}/metrics/member-progress".format(project_id=project_id))
+        return self.get(
+            "v1/projects/{project_id}/metrics/member-progress".format(project_id=project_id)
+        )
 
     def get_metrics_span_distribution(self, project_id: int) -> requests.models.Response:
         """Gets project span_distribution metrics.
@@ -459,7 +461,9 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects/{project_id}/metrics/span-distribution".format(project_id=project_id))
+        return self.get(
+            "v1/projects/{project_id}/metrics/span-distribution".format(project_id=project_id)
+        )
 
     def get_span_type_list(self, project_id: int) -> requests.models.Response:
         """Gets a list of span_types in a given project.
@@ -488,9 +492,7 @@ class DoccanoClient(_Router):
             )
         )
 
-    def get_examples(
-        self, project_id: int, url_parameters: dict = {}
-    ) -> requests.models.Response:
+    def get_examples(self, project_id: int, url_parameters: dict = {}) -> requests.models.Response:
         """Gets a list of examples in a project.
 
         Args:
@@ -520,7 +522,9 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/examples/{example_id}".format(project_id=project_id, example_id=example_id)
+            "v1/projects/{project_id}/examples/{example_id}".format(
+                project_id=project_id, example_id=example_id
+            )
         )
 
     def get_spans(self, project_id: int, example_id: int) -> requests.models.Response:
@@ -539,7 +543,9 @@ class DoccanoClient(_Router):
             )
         )
 
-    def get_span_detail(self, project_id: int, example_id: int, span_id: int) -> requests.models.Response:
+    def get_span_detail(
+        self, project_id: int, example_id: int, span_id: int
+    ) -> requests.models.Response:
         """Gets a span.
 
         Args:
