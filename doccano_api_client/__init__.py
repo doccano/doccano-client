@@ -437,8 +437,8 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}".format(project_id=project_id))
 
-    def get_project_statistics(self, project_id: int) -> requests.models.Response:
-        """Gets project statistics.
+    def get_metrics_member_progress(self, project_id: int) -> requests.models.Response:
+        """Gets project member progress metrics.
 
         Args:
             project_id (int): The project id.
@@ -446,7 +446,18 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects/{project_id}/statistics".format(project_id=project_id))
+        return self.get("v1/projects/{project_id}/metrics/member-progress".format(project_id=project_id))
+
+    def get_metrics_span_distribution(self, project_id: int) -> requests.models.Response:
+        """Gets project span_distribution metrics.
+
+        Args:
+            project_id (int): The project id.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.get("v1/projects/{project_id}/metrics/span-distribution".format(project_id=project_id))
 
     def get_span_type_list(self, project_id: int) -> requests.models.Response:
         """Gets a list of span_types in a given project.
