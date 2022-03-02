@@ -349,7 +349,7 @@ class DoccanoClient(_Router):
         )
         return self.delete(url)
 
-    def create_span_type(
+    def create_label(
         self,
         project_id: int,
         text: str,
@@ -358,7 +358,7 @@ class DoccanoClient(_Router):
         prefix_key: str = None,
         suffix_key: str = None,
     ) -> requests.models.Response:
-        """Creates a span_type to be used for annotating a document.
+        """Creates a label to be used for annotating a document.
 
         Args:
             project_id (int): The project id.
@@ -371,7 +371,7 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        url = "v1/projects/{}/span-types".format(project_id)
+        url = "v1/projects/{}/labels".format(project_id)
         label_payload = {
             "projectId": project_id,
             "text": text,
@@ -465,8 +465,8 @@ class DoccanoClient(_Router):
             "v1/projects/{project_id}/metrics/span-distribution".format(project_id=project_id)
         )
 
-    def get_span_type_list(self, project_id: int) -> requests.models.Response:
-        """Gets a list of span_types in a given project.
+    def get_label_list(self, project_id: int) -> requests.models.Response:
+        """Gets a list of labels in a given project.
 
         Args:
             project_id (int): The project id.
@@ -474,21 +474,21 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects/{project_id}/span-types".format(project_id=project_id))
+        return self.get("v1/projects/{project_id}/labels".format(project_id=project_id))
 
-    def get_span_type_detail(self, project_id: int, span_type_id: int) -> requests.models.Response:
-        """Gets details of a specific span type.
+    def get_label_detail(self, project_id: int, label_id: int) -> requests.models.Response:
+        """Gets details of a specific label.
 
         Args:
             project_id (int): The project id.
-            span_type_id (int): A span_type ID to query.
+            label_id (int): A label ID to query.
 
         Returns:
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/span-types/{span_type_id}".format(
-                project_id=project_id, span_type_id=span_type_id
+            "v1/projects/{project_id}/labels/{label_id}".format(
+                project_id=project_id, label_id=label_id
             )
         )
 
@@ -755,10 +755,10 @@ class DoccanoClient(_Router):
 
         return arr_response
 
-    def post_span_type_upload(
+    def post_label_upload(
         self, project_id: int, file_name: str, file_path: str = "./"
     ) -> requests.models.Response:
-        """Uploads a span_type file to a Doccano project.
+        """Uploads a label file to a Doccano project.
 
         Args:
             project_id (int): The project id.
@@ -769,10 +769,148 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.post(
-            "v1/projects/{project_id}/span-type-upload".format(project_id=project_id),
+            "v1/projects/{project_id}/label-upload".format(project_id=project_id),
             files={"file": open(os.path.join(file_path, file_name), "rb")},
             as_json=False,
         )
 
     def _get_any_endpoint(self, endpoint: str) -> requests.models.Response:
         return self.get(endpoint)
+
+    def post_approval(self, project_id: int, doc_id: int, approved: bool):
+        """Marks a document as approved or not
+
+        Args:
+            project_id (int): The project id number
+            doc_id (int): The document to have its approval setting changed
+            approved (bool): If true, the approver will be set to the
+                             logged in user, else the approver will be set to None
+
+        Returns:
+            dict: {'id': <document id>, 'annotation_approver': <username>}
+        """
+        return self.post(
+            "v1/projects/{project_id}/approval/{doc_id}".format(
+                project_id=project_id, doc_id=doc_id
+            ),
+            json={"approved": approved},
+        )
+
+    def post_approve_labels(self, project_id: int, doc_id: int) -> requests.models.Response:
+        return self.post(
+            "v1/projects/{project_id}/docs/{doc_id}/approve-labels".format(
+                project_id=project_id, doc_id=doc_id
+            )
+        )
+
+    def _get_any_endpoint(self, endpoint: str) -> requests.models.Response:
+        return self.get(endpoint)
+
+    def exp_get_doc_list(
+        self, project_id: int, limit: int, offset: int
+    ) -> requests.models.Response:
+        params = {"limit": limit, "offset": offset}
+        return self.get(
+            "v1/projects/{project_id}/docs".format(
+                project_id=project_id,
+            ),
+            params,
+        )
+
+    def _convert_annotations(self, dic_document: dict, label_dic: dict) -> list:
+        """Convert annotation to spacy format ie list of (start span, end span, label)
+
+        Args:
+            dic_document (dict): document dictionary
+            label_dic (dictionary of ): dictionary of ({label id: label text})
+
+        Returns:
+            annotations (list): list of (start span, end span, label)
+        """
+        annotations = []
+        if len(dic_document["annotations"]) > 0:
+            for result in dic_document["annotations"]:
+                annotations.append(
+                    (
+                        result["start_offset"],
+                        result["end_offset"],
+                        label_dic[result["label"]],
+                    )
+                )
+        else:
+            annotations.append([])
+        return annotations
+
+    def _get_labels(self, project_id: int, max_labels: int) -> dict:
+        """Get labels informations for a certain project
+
+        Args:
+            project_id (int):  The project id.
+            max_labels (int) : Number max of try (loading possible labels values)
+
+        Returns:
+            label_dic: dictionary of ({label id :label text})
+        """
+        label_dic = dict({})
+        for i in range(max_labels):
+            res = self.get_label_detail(project_id, label_id=i)
+            if "detail" in res.keys():
+                pass
+            else:
+                label_dic.update({res["id"]: res["text"]})
+        return label_dic
+
+    def _analyse_response(
+        self, response: requests.models.Response, final_dict: dict, approved: bool
+    ) -> dict:
+        """Analyze ressponse and return a dictionary {txt:annotations}
+
+        Args:
+            response (requests response): Return of the request
+            final_dict (dict): Dictionary of documents and their annotations
+            approved (bool):  If True, download the approved data only.
+
+        Returns:
+            final_dict,next_url: Dictionary of documents and their annotations, next url to fetch
+        """
+        next_url = response["next"]
+        res = response["results"]
+        for dic_document in res:
+            annotations = []
+            if approved:
+                if dic_document["is_confirmed"] == True:
+                    annotations = self._convert_annotations(dic_document, self.label_dic)
+                final_dict.update({dic_document["text"]: annotations})
+            else:
+                annotations = self._convert_annotations(dic_document, self.label_dic)
+                final_dict.update({dic_document["text"]: annotations})
+        return final_dict, next_url
+
+    def doc_download(
+        self,
+        project_id: int,
+        max_labels: int = 1000,
+        only_approved: bool = False,
+    ) -> dict:
+        """Downloads the dataset in specified format.
+        Args:
+            project_id (int): The project id.
+            max_labels (int) : Number max of try (loading possible labels values)
+            only_approved (bool): If True, download the approved data only.
+        Returns:
+            requests.models.Response: The request response.
+        """
+        self.label_dic = self._get_labels(project_id, max_labels)
+        request_url = urljoin(
+            self.baseurl, "v1/projects/{project_id}/docs".format(project_id=project_id)
+        )
+        final_dict = dict({})
+        response = self._get_any_endpoint(request_url)
+        final_dict, next_url = self._analyse_response(response, final_dict, approved=only_approved)
+        count = response["count"]
+        while next_url != None:
+            response = self._get_any_endpoint(next_url)
+            final_dict, next_url = self._analyse_response(
+                response, final_dict, approved=only_approved
+            )
+        return final_dict
