@@ -845,7 +845,7 @@ class DoccanoClient(_Router):
     def doc_download(
         self,
         project_id: int,
-        max_labels: int = 1000,
+        max_labels: int = 999,
         only_approved: bool = False,
     ) -> dict:
         """Downloads the dataset in specified format.
