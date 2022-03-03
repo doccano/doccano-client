@@ -778,7 +778,7 @@ class DoccanoClient(_Router):
 
         Args:
             dic_document (dict): document dictionary
-            label_dic (dictionary of ): dictionary of ({label id: label text})
+            label_dic (dict): dictionary of ({label id: label text})
 
         Returns:
             annotations (list): list of (start span, end span, label)
@@ -802,10 +802,10 @@ class DoccanoClient(_Router):
 
         Args:
             project_id (int):  The project id.
-            max_labels (int) : Number max of try (loading possible labels values)
+            max_labels (int): Number max of try (loading possible labels values)
 
         Returns:
-            label_dic: dictionary of ({label id :label text})
+            label_dic (dict): dictionary of ({label id :label text})
         """
         label_dic = dict({})
         for i in range(max_labels):
