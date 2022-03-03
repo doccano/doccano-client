@@ -1,6 +1,7 @@
 import os
 import typing
 from urllib.parse import urljoin
+from typing import Tuple
 
 import requests
 
@@ -818,7 +819,7 @@ class DoccanoClient(_Router):
 
     def _analyse_response(
         self, response: requests.models.Response, final_dict: dict, approved: bool
-    ) -> dict:
+    ) -> Tuple[dict, str]:
         """Analyze ressponse and return a dictionary {txt:annotations}
 
         Args:
@@ -840,7 +841,7 @@ class DoccanoClient(_Router):
             else:
                 annotations = self._convert_annotations(dic_document, self.label_dic)
                 final_dict.update({dic_document["text"]: annotations})
-        return final_dict, next_url
+        return (final_dict, next_url)
 
     def doc_download(
         self,
