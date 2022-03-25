@@ -2,7 +2,6 @@ import re
 
 import responses
 
-
 generic_bad_response = {"detail": "Mock 400 Response Hit"}
 
 bad_get_response = responses.Response(

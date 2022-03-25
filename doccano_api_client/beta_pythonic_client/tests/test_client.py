@@ -6,7 +6,8 @@ import responses
 from ..client import Client
 from ..models import Example
 from ..utils.response import DoccanoAPIError
-from .controllers.mock_api_responses import examples as mock_examples, projects as mock_projects
+from .controllers.mock_api_responses import examples as mock_examples
+from .controllers.mock_api_responses import projects as mock_projects
 
 
 class ClientTest(TestCase):
@@ -14,9 +15,7 @@ class ClientTest(TestCase):
         self.client = Client("https://doccano.notaningress.com")
 
     def test_url_properties(self):
-        self.assertEqual(
-            self.client.login_url, "https://doccano.notaningress.com/v1/auth/login/"
-        )
+        self.assertEqual(self.client.login_url, "https://doccano.notaningress.com/v1/auth/login/")
         self.assertEqual(self.client.api_url, "https://doccano.notaningress.com/v1")
 
     @responses.activate

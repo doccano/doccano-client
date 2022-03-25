@@ -3,7 +3,12 @@ from typing import Dict, Type
 
 from dataclasses_json import DataClassJsonMixin
 
-from .annotations import Annotation, CategoryAnnotation, SpanAnnotation, TextLabelAnnotation
+from .annotations import (
+    Annotation,
+    CategoryAnnotation,
+    SpanAnnotation,
+    TextLabelAnnotation,
+)
 
 
 class ProjectTypes:

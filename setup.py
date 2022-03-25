@@ -21,7 +21,7 @@ setup(
     name="doccano-client",
     # Semver for this package should match Doccano release tags to denote compatibility
     # up to the minor version (patch version can be more flexible)
-    version= "1.5.1"  # Tested for compatibility against Doccano >=1.5.0, <=1.5.5
+    version="1.5.1",  # Tested for compatibility against Doccano >=1.5.0, <=1.5.5
     setup_requires=["setuptools_scm"],
     description="A simple client wrapper for the doccano API.",
     long_description="This simple API wrapper allows users to easily get data \

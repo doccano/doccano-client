@@ -6,7 +6,6 @@ from requests import Session
 from ..models.labels import LABEL_COLOR_CYCLE, Label
 from ..utils.response import verbose_raise_for_status
 
-
 COLOR_CYCLE_RANGE = len(LABEL_COLOR_CYCLE)
 
 

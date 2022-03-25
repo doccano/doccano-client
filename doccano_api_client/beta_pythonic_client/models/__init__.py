@@ -1,9 +1,13 @@
-from .annotations import Annotation, CategoryAnnotation, SpanAnnotation, TextLabelAnnotation
+from .annotations import (
+    Annotation,
+    CategoryAnnotation,
+    SpanAnnotation,
+    TextLabelAnnotation,
+)
 from .comments import Comment
 from .examples import Document, Example
 from .labels import LABEL_COLOR_CYCLE, Label
 from .projects import Project, ProjectTypes
-
 
 __all__ = [
     "Comment",

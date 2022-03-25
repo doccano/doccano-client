@@ -4,7 +4,6 @@ import responses
 
 from . import projects
 
-
 comments_get_json = [
     {
         "id": 109,

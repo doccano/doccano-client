@@ -1,12 +1,13 @@
 from unittest import TestCase
 
-from requests import Session
 import responses
+from requests import Session
 
 from ...controllers import CommentController, CommentsController
 from ...models import Comment
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import bad, comments as mocks
+from .mock_api_responses import bad
+from .mock_api_responses import comments as mocks
 
 
 class CommentControllerTest(TestCase):

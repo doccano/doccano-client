@@ -4,7 +4,6 @@ import responses
 
 from . import projects
 
-
 examples_get_json = {
     "count": 6,
     "next": "fake_next_url_should_not_be_used",

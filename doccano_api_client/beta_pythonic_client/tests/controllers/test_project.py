@@ -1,12 +1,13 @@
 from unittest import TestCase
 
-from requests import Session
 import responses
+from requests import Session
 
 from ...controllers import ProjectController, ProjectsController
 from ...models import Project
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import bad, projects as mocks
+from .mock_api_responses import bad
+from .mock_api_responses import projects as mocks
 
 
 class ProjectControllerTest(TestCase):

@@ -1,8 +1,8 @@
 from typing import Sequence
 
+import pytest
 from _pytest.config import Config, argparsing
 from _pytest.unittest import TestCaseFunction
-import pytest
 
 
 def pytest_addoption(parser: argparsing.Parser) -> None:

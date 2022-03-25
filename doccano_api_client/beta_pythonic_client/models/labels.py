@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional
 
-
 LABEL_COLOR_CYCLE = [
     "#EF5350",
     "#7E57C2",

@@ -1,12 +1,14 @@
 from unittest import TestCase
 
-from requests import Session
 import responses
+from requests import Session
 
 from ...controllers import ExampleController, ExamplesController
 from ...models import CategoryAnnotation, Example, Project, ProjectTypes, SpanAnnotation
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import annotations as annotation_mocks, bad, examples as mocks
+from .mock_api_responses import annotations as annotation_mocks
+from .mock_api_responses import bad
+from .mock_api_responses import examples as mocks
 
 
 class ExampleControllerTest(TestCase):

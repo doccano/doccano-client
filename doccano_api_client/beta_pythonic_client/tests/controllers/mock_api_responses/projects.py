@@ -2,7 +2,6 @@ import re
 
 import responses
 
-
 projects_get_json = [
     {
         "id": 2,

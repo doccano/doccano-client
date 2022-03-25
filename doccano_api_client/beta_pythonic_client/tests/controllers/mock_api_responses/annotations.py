@@ -2,7 +2,6 @@ import re
 
 import responses
 
-
 annotations_get_json = {
     "id": 6,
     "text": "Sentiment Analysis is neat?",

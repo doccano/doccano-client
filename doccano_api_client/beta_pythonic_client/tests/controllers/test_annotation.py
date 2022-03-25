@@ -1,13 +1,14 @@
 from typing import cast
 from unittest import TestCase
 
-from requests import Session
 import responses
+from requests import Session
 
 from ...controllers import AnnotationsController
 from ...models import CategoryAnnotation, Project, ProjectTypes
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import annotations as mocks, bad
+from .mock_api_responses import annotations as mocks
+from .mock_api_responses import bad
 
 
 class AnnotationsControllerTest(TestCase):

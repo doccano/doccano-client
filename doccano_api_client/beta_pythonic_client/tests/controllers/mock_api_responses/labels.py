@@ -4,7 +4,6 @@ import responses
 
 from . import projects
 
-
 labels_get_json = [
     {
         "id": 6,

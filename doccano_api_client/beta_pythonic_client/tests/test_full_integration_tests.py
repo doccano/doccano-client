@@ -5,10 +5,7 @@ import pytest
 from ..client import Client
 from ..models import Example, Label, Project
 
-
-DOCCANO_ENDPOINT = (
-    "http://0.0.0.0"  # TODO: Make this a pytest parameter
-)
+DOCCANO_ENDPOINT = "http://0.0.0.0"  # TODO: Make this a pytest parameter
 
 
 @pytest.mark.localintegrationtest

@@ -1,13 +1,14 @@
 from unittest import TestCase
 
-from requests import Session
 import responses
+from requests import Session
 
 from ...controllers import LabelController, LabelsController
 from ...controllers.label import LabelGenerator
 from ...models import LABEL_COLOR_CYCLE, Label
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import bad, labels as mocks
+from .mock_api_responses import bad
+from .mock_api_responses import labels as mocks
 
 
 class LabelGeneratorTest(TestCase):

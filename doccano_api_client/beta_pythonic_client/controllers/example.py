@@ -9,7 +9,6 @@ from ..utils.response import verbose_raise_for_status
 from .annotation import AnnotationsController
 from .comment import CommentsController
 
-
 EXAMPLES_PER_PAGE_LIMIT = 10
 
 
