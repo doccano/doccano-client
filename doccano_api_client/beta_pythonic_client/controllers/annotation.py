@@ -28,7 +28,10 @@ class AnnotationsController:
         """Initializes a AnnotationsController instance
 
         Args:
+            example_id: int. The relevant example id to this annotations controller
             example_url: str. Url of the parent example
+            project: Project. The project model of the annotations, which is needed to query
+                for the type of annotation used by the project.
             client_session: requests.session. The current session passed from client to models
         """
         self.example_id = example_id

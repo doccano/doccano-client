@@ -53,7 +53,7 @@ class LabelGenerator:
             A Shortcut named tuple containing the calculated prefix and suffix key
 
         Raises:
-            An assertion error if the label_text is empty
+            AssertionError: If the label_text is empty
         """
         if len(label_text) == 0:
             raise AssertionError("label_text is empty, must be non-empty")
@@ -164,6 +164,9 @@ class LabelsController:
         shortcuts and colors in the picking process. This can be useful if you just created a
         group of labels in the Doccano GUI, and don't want to manually go through and hand-assign
         each label a color and a shortcut.
+
+        Yields:
+            Iterable[LabelController]: the sereis of newly regenerated labels
         """
         label_generator = LabelGenerator()
         for label_controller in self.all():
