@@ -43,7 +43,10 @@ labels_get_response = responses.Response(
 )
 
 label_create_response = projects_get_updated_response = responses.Response(
-    method="POST", url=re.compile(labels_regex), json=label_create_json, status=201,
+    method="POST",
+    url=re.compile(labels_regex),
+    json=label_create_json,
+    status=201,
 )
 
 label_update_response = responses.Response(

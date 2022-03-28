@@ -10,7 +10,11 @@ class _Router:
     Provides generic `get` and `post` methods. Implemented by DoccanoClient.
     """
 
-    def get(self, endpoint: str, params: dict = {},) -> requests.models.Response:
+    def get(
+        self,
+        endpoint: str,
+        params: dict = {},
+    ) -> requests.models.Response:
         """
         Args:
             endpoint (str): An API endpoint to query.
@@ -23,7 +27,10 @@ class _Router:
         return self._get(request_url, params=params).json()
 
     def get_file(
-        self, endpoint: str, params: dict = {}, headers: dict = {},
+        self,
+        endpoint: str,
+        params: dict = {},
+        headers: dict = {},
     ) -> requests.models.Response:
         """Gets a file.
 
@@ -38,7 +45,12 @@ class _Router:
         request_url = urljoin(self.baseurl, endpoint)
         return self._get(request_url, params=params, headers=headers)
 
-    def _get(self, url: str, params: dict = {}, headers: dict = {},) -> requests.models.Response:
+    def _get(
+        self,
+        url: str,
+        params: dict = {},
+        headers: dict = {},
+    ) -> requests.models.Response:
         return self.session.get(url, params=params, headers=headers)
 
     def post(
@@ -318,12 +330,19 @@ class DoccanoClient(_Router):
         }
         return self.post(url, data=data)
 
-    def delete_example(self, project_id: int, example_id: int,) -> requests.models.Response:
+    def delete_example(
+        self,
+        project_id: int,
+        example_id: int,
+    ) -> requests.models.Response:
         url = "v1/projects/{}/examples/{}".format(project_id, example_id)
         return self.delete(url)
 
     def delete_span(
-        self, project_id: int, example_id: int, span_id: int,
+        self,
+        project_id: int,
+        example_id: int,
+        span_id: int,
     ) -> requests.models.Response:
         url = "v1/projects/{project_id}/examples/{example_id}/spans/{span_id}".format(
             project_id=project_id, example_id=example_id, span_id=span_id
@@ -581,11 +600,16 @@ class DoccanoClient(_Router):
             headers=headers,
         )
 
-    def get_rolemapping_list(self, project_id: int,) -> requests.models.Response:
+    def get_rolemapping_list(
+        self,
+        project_id: int,
+    ) -> requests.models.Response:
         return self.get("v1/projects/{project_id}/roles".format(project_id=project_id))
 
     def get_rolemapping_detail(
-        self, project_id: int, rolemapping_id: int,
+        self,
+        project_id: int,
+        rolemapping_id: int,
     ) -> requests.models.Response:
         return self.get(
             "v1/projets/{project_id}/roles/{rolemapping_id}".format(

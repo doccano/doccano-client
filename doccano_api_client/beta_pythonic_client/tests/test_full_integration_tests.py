@@ -23,7 +23,9 @@ class IntegrationTests(TestCase):
 
         # Create a project
         cls.project = Project(
-            name="Test Project", description="Test project", project_type="SequenceLabeling",
+            name="Test Project",
+            description="Test project",
+            project_type="SequenceLabeling",
         )
         cls.project_controller = cls.client.projects.create(cls.project)
         cls.new_project_id = cls.project_controller.id
