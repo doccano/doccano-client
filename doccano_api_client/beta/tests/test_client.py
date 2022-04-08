@@ -3,7 +3,7 @@ from unittest import TestCase
 
 import responses
 
-from ..client import Client
+from ..client import DoccanoClient
 from ..models import Example
 from ..utils.response import DoccanoAPIError
 from .controllers.mock_api_responses import examples as mock_examples
@@ -12,7 +12,7 @@ from .controllers.mock_api_responses import projects as mock_projects
 
 class ClientTest(TestCase):
     def setUp(self):
-        self.client = Client("https://doccano.notaningress.com")
+        self.client = DoccanoClient("https://doccano.notaningress.com")
 
     def test_url_properties(self):
         self.assertEqual(self.client.login_url, "https://doccano.notaningress.com/v1/auth/login/")

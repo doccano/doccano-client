@@ -30,3 +30,6 @@ jobs:
       run: |
         find . -name "*.py" | xargs pipenv run darglint
       working-directory: ./doccano_api_client
+    - name: Test with Pytest
+      run: |
+        pipenv run pytest

@@ -4,7 +4,7 @@ from .controllers import ProjectsController
 from .utils.response import verbose_raise_for_status
 
 
-class Client:
+class DoccanoClient:
     """Base client for interacting with the Doccano API"""
 
     __slots__ = ["_base_url", "client_session"]

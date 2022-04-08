@@ -7,6 +7,7 @@ A simple client wrapper for the doccano API.
   - [Usage](#usage)
   - [Completion](#completion)
   - [To-Do](#to-do)
+- [Doccano API BETA Client](#doccano-api-beta-client)
 
 ## Installation
 
@@ -82,3 +83,9 @@ Endpoint Names:
 
 - investigate more secure alternatives to plaintext login
 - improve docstrings
+
+# Doccano API BETA Client
+
+We're introducing a newly revamped Doccano API Client that features more Pythonic interaction as well as more testing and documentation. It also adds more regulated compatibility with specific Doccano release versions.
+
+You can find the documentation on usage of the beta client [here](./doccano_api_client/beta/README.md).
