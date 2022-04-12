@@ -22,7 +22,7 @@ dev_packages = [
 
 setup(
     name="doccano-client",
-    version="1.1",  # Beta Client Tested for compatibility against Doccano >=1.5.0, <=1.5.5
+    version="1.1.0",  # Beta Client Tested for compatibility against Doccano >=1.5.0, <=1.5.5
     setup_requires=["setuptools_scm"],
     description="A simple client wrapper for the doccano API.",
     long_description="This simple API wrapper allows users to easily get data \
