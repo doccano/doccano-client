@@ -207,13 +207,17 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/features")
 
-    def get_project_list(self) -> requests.models.Response:
+    def get_project_list(self, url_parameters: dict = {}) -> requests.models.Response:
         """Gets projects list.
 
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects")
+        return self.get(
+            "v1/projects{url_parameters}".format(
+                url_parameters=self.build_url_parameter(url_parameters)
+            )
+        )
 
     def create_project(
         self,
