@@ -210,6 +210,9 @@ class DoccanoClient(_Router):
     def get_project_list(self, url_parameters: dict = {}) -> requests.models.Response:
         """Gets projects list.
 
+        Args:
+            url_parameters (dict): `limit` and `offset`
+
         Returns:
             requests.models.Response: The request response.
         """
