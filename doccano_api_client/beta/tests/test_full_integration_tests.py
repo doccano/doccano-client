@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import pytest
 
-from ..client import Client
+from ..client import DoccanoClient
 from ..models import Example, Label, Project
 
 DOCCANO_ENDPOINT = "http://0.0.0.0"  # TODO: Make this a pytest parameter
@@ -17,7 +17,7 @@ class IntegrationTests(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.client = Client(DOCCANO_ENDPOINT)
+        cls.client = DoccanoClient(DOCCANO_ENDPOINT)
         cls.client.login("admin", "password")
         cls.projects_controller = cls.client.projects
 

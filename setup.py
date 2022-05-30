@@ -1,6 +1,10 @@
 from setuptools import setup
 
-base_packages = ["requests"]
+base_packages = [
+    "requests",
+    "dataclasses>=0.7,<1; python_version<'3.7'",
+    "dataclasses-json>=0.5.0,<1.0.0",
+]
 
 dev_packages = [
     "black>=19.3b0",
@@ -11,17 +15,14 @@ dev_packages = [
     "flake8-docstrings==1.5.0",
     "darglint==1.4.0",
     "pre-commit>=2.2.0",
-    "dataclasses>=0.7,<1; python_version<'3.7'",
-    "dataclasses-json>=0.5.0,<1.0.0",
     "types-dataclasses>=0.1.3,<1; python_version<'3.7'",
     "types-requests>=0.1.8,<1",
+    "pytest>=6.1.2,<7",
 ]
 
 setup(
     name="doccano-client",
-    # Semver for this package should match Doccano release tags to denote compatibility
-    # up to the minor version (patch version can be more flexible)
-    version="1.5.1",  # Tested for compatibility against Doccano >=1.5.0, <=1.5.5
+    version="1.1.0",  # Beta Client Tested for compatibility against Doccano >=1.5.0, <=1.5.5
     setup_requires=["setuptools_scm"],
     description="A simple client wrapper for the doccano API.",
     long_description="This simple API wrapper allows users to easily get data \

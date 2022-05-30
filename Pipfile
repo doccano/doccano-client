@@ -10,12 +10,12 @@ mypy = "*"
 darglint = "*"
 black = "*"
 responses = "*"
-dataclasses-json = "*"
 types-requests = "*"
 pytest = "*"
 
 [packages]
 requests = "*"
+dataclasses-json = "*"
 
 [requires]
 python_version = "3.8"
