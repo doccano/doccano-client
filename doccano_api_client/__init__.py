@@ -393,6 +393,38 @@ class DoccanoClient(_Router):
         except Exception as e:
             return "Failed (duplicate?): {}".format(e)
 
+    def update_span_type(self, project_id: int, span_type_id: int,
+                        text: str,
+                        text_color: str = "#ffffff",
+                        background_color: str = "#cdcdcd",
+                        prefix_key: str = None,
+                        suffix_key: str = None) -> requests.models.Response:
+        """Updates a span_type.
+
+        Args:
+            project_id (int): The project id.
+            span_type_id (int): A span_type ID to update.
+            text (str): The label text.
+            text_color (str): The text color of the label.
+            background_color (str): The background color of the label.
+            prefix_key (str): The prefix key for shortcut.
+            suffix_key (str): The suffix key for shortcut.
+
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        url = "v1/projects/{project_id}/span-types/{span_type_id}".format(project_id=project_id, span_type_id=span_type_id)
+        label_payload = {
+                "projectId": project_id,
+                "text": text,
+                "prefix_key": prefix_key,
+                "suffix_key": suffix_key,
+                "background_color": background_color,
+                "text_color": text_color
+        }
+        return self.update(url, data=label_payload)
+
     def create_span(
         self, project_id: int, example_id: int, label_id: int, **kwargs
     ) -> requests.models.Response:
@@ -482,7 +514,7 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.get("v1/projects/{project_id}/span-types".format(project_id=project_id))
-
+    
     def get_span_type_detail(self, project_id: int, span_type_id: int) -> requests.models.Response:
         """Gets details of a specific span type.
 
@@ -568,6 +600,172 @@ class DoccanoClient(_Router):
                 project_id=project_id, example_id=example_id, span_id=span_id
             )
         )
+
+    def get_category_type_list(self, project_id: int) -> request.models.Response:
+        """Gets a list of category_types in a given project.
+
+        Args:
+            project_id (int): The project id.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.get("v1/projects/{project_id}/category-types".format(project_id=project_id))
+
+    def get_category_type_detail(self, project_id: int, category_type_id: int) -> requests.models.Response:
+        """Gets details of a specific category type.
+
+        Args:
+            project_id (int): The project id.
+            category_type_id (int): A category_type ID to query.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.get("v1/projects/{project_id}/category-types/{category_type_id}".format(project_id=project_id, category_type_id=category_type_id))
+
+    def create_category_type(self, project_id: int, text: str, text_color: str = "#ffffff", background_color: str = "#cdcdcd", prefix_key: str = None, suffix_key: str = None) -> requests.models.Response:
+        """Creates a category_type to be used for annotating a document.
+
+        Args:
+            project_id (int): The project id.
+            text (str): The label text.
+            text_color (str): The text color of the label.
+            background_color (str): The background color of the label.
+            prefix_key (str): The prefix key for shortcut.
+            suffix_key (str): The suffix key for shortcut.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        url = "v1/projects/{}/category-types".format(project_id)
+        label_payload = {
+            "projectId": project_id,
+            "text": text,
+            "prefix_key": prefix_key,
+            "suffix_key": suffix_key,
+            "background_color": background_color,
+            "text_color": text_color
+        }
+        try:
+            return self.post(url, data=label_payload)
+        except Exception as e:
+            return f"Failed (duplicate?): {e}"
+
+    def update_category_type(self, project_id: int, category_type_id: int,
+                     text: str,
+                     text_color: str = "#ffffff",
+                     background_color: str = "#cdcdcd",
+                     prefix_key: str = None,
+                     suffix_key: str = None) -> requests.models.Response:
+        """Updates a category_type.
+
+        Args:
+            project_id (int): The project id.
+            category_type_id (int): A category_type ID to update.
+            text (str): The label text.
+            text_color (str): The text color of the label.
+            background_color (str): The background color of the label.
+            prefix_key (str): The prefix key for shortcut.
+            suffix_key (str): The suffix key for shortcut.
+
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        url = "v1/projects/{project_id}/category-types/{category_type_id}".format(project_id=project_id, category_type_id=category_type_id)
+        label_payload = {
+                "projectId": project_id,
+                "text": text,
+                "prefix_key": prefix_key,
+                "suffix_key": suffix_key,
+                "background_color": background_color,
+                "text_color": text_color
+        }
+        return self.update(url, data=label_payload)
+
+    def get_relation_type_list(self, project_id: int) -> request.models.Response:
+        """Gets a list of relation_types in a given project.
+
+        Args:
+            project_id (int): The project id.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.get("v1/projects/{project_id}/relation-types".format(project_id=project_id))
+
+    def get_relation_type_detail(self, project_id: int, relation_type_id: int) -> request.models.Response:
+        """Gets details of a specific relation type.
+
+        Args:
+            project_id (int): The project id.
+            relation_type_id (int): A relation_type ID to query.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.get("v1/projects/{project_id}/relation-types/{relation_type_id}".format(project_id=project_id, relation_type_id=relation_type_id))
+
+    def create_relation_type(self, project_id: int, text: str, text_color: str = "#ffffff", background_color: str = "#cdcdcd", prefix_key: str = None, suffix_key: str = None) -> request.models.Response:
+        """Creates a relation_type to be used for annotating a document.
+
+        Args:
+            project_id (int): The project id.
+            text (str): The label text.
+            text_color (str): The text color of the label.
+            background_color (str): The background color of the label.
+            prefix_key (str): The prefix key for shortcut.
+            suffix_key (str): The suffix key for shortcut.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        url = "v1/projects/{}/relation-types".format(project_id)
+        label_payload = {
+            "projectId": project_id,
+            "text": text,
+            "prefix_key": prefix_key,
+            "suffix_key": suffix_key,
+            "background_color": background_color,
+            "text_color": text_color
+        }
+        try:
+            return self.post(url, data=label_payload)
+        except Exception as e:
+            return f"Failed (duplicate?): {e}"
+
+    def update_relation_type(self, project_id: int, relation_type_id: int,
+                        text: str,
+                        text_color: str = "#ffffff",
+                        background_color: str = "#cdcdcd",
+                        prefix_key: str = None,
+                        suffix_key: str = None) -> request.models.Response:
+        """Updates a relation_type.
+
+        Args:
+            project_id (int): The project id.
+            relation_type_id (int): A relation_type ID to update.
+            text (str): The label text.
+            text_color (str): The text color of the label.
+            background_color (str): The background color of the label.
+            prefix_key (str): The prefix key for shortcut.
+            suffix_key (str): The suffix key for shortcut.
+
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        url = "v1/projects/{project_id}/relation-types/{relation_type_id}".format(project_id=project_id, relation_type_id=relation_type_id)
+        label_payload = {
+                "projectId": project_id,
+                "text": text,
+                "prefix_key": prefix_key,
+                "suffix_key": suffix_key,
+                "background_color": background_color,
+                "text_color": text_color
+        }
+        return self.update(url, data=label_payload)
 
     def get_example_states(self, project_id: int, example_id: int) -> requests.models.Response:
         """Gets example states of a given example.
@@ -779,6 +977,43 @@ class DoccanoClient(_Router):
             "v1/projects/{project_id}/span-type-upload".format(project_id=project_id),
             files={"file": open(os.path.join(file_path, file_name), "rb")},
             as_json=False,
+        )
+
+    def post_category_type_upload(self,
+                          project_id: int,
+                          file_name: str,
+                          file_path: str = "./") -> requests.models.Response:
+        """Uploads a category_type file to a Doccano project.
+
+        Args:
+            project_id (int): The project id.
+            file_name (str): The name of the file.
+            file_path (str): The parent path of the file. Defaults to `./`.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.post(
+            "v1/projects/{project_id}/category-type-upload".format(project_id=project_id),
+            files={"file": open(os.path.join(file_path, file_name), "rb")},
+            as_json=False,
+        )
+
+    def post_relation_type_upload(self, project_id: int, file_name: str, file_path: str = "./") -> requests.models.Response:
+        """Uploads a relation_type file to a Doccano project.
+
+        Args:
+            project_id (int): The project id.
+            file_name (str): The name of the file.
+            file_path (str): The parent path of the file. Defaults to `./`.
+
+        Returns:
+            requests.models.Response: The request response.
+        """
+        return self.post(
+            "v1/projects/{project_id}/relation-type-upload".format(project_id=project_id), 
+            files={"file": open(os.path.join(file_path, file_name), "rb")}, 
+            as_json=False
         )
 
     def _get_any_endpoint(self, endpoint: str) -> requests.models.Response:
