@@ -784,7 +784,7 @@ class DoccanoClient(_Router):
         background_color: str = "#cdcdcd",
         prefix_key: str = None,
         suffix_key: str = None,
-    ) -> request.models.Response:
+    ) -> requests.models.Response:
         """Updates a relation_type.
 
         Args:
