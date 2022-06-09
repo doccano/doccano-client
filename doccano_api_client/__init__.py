@@ -607,7 +607,7 @@ class DoccanoClient(_Router):
             )
         )
 
-    def get_category_type_list(self, project_id: int) -> request.models.Response:
+    def get_category_type_list(self, project_id: int) -> requests.models.Response:
         """Gets a list of category_types in a given project.
 
         Args:
@@ -710,7 +710,7 @@ class DoccanoClient(_Router):
         }
         return self.update(url, data=label_payload)
 
-    def get_relation_type_list(self, project_id: int) -> request.models.Response:
+    def get_relation_type_list(self, project_id: int) -> requests.models.Response:
         """Gets a list of relation_types in a given project.
 
         Args:
@@ -723,7 +723,7 @@ class DoccanoClient(_Router):
 
     def get_relation_type_detail(
         self, project_id: int, relation_type_id: int
-    ) -> request.models.Response:
+    ) -> requests.models.Response:
         """Gets details of a specific relation type.
 
         Args:
@@ -747,7 +747,7 @@ class DoccanoClient(_Router):
         background_color: str = "#cdcdcd",
         prefix_key: str = None,
         suffix_key: str = None,
-    ) -> request.models.Response:
+    ) -> requests.models.Response:
         """Creates a relation_type to be used for annotating a document.
 
         Args:
