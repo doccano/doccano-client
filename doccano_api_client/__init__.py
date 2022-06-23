@@ -831,6 +831,7 @@ class DoccanoClient(_Router):
         delimiter: str = "",
         encoding: str = "utf_8",
         format: str = "JSONL",
+        task: str = "SequenceLabeling"
     ) -> requests.models.Response:
         """Upload documents to doccano
 
@@ -842,6 +843,7 @@ class DoccanoClient(_Router):
             delimiter (str): Delimeter for the current dataset
             encoding (str): Current file encoding
             format (str): The file format, ex: `plain`, `json`, or `conll`.
+            task (str): task type
 
         Returns:
             requests.models.Response: The request response.
@@ -880,6 +882,7 @@ class DoccanoClient(_Router):
             "encoding": encoding,
             "format": format,
             "uploadIds": upload_ids,
+            "task": task
         }
         return self.post(f"v1/projects/{project_id}/upload", json=upload_data)
 
@@ -893,6 +896,7 @@ class DoccanoClient(_Router):
         delimiter: str = "",
         encoding: str = "utf_8",
         format: str = "JSONL",
+        task: str = "SequenceLabeling"
     ) -> requests.models.Response:
         """Uploads a file to a Doccano project.
 
@@ -905,6 +909,7 @@ class DoccanoClient(_Router):
             delimiter (str): Delimeter for the current dataset
             encoding (str): Current file encoding
             format (str): The file format, ex: `plain`, `json`, or `conll`.
+            task (str): task type
 
         Returns:
             requests.models.Response: The request response.
