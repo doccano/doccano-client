@@ -601,7 +601,7 @@ class DoccanoClient(_Router):
             )
         )
 
-    def get_category_type_list(self, project_id: int) -> request.models.Response:
+    def get_category_type_list(self, project_id: int) -> requests.models.Response:
         """Gets a list of category_types in a given project.
 
         Args:
@@ -684,7 +684,7 @@ class DoccanoClient(_Router):
         }
         return self.update(url, data=label_payload)
 
-    def get_relation_type_list(self, project_id: int) -> request.models.Response:
+    def get_relation_type_list(self, project_id: int) -> requests.models.Response:
         """Gets a list of relation_types in a given project.
 
         Args:
@@ -695,7 +695,7 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/relation-types".format(project_id=project_id))
 
-    def get_relation_type_detail(self, project_id: int, relation_type_id: int) -> request.models.Response:
+    def get_relation_type_detail(self, project_id: int, relation_type_id: int) -> requests.models.Response:
         """Gets details of a specific relation type.
 
         Args:
@@ -707,7 +707,7 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/relation-types/{relation_type_id}".format(project_id=project_id, relation_type_id=relation_type_id))
 
-    def create_relation_type(self, project_id: int, text: str, text_color: str = "#ffffff", background_color: str = "#cdcdcd", prefix_key: str = None, suffix_key: str = None) -> request.models.Response:
+    def create_relation_type(self, project_id: int, text: str, text_color: str = "#ffffff", background_color: str = "#cdcdcd", prefix_key: str = None, suffix_key: str = None) -> requests.models.Response:
         """Creates a relation_type to be used for annotating a document.
 
         Args:
@@ -740,7 +740,7 @@ class DoccanoClient(_Router):
                         text_color: str = "#ffffff",
                         background_color: str = "#cdcdcd",
                         prefix_key: str = None,
-                        suffix_key: str = None) -> request.models.Response:
+                        suffix_key: str = None) -> requests.models.Response:
         """Updates a relation_type.
 
         Args:
