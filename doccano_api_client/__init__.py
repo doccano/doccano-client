@@ -843,7 +843,7 @@ class DoccanoClient(_Router):
             delimiter (str): Delimeter for the current dataset
             encoding (str): Current file encoding
             format (str): The file format, ex: `plain`, `json`, or `conll`.
-            task (str): task type
+            task (str): task type, ex. `SequenceLabeling`, `TextClassification`
 
         Returns:
             requests.models.Response: The request response.
@@ -909,7 +909,7 @@ class DoccanoClient(_Router):
             delimiter (str): Delimeter for the current dataset
             encoding (str): Current file encoding
             format (str): The file format, ex: `plain`, `json`, or `conll`.
-            task (str): task type
+            task (str): task type, ex. `SequenceLabeling`, `TextClassification`
 
         Returns:
             requests.models.Response: The request response.
