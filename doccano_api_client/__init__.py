@@ -922,6 +922,7 @@ class DoccanoClient(_Router):
             delimiter=delimiter,
             encoding=encoding,
             format=format,
+            task=task
         )
 
     def post_members(
