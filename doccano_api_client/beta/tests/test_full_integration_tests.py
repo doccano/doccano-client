@@ -5,9 +5,9 @@ import pytest
 from ..client import DoccanoClient
 from ..models import Example, Label, Project
 
-DOCCANO_ENDPOINT = "http://localhost:8000"  # TODO: Make this a pytest parameter
-DOCCANO_USER = "admin"
-DOCCANO_PASS = "password"
+DOCCANO_ENDPOINT = "http://localhost:8000"  # TODO: Make this a pytest parameter or ENV variable
+DOCCANO_USER = "admin"                      # TODO: Make this a pytest parameter or ENV variable
+DOCCANO_PASS = "password"                   # TODO: Make this a pytest parameter or ENV variable
 
 
 @pytest.mark.localintegrationtest
