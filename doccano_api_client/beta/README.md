@@ -27,13 +27,26 @@ my_project_name_controller.examples.create(my_example)
 
 ```
 
+Info: "Example" is a synonym for "Document", use this to upload new text-records to label.
+
 ### Running local integration tests
 Given that the Doccano project can get updated with API-breaking changes, we introduced the ability to run local integration tests against all the main endpoints.
 This allows to make sure that our client is still operational with newer Doccano versions.
 
 To run the integration tests:
-- Spin up doccano locally. Clone the Doccano repo, and deploy or stand up your Doccano instance
-- Then, within the root of this repo, run
+- Spin up doccano locally by cloning the Doccano repo, and deploy or stand up your Doccano instance
+- Then swith to the root of this client repo
+```shell
+pipenv install
+pipenv install --dev
+```
+
+- Adjust the credentials in ""./doccano_api_client/beta/tests/test_full_integration_tests.py"
+  - DOCCANO_ENDPOINT = "http://localhost:8000"  # TODO: Make this a pytest parameter
+  - DOCCANO_USER = "admin"
+  - DOCCANO_PASS = "password"
+- Swith to the root of the beta client eg. ./doccano_api_client/beta/
+
 ```shell
 pipenv run test --runintegrationtest
 ```
