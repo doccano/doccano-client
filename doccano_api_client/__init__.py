@@ -393,12 +393,16 @@ class DoccanoClient(_Router):
         except Exception as e:
             return "Failed (duplicate?): {}".format(e)
 
-    def update_span_type(self, project_id: int, span_type_id: int,
-                        text: str,
-                        text_color: str = "#ffffff",
-                        background_color: str = "#cdcdcd",
-                        prefix_key: str = None,
-                        suffix_key: str = None) -> requests.models.Response:
+    def update_span_type(
+        self,
+        project_id: int,
+        span_type_id: int,
+        text: str,
+        text_color: str = "#ffffff",
+        background_color: str = "#cdcdcd",
+        prefix_key: str = None,
+        suffix_key: str = None,
+    ) -> requests.models.Response:
         """Updates a span_type.
 
         Args:
@@ -414,14 +418,16 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        url = "v1/projects/{project_id}/span-types/{span_type_id}".format(project_id=project_id, span_type_id=span_type_id)
+        url = "v1/projects/{project_id}/span-types/{span_type_id}".format(
+            project_id=project_id, span_type_id=span_type_id
+        )
         label_payload = {
-                "projectId": project_id,
-                "text": text,
-                "prefix_key": prefix_key,
-                "suffix_key": suffix_key,
-                "background_color": background_color,
-                "text_color": text_color
+            "projectId": project_id,
+            "text": text,
+            "prefix_key": prefix_key,
+            "suffix_key": suffix_key,
+            "background_color": background_color,
+            "text_color": text_color,
         }
         return self.update(url, data=label_payload)
 
@@ -514,7 +520,7 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.get("v1/projects/{project_id}/span-types".format(project_id=project_id))
-    
+
     def get_span_type_detail(self, project_id: int, span_type_id: int) -> requests.models.Response:
         """Gets details of a specific span type.
 
@@ -612,7 +618,9 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/category-types".format(project_id=project_id))
 
-    def get_category_type_detail(self, project_id: int, category_type_id: int) -> requests.models.Response:
+    def get_category_type_detail(
+        self, project_id: int, category_type_id: int
+    ) -> requests.models.Response:
         """Gets details of a specific category type.
 
         Args:
@@ -622,9 +630,21 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects/{project_id}/category-types/{category_type_id}".format(project_id=project_id, category_type_id=category_type_id))
+        return self.get(
+            "v1/projects/{project_id}/category-types/{category_type_id}".format(
+                project_id=project_id, category_type_id=category_type_id
+            )
+        )
 
-    def create_category_type(self, project_id: int, text: str, text_color: str = "#ffffff", background_color: str = "#cdcdcd", prefix_key: str = None, suffix_key: str = None) -> requests.models.Response:
+    def create_category_type(
+        self,
+        project_id: int,
+        text: str,
+        text_color: str = "#ffffff",
+        background_color: str = "#cdcdcd",
+        prefix_key: str = None,
+        suffix_key: str = None,
+    ) -> requests.models.Response:
         """Creates a category_type to be used for annotating a document.
 
         Args:
@@ -645,19 +665,23 @@ class DoccanoClient(_Router):
             "prefix_key": prefix_key,
             "suffix_key": suffix_key,
             "background_color": background_color,
-            "text_color": text_color
+            "text_color": text_color,
         }
         try:
             return self.post(url, data=label_payload)
         except Exception as e:
             return f"Failed (duplicate?): {e}"
 
-    def update_category_type(self, project_id: int, category_type_id: int,
-                     text: str,
-                     text_color: str = "#ffffff",
-                     background_color: str = "#cdcdcd",
-                     prefix_key: str = None,
-                     suffix_key: str = None) -> requests.models.Response:
+    def update_category_type(
+        self,
+        project_id: int,
+        category_type_id: int,
+        text: str,
+        text_color: str = "#ffffff",
+        background_color: str = "#cdcdcd",
+        prefix_key: str = None,
+        suffix_key: str = None,
+    ) -> requests.models.Response:
         """Updates a category_type.
 
         Args:
@@ -673,14 +697,16 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        url = "v1/projects/{project_id}/category-types/{category_type_id}".format(project_id=project_id, category_type_id=category_type_id)
+        url = "v1/projects/{project_id}/category-types/{category_type_id}".format(
+            project_id=project_id, category_type_id=category_type_id
+        )
         label_payload = {
-                "projectId": project_id,
-                "text": text,
-                "prefix_key": prefix_key,
-                "suffix_key": suffix_key,
-                "background_color": background_color,
-                "text_color": text_color
+            "projectId": project_id,
+            "text": text,
+            "prefix_key": prefix_key,
+            "suffix_key": suffix_key,
+            "background_color": background_color,
+            "text_color": text_color,
         }
         return self.update(url, data=label_payload)
 
@@ -695,7 +721,9 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/relation-types".format(project_id=project_id))
 
-    def get_relation_type_detail(self, project_id: int, relation_type_id: int) -> requests.models.Response:
+    def get_relation_type_detail(
+        self, project_id: int, relation_type_id: int
+    ) -> requests.models.Response:
         """Gets details of a specific relation type.
 
         Args:
@@ -705,9 +733,21 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get("v1/projects/{project_id}/relation-types/{relation_type_id}".format(project_id=project_id, relation_type_id=relation_type_id))
+        return self.get(
+            "v1/projects/{project_id}/relation-types/{relation_type_id}".format(
+                project_id=project_id, relation_type_id=relation_type_id
+            )
+        )
 
-    def create_relation_type(self, project_id: int, text: str, text_color: str = "#ffffff", background_color: str = "#cdcdcd", prefix_key: str = None, suffix_key: str = None) -> requests.models.Response:
+    def create_relation_type(
+        self,
+        project_id: int,
+        text: str,
+        text_color: str = "#ffffff",
+        background_color: str = "#cdcdcd",
+        prefix_key: str = None,
+        suffix_key: str = None,
+    ) -> requests.models.Response:
         """Creates a relation_type to be used for annotating a document.
 
         Args:
@@ -728,19 +768,23 @@ class DoccanoClient(_Router):
             "prefix_key": prefix_key,
             "suffix_key": suffix_key,
             "background_color": background_color,
-            "text_color": text_color
+            "text_color": text_color,
         }
         try:
             return self.post(url, data=label_payload)
         except Exception as e:
             return f"Failed (duplicate?): {e}"
 
-    def update_relation_type(self, project_id: int, relation_type_id: int,
-                        text: str,
-                        text_color: str = "#ffffff",
-                        background_color: str = "#cdcdcd",
-                        prefix_key: str = None,
-                        suffix_key: str = None) -> requests.models.Response:
+    def update_relation_type(
+        self,
+        project_id: int,
+        relation_type_id: int,
+        text: str,
+        text_color: str = "#ffffff",
+        background_color: str = "#cdcdcd",
+        prefix_key: str = None,
+        suffix_key: str = None,
+    ) -> requests.models.Response:
         """Updates a relation_type.
 
         Args:
@@ -756,14 +800,16 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        url = "v1/projects/{project_id}/relation-types/{relation_type_id}".format(project_id=project_id, relation_type_id=relation_type_id)
+        url = "v1/projects/{project_id}/relation-types/{relation_type_id}".format(
+            project_id=project_id, relation_type_id=relation_type_id
+        )
         label_payload = {
-                "projectId": project_id,
-                "text": text,
-                "prefix_key": prefix_key,
-                "suffix_key": suffix_key,
-                "background_color": background_color,
-                "text_color": text_color
+            "projectId": project_id,
+            "text": text,
+            "prefix_key": prefix_key,
+            "suffix_key": suffix_key,
+            "background_color": background_color,
+            "text_color": text_color,
         }
         return self.update(url, data=label_payload)
 
@@ -979,10 +1025,9 @@ class DoccanoClient(_Router):
             as_json=False,
         )
 
-    def post_category_type_upload(self,
-                          project_id: int,
-                          file_name: str,
-                          file_path: str = "./") -> requests.models.Response:
+    def post_category_type_upload(
+        self, project_id: int, file_name: str, file_path: str = "./"
+    ) -> requests.models.Response:
         """Uploads a category_type file to a Doccano project.
 
         Args:
@@ -999,7 +1044,9 @@ class DoccanoClient(_Router):
             as_json=False,
         )
 
-    def post_relation_type_upload(self, project_id: int, file_name: str, file_path: str = "./") -> requests.models.Response:
+    def post_relation_type_upload(
+        self, project_id: int, file_name: str, file_path: str = "./"
+    ) -> requests.models.Response:
         """Uploads a relation_type file to a Doccano project.
 
         Args:
@@ -1011,9 +1058,9 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.post(
-            "v1/projects/{project_id}/relation-type-upload".format(project_id=project_id), 
-            files={"file": open(os.path.join(file_path, file_name), "rb")}, 
-            as_json=False
+            "v1/projects/{project_id}/relation-type-upload".format(project_id=project_id),
+            files={"file": open(os.path.join(file_path, file_name), "rb")},
+            as_json=False,
         )
 
     def _get_any_endpoint(self, endpoint: str) -> requests.models.Response:
