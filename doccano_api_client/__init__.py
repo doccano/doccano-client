@@ -987,19 +987,16 @@ class DoccanoClient(_Router):
             assert len(user) >= 1, "username {username} not found".format(username=username)
             user = user[0]
 
-            role = list(filter(lambda role_info: role_info["rolename"] == rolename, res_roles))
-            assert len(role) >= 1, "rolename {rolename} not found".format(rolename=rolename)
+            role = list(filter(lambda role_info: role_info["name"] == rolename, res_roles))
+            assert len(role) >= 1, "role name {rolename} not found".format(rolename=rolename)
             role = role[0]
 
             arr_response.append(
                 self.post(
-                    "v1/projects/{project_id}/roles".format(project_id=project_id),
+                    "v1/projects/{project_id}/members".format(project_id=project_id),
                     data={
-                        "id": 0,
                         "role": role["id"],
-                        "rolename": rolename,
                         "user": user["id"],
-                        "username": username,
                     },
                 )
             )
