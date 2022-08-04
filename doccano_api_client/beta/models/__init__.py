@@ -8,6 +8,10 @@ from .comments import Comment
 from .examples import Document, Example
 from .labels import LABEL_COLOR_CYCLE, Label
 from .projects import Project, ProjectTypes
+from .span_type import SpanType
+from .relation_type import RelationType
+from .span import Span
+from .relation import Relation
 
 __all__ = [
     "Comment",
@@ -23,4 +27,8 @@ __all__ = [
     "SpanAnnotation",
     "TextLabelAnnotation",
     "Annotation",
+    "Span",
+    "SpanType",
+    "RelationType",
+    "Relation",
 ]

@@ -7,6 +7,8 @@ from .example import (
     ExamplesController,
 )
 from .label import LabelController, LabelsController
+from .span_type import SpanTypeController, SpanTypesController
+from .relation_type import RelationTypeController, RelationTypesController
 from .project import ProjectController, ProjectsController
 
 __all__ = [
@@ -24,4 +26,8 @@ __all__ = [
     "LabelsController",
     "ProjectController",
     "ProjectsController",
+    "SpanTypeController",
+    "SpanTypesController",
+    "RelationTypeController",
+    "RelationTypesController",
 ]

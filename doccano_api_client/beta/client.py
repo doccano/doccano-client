@@ -16,6 +16,7 @@ class DoccanoClient:
         headers = {
             "content-type": "application/json",
             "accept": "application/json",
+            "referer": base_url,
         }
         self.client_session.headers.update(headers)
 
