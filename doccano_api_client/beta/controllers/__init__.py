@@ -7,9 +7,9 @@ from .example import (
     ExamplesController,
 )
 from .label import LabelController, LabelsController
-from .span_type import SpanTypeController, SpanTypesController
-from .relation_type import RelationTypeController, RelationTypesController
 from .project import ProjectController, ProjectsController
+from .relation_type import RelationTypeController, RelationTypesController
+from .span_type import SpanTypeController, SpanTypesController
 
 __all__ = [
     "AnnotationController",

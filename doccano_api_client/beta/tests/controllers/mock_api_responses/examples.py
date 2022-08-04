@@ -6,32 +6,38 @@ from . import projects
 
 examples_get_json = {
     "count": 6,
-    "next": "fake_next_url_should_not_be_used",
+    "next": "https://doccano.xxxx.com/v1/projects/2/examples?confirmed=&limit=3&offset=3&q=",
     "previous": None,
     "results": [
         {
             "id": 4,
+            "filename": "https://doccano.xxxx.com/media/",
             "text": "Sentiment Analysis is pretty cool",
-            "annotations": [],
             "meta": {},
             "annotation_approver": None,
             "comment_count": 0,
+            "is_confirmed": None,
+            "upload_name": "",
         },
         {
             "id": 5,
+            "filename": "https://doccano.xxxx.com/media/",
             "text": "Sentiment Analysis is meh",
-            "annotations": [],
             "meta": {},
             "annotation_approver": None,
             "comment_count": 0,
+            "is_confirmed": None,
+            "upload_name": "",
         },
         {
             "id": 6,
+            "filename": "https://doccano.xxxx.com/media/",
             "text": "Sentiment Analysis is neat?",
-            "annotations": [],
             "meta": {},
             "annotation_approver": None,
             "comment_count": 0,
+            "is_confirmed": None,
+            "upload_name": "",
         },
     ],
 }
@@ -39,31 +45,37 @@ examples_get_json = {
 examples_get_json_second_page = {
     "count": 6,
     "next": None,
-    "previous": None,
+    "previous": "https://doccano.xxxx.com/v1/projects/2/examples?confirmed=&limit=3&q=",
     "results": [
         {
             "id": 7,
+            "filename": "https://doccano.xxxx.com/media/",
             "text": "Sentiment Analysis is pretty cool",
-            "annotations": [],
             "meta": {},
             "annotation_approver": None,
             "comment_count": 0,
+            "is_confirmed": None,
+            "upload_name": "",
         },
         {
             "id": 8,
+            "filename": "https://doccano.xxxx.com/media/",
             "text": "Sentiment Analysis is meh",
-            "annotations": [],
             "meta": {},
             "annotation_approver": None,
             "comment_count": 0,
+            "is_confirmed": None,
+            "upload_name": "",
         },
         {
             "id": 9,
+            "filename": "https://doccano.xxxx.com/media/",
             "text": "Sentiment Analysis is neat?",
-            "annotations": [],
             "meta": {},
             "annotation_approver": None,
             "comment_count": 0,
+            "is_confirmed": None,
+            "upload_name": "",
         },
     ],
 }
@@ -71,19 +83,22 @@ examples_get_json_second_page = {
 example_create_json = {
     "id": 49,
     "text": "This is an example text2",
-    "annotations": [],
     "meta": {"key": "val"},
     "annotation_approver": None,
     "comment_count": 0,
+    "is_confirmed": True,
+    "upload_name": "",
 }
 
 example_get_json = {
     "id": 9,
+    "filename": "https://doccano.xxxx.com/media/",
     "text": "Sentiment Analysis is neat?",
-    "annotations": [],
     "meta": {},
     "annotation_approver": None,
     "comment_count": 0,
+    "is_confirmed": True,
+    "upload_name": "",
 }
 
 examples_regex = f".*/v1/projects/{projects.valid_project_ids_regex_insert}/examples"

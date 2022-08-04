@@ -3,7 +3,7 @@ from typing import Iterable
 
 from requests import Session
 
-from ..models import Span, Project
+from ..models import Project, Span
 from ..utils.response import verbose_raise_for_status
 
 

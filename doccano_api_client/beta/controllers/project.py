@@ -1,5 +1,5 @@
-from dataclasses import asdict, dataclass, fields
 import time
+from dataclasses import asdict, dataclass, fields
 from typing import Any, Iterable
 
 from requests import Session

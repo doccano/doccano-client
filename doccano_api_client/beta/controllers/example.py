@@ -7,8 +7,8 @@ from ..models.examples import Example
 from ..models.projects import Project
 from ..utils.response import verbose_raise_for_status
 from .comment import CommentsController
-from .span import SpansController
 from .relation import RelationsController
+from .span import SpansController
 
 EXAMPLES_PER_PAGE_LIMIT = 10
 

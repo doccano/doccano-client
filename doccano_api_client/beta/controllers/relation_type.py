@@ -3,7 +3,7 @@ from typing import Iterable
 
 from requests import Session
 
-from ..models.relation_type import RelationType, LABEL_COLOR_CYCLE
+from ..models.relation_type import LABEL_COLOR_CYCLE, RelationType
 from ..utils.response import verbose_raise_for_status
 
 COLOR_CYCLE_RANGE = len(LABEL_COLOR_CYCLE)

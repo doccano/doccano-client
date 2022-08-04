@@ -81,7 +81,7 @@ class ProjectsControllerTest(TestCase):
 
         total_projects = 0
         expected_project_id_dict = {
-            proj_json["id"]: proj_json for proj_json in mocks.projects_get_json
+            proj_json["id"]: proj_json for proj_json in mocks.projects_get_json["results"]
         }
         for project_controller in project_controllers:
             self.assertIn(project_controller.id, expected_project_id_dict)
@@ -98,7 +98,7 @@ class ProjectsControllerTest(TestCase):
             )
             total_projects += 1
 
-        self.assertEqual(total_projects, len(mocks.projects_get_json))
+        self.assertEqual(total_projects, len(mocks.projects_get_json["results"]))
 
     @responses.activate
     def test_all_with_bad_response(self):
