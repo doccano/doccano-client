@@ -76,7 +76,7 @@ class ProjectsController:
         """Return a sequence of projects for a given controller, assigned to the user"""
         response = self.client_session.get(self.projects_url)
         verbose_raise_for_status(response)
-        project_dicts = response.json()
+        project_dicts = response.json()["results"]
         project_obj_fields = set(  # Only use fields that are part of the init, skips resourcetype
             proj_field.name for proj_field in fields(Project) if proj_field.init
         )
