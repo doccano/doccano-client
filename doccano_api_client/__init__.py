@@ -1,7 +1,7 @@
 import os
 import typing
 from urllib.parse import urljoin
-
+from random import randint
 import requests
 
 
@@ -925,6 +925,7 @@ class DoccanoClient(_Router):
             "delimiter": delimiter,
             "encoding": encoding,
             "format": format,
+            "task": randint(0, 10000), 
             "uploadIds": upload_ids,
         }
         return self.post(f"v1/projects/{project_id}/upload", json=upload_data)
