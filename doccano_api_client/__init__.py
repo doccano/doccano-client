@@ -319,7 +319,7 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response
         """
 
-        if annotations == None:
+        if annotations is None:
             annotations = []
 
         url = "v1/projects/{}/examples".format(project_id)
@@ -427,7 +427,7 @@ class DoccanoClient(_Router):
     def create_span(self, project_id: int, example_id: int, label_id: int, **kwargs) -> requests.models.Response:
         """Creates a span to a given example.
 
-        Variable keyword arguments \*\*kwargs give support to doccano
+        Variable keyword arguments kwargs give support to doccano
         annotations for different project types.
 
         For example, for SequenceLabeling one should call using start_offset
