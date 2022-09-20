@@ -1,5 +1,6 @@
+import time
 from dataclasses import asdict, dataclass, fields
-from typing import Iterable
+from typing import Any, Iterable
 
 from requests import Session
 
@@ -8,6 +9,8 @@ from ..utils.response import verbose_raise_for_status
 from .comment import CommentsController
 from .example import DocumentsController, ExamplesController
 from .label import LabelsController
+from .relation_type import RelationTypesController
+from .span_type import SpanTypesController
 
 
 @dataclass
@@ -43,6 +46,46 @@ class ProjectController:
         """Return a CommentsController mapped to this project"""
         return CommentsController(self.project_url, self.client_session)
 
+    @property
+    def span_types(self) -> SpanTypesController:
+        """Return a SpanTypesController mapped to this project"""
+        return SpanTypesController(self.project_url, self.client_session)
+
+    @property
+    def relation_types(self) -> RelationTypesController:
+        """Return a RelationTypesController mapped to this project"""
+        return RelationTypesController(self.project_url, self.client_session)
+
+    def download(self, api_url: str, only_approved: bool = True) -> Iterable[Any]:
+        """Trigger a download of all approved and labelled texts in jsonl format. It's zipped"""
+
+        download_json = {"exportApproved": only_approved, "format": "JSONL"}
+        responseCreateExportTask = self.client_session.post(
+            f"{self.projects_url}/{self.id}/download", json=download_json
+        )
+        id_task = responseCreateExportTask.json()["task_id"]
+        print("created export task: " + str(id_task))
+
+        export_file = ""
+        waitLoop = 0
+        while waitLoop <= 300:
+            waitLoop += 1
+            responseTaskStatus = self.client_session.get(f"{api_url}/tasks/status/{id_task}")
+            statusResult = responseTaskStatus.json()
+            if statusResult["ready"] is True:
+                export_file = statusResult["result"]
+                break
+            else:
+                print(f"wait for export file: {waitLoop}sec.")
+                time.sleep(1)
+
+        print("export file: " + export_file)
+        with self.client_session.get(
+            f"{self.projects_url}/{self.id}/download?taskId={id_task}", stream=True
+        ) as r:
+            r.raise_for_status()
+            yield from r.iter_content(chunk_size=65536)
+
 
 class ProjectsController:
     """Controls the retrieval of individual ProjectControllers"""
@@ -75,24 +118,33 @@ class ProjectsController:
     def all(self) -> Iterable[ProjectController]:
         """Return a sequence of projects for a given controller, assigned to the user"""
         response = self.client_session.get(self.projects_url)
-        verbose_raise_for_status(response)
-        project_dicts = response.json()
-        project_obj_fields = set(  # Only use fields that are part of the init, skips resourcetype
-            proj_field.name for proj_field in fields(Project) if proj_field.init
-        )
 
-        for project_dict in project_dicts:
-            # Sanitize project_dict before converting to Project
-            sanitized_project_dict = {
-                proj_key: project_dict[proj_key] for proj_key in project_obj_fields
-            }
-
-            yield ProjectController(
-                project=Project(**sanitized_project_dict),
-                id=project_dict["id"],
-                projects_url=self.projects_url,
-                client_session=self.client_session,
+        while True:
+            verbose_raise_for_status(response)
+            project_dicts = response.json()
+            project_obj_fields = (
+                set(  # Only use fields that are part of the init, skips resourcetype
+                    proj_field.name for proj_field in fields(Project) if proj_field.init
+                )
             )
+
+            for project_dict in project_dicts["results"]:
+                # Sanitize project_dict before converting to Project
+                sanitized_project_dict = {
+                    proj_key: project_dict[proj_key] for proj_key in project_obj_fields
+                }
+
+                yield ProjectController(
+                    project=Project(**sanitized_project_dict),
+                    id=project_dict["id"],
+                    projects_url=self.projects_url,
+                    client_session=self.client_session,
+                )
+
+            if project_dicts["next"] is None:
+                break
+            else:
+                response = self.client_session.get(project_dicts["next"])
 
     def create(self, project: Project) -> ProjectController:
         """Create a new Doccano project, assign session variables to ProjectController, return it"""

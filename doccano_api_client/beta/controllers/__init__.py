@@ -8,6 +8,8 @@ from .example import (
 )
 from .label import LabelController, LabelsController
 from .project import ProjectController, ProjectsController
+from .relation_type import RelationTypeController, RelationTypesController
+from .span_type import SpanTypeController, SpanTypesController
 
 __all__ = [
     "AnnotationController",
@@ -24,4 +26,8 @@ __all__ = [
     "LabelsController",
     "ProjectController",
     "ProjectsController",
+    "SpanTypeController",
+    "SpanTypesController",
+    "RelationTypeController",
+    "RelationTypesController",
 ]

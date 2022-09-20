@@ -4,9 +4,8 @@ import responses
 from requests import Session
 
 from ...controllers import ExampleController, ExamplesController
-from ...models import CategoryAnnotation, Example, Project, ProjectTypes, SpanAnnotation
+from ...models import Example, Project, ProjectTypes
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import annotations as annotation_mocks
 from .mock_api_responses import bad
 from .mock_api_responses import examples as mocks
 
@@ -49,45 +48,6 @@ class ExamplesControllerTest(TestCase):
         )
 
     @responses.activate
-    def test_rejects_incorrect_annotation_type(self) -> None:
-        """Only annotations of the appropriate type should be allowed."""
-        responses.add(bad.bad_post_response)
-        with self.assertRaises(DoccanoAPIError):
-            annotation = SpanAnnotation(label=1, prob=1.0, start_offset=0, end_offset=10)
-            example = Example(text="blablabla", annotations=[annotation])
-            self.examples_controller.create(example)
-
-    @responses.activate
-    def test_create_annotations(self) -> None:
-        responses.add(annotation_mocks.annotation_create_response)
-        responses.add(annotation_mocks.annotations_get_response)
-        annotation = CategoryAnnotation(label=23, prob=0)
-        example = Example(text="blablabla", annotations=[annotation])
-        example_controller = self.examples_controller.create(example)
-
-        # Client should choose the correct annotation serializer for creation given the project type
-        self.assertTrue(
-            isinstance(list(example_controller.annotations.all())[1].annotation, CategoryAnnotation)
-        )
-
-        # created_annotation = cast(CategoryAnnotation, annotation_controller.annotation)
-        self.assertEqual(
-            list(example_controller.annotations.all())[1].id,
-            annotation_mocks.annotation_create_json["id"],
-        )
-        self.assertEqual(
-            list(example_controller.annotations.all())[1].annotation.label,
-            annotation_mocks.annotation_create_json["label"],
-        )
-
-    @responses.activate
-    def test_create_annotations_with_bad_response(self) -> None:
-        responses.add(bad.bad_post_response)
-        with self.assertRaises(DoccanoAPIError):
-            example = Example(text="blablabla", annotations=[CategoryAnnotation(label=1, prob=0)])
-            self.examples_controller.create(example)
-
-    @responses.activate
     def test_count_empty(self):
         responses.add(mocks.examples_get_empty_response)
         examples_count = self.examples_controller.count()
@@ -115,8 +75,9 @@ class ExamplesControllerTest(TestCase):
         total_examples = 0
         expected_example_id_dict = {
             example_json["id"]: example_json
-            for example_json in mocks.examples_get_json["results"]
-            + mocks.examples_get_json_second_page["results"]
+            for example_json in (
+                mocks.examples_get_json["results"] + mocks.examples_get_json_second_page["results"]
+            )
         }
         for example_controller in example_controllers:
             self.assertIn(example_controller.id, expected_example_id_dict)

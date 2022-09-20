@@ -45,6 +45,10 @@ class Project(DataClassJsonMixin):
     guideline: str = "Please write annotation guideline."
     random_order: bool = False
     collaborative_annotation: bool = False
+    single_class_classification: bool = False
+    allow_overlapping: bool = False
+    grapheme_mode: bool = False
+    use_relation: bool = False
 
     def __post_init__(self) -> None:
         """Propogates resourcetype field based on project_type field, needed for project creation"""

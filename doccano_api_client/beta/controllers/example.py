@@ -6,8 +6,9 @@ from requests import Session
 from ..models.examples import Example
 from ..models.projects import Project
 from ..utils.response import verbose_raise_for_status
-from .annotation import AnnotationsController
 from .comment import CommentsController
+from .relation import RelationsController
+from .span import SpansController
 
 EXAMPLES_PER_PAGE_LIMIT = 10
 
@@ -33,9 +34,14 @@ class ExampleController:
         return CommentsController(self.example_url, self.client_session)
 
     @property
-    def annotations(self) -> AnnotationsController:
-        """Return an AnnotationsController mapped to this example"""
-        return AnnotationsController(self.id, self.project, self.example_url, self.client_session)
+    def spans(self) -> SpansController:
+        """Return an SpanController mapped to this example"""
+        return SpansController(self.id, self.project, self.example_url, self.client_session)
+
+    @property
+    def relations(self) -> RelationsController:
+        """Return an RelationController mapped to this example"""
+        return RelationsController(self.id, self.project, self.example_url, self.client_session)
 
 
 class ExamplesController:
@@ -88,27 +94,16 @@ class ExamplesController:
             client_session=self.client_session,
         )
 
-    def all(self) -> Iterable[ExampleController]:
+    def all(self, confirmed=None) -> Iterable[ExampleController]:
         """Return a sequence of Examples for a given controller, which maps to a Project"""
-        example_obj_fields = set(example_field.name for example_field in fields(Example))
-        # Examples are paginated in Doccano's API, so handle pagination with yields
-        page_index = 0
-        example_dicts = self._get_examples_response_from_api(page_index=page_index)["results"]
+        response = self.client_session.get(f"{self.examples_url}?confirmed={confirmed}")
 
-        # When there are no more examples to paginate through, "results" recieved will be empty
-        # NOTE: The Doccano pagination API responses also have "next" field that can be used to
-        #       query the next page url. The problem is, this is returning urls with "http"
-        #       as the protocol even when the host is https, so we use this method for
-        #       pagination instead
-        #       This still works deterministically because on the API side, the example list
-        #       view/api endpoint is explicitly ordered. For non-randomized example order, it's
-        #       it's ordered by ID. For randomized order, it's ordered randomly but with a fixed
-        #       seed (the requesting user's id).
-        while len(example_dicts) != 0:
-            # Given a single page, iterate through the dicts on that page
-            for example_dict in example_dicts:
-                # TODO (louis): make a Example.from_json() method to handle this. Also, do this
-                #               for all other models
+        while True:
+            verbose_raise_for_status(response)
+            example_dicts = response.json()
+            example_obj_fields = set(example_field.name for example_field in fields(Example))
+
+            for example_dict in example_dicts["results"]:
                 # Sanitize example_dict before converting to Example
                 sanitized_example_dict = {
                     example_key: example_dict[example_key] for example_key in example_obj_fields
@@ -122,8 +117,10 @@ class ExamplesController:
                     client_session=self.client_session,
                 )
 
-            page_index += 1
-            example_dicts = self._get_examples_response_from_api(page_index=page_index)["results"]
+            if example_dicts["next"] is None:
+                break
+            else:
+                response = self.client_session.get(example_dicts["next"])
 
     def create(self, example: Example) -> ExampleController:
         """Upload new example for Doccano project, return the generated controller
