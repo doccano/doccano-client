@@ -6,7 +6,7 @@
 
 	```bash
 	git clone git@github.com:<your Github handle>/doccano-client.git
-	cd auto-labeling-client
+	cd doccano-client
 	git remote add upstream https://github.com/doccano/doccano-client.git
 	```
 
@@ -21,7 +21,8 @@
 4. Set up a development environment by running the following command in a virtual environment:
 
 	```bash
-	pipenv install --dev
+	poetry install
+	poetry shell
 	```
 
 5. Develop the features on your branch.
@@ -29,8 +30,10 @@
 6. Format your code. Run flake8 and isort so that your newly added files look nice with the following command:
 
 	```bash
-	pipenv run flake8
-	pipenv run isort
+	poetry run task flake8
+	poetry run task black
+	poetry run task isort
+	poetry run task test
 	```
 
 7. Once you're happy with your script file, add your changes and make a commit to record your changes locally:
