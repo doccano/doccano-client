@@ -877,6 +877,7 @@ class DoccanoClient(_Router):
         delimiter: str = "",
         encoding: str = "utf_8",
         format: str = "JSONL",
+        task: str = "SequenceLabeling",
     ) -> requests.models.Response:
         """Upload documents to doccano
 
@@ -888,6 +889,7 @@ class DoccanoClient(_Router):
             delimiter (str): Delimeter for the current dataset
             encoding (str): Current file encoding
             format (str): The file format, ex: `plain`, `json`, or `conll`.
+            task (str): task type, ex. `SequenceLabeling`, `TextClassification`
 
         Returns:
             requests.models.Response: The request response.
@@ -942,6 +944,7 @@ class DoccanoClient(_Router):
         delimiter: str = "",
         encoding: str = "utf_8",
         format: str = "JSONL",
+        task: str = "SequenceLabeling",
     ) -> requests.models.Response:
         """Uploads a file to a Doccano project.
 
@@ -954,6 +957,7 @@ class DoccanoClient(_Router):
             delimiter (str): Delimeter for the current dataset
             encoding (str): Current file encoding
             format (str): The file format, ex: `plain`, `json`, or `conll`.
+            task (str): task type, ex. `SequenceLabeling`, `TextClassification`
 
         Returns:
             requests.models.Response: The request response.
@@ -966,6 +970,7 @@ class DoccanoClient(_Router):
             delimiter=delimiter,
             encoding=encoding,
             format=format,
+            task=task,
         )
 
     def post_members(
