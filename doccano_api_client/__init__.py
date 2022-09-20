@@ -918,6 +918,8 @@ class DoccanoClient(_Router):
                     )
                 raise e
 
+        task = self.get_project_detail(project_id=project_id).get("project_type")
+
         # confirm uploads and run processing
         upload_data = {
             "column_data": column_data,
@@ -926,6 +928,7 @@ class DoccanoClient(_Router):
             "encoding": encoding,
             "format": format,
             "uploadIds": upload_ids,
+            "task": task,
         }
         return self.post(f"v1/projects/{project_id}/upload", json=upload_data)
 
