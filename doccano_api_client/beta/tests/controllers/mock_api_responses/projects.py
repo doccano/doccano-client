@@ -257,9 +257,7 @@ project_get_json = {
 }
 
 # Used for creating the labels and examples valid mock urls in their respective modules
-valid_project_ids_regex_insert = (
-    "(" + "|".join([str(project["id"]) for project in projects_get_json["results"]]) + ")"
-)
+valid_project_ids_regex_insert = "(" + "|".join([str(project["id"]) for project in projects_get_json["results"]]) + ")"
 
 projects_get_empty_response = responses.Response(
     method="GET", url=re.compile(".*/v1/projects"), json=projects_get_empty_json, status=200

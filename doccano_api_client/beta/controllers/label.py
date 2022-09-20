@@ -130,9 +130,7 @@ class LabelsController:
 
         for label_dict in label_dicts:
             # Sanitize label_dict before converting to Label
-            sanitized_label_dict = {
-                label_key: label_dict[label_key] for label_key in label_object_fields
-            }
+            sanitized_label_dict = {label_key: label_dict[label_key] for label_key in label_object_fields}
 
             yield LabelController(
                 label=Label(**sanitized_label_dict),
@@ -181,9 +179,7 @@ class LabelsController:
         for label_controller in label_controllers:
             label_json = asdict(label_controller.label)
             label_json = {
-                label_key: label_value
-                for label_key, label_value in label_json.items()
-                if label_value is not None
+                label_key: label_value for label_key, label_value in label_json.items() if label_value is not None
             }
             label_json["id"] = label_controller.id
 

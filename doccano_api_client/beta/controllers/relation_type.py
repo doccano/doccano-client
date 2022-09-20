@@ -46,9 +46,7 @@ class RelationTypesController:
 
         for label_dict in label_dicts:
             # Sanitize label_dict before converting to Label
-            sanitized_label_dict = {
-                label_key: label_dict[label_key] for label_key in label_object_fields
-            }
+            sanitized_label_dict = {label_key: label_dict[label_key] for label_key in label_object_fields}
 
             yield RelationTypeController(
                 relation_type=RelationType(**sanitized_label_dict),
@@ -77,9 +75,7 @@ class RelationTypesController:
         for label_controller in relation_type_controllers:
             label_json = asdict(label_controller.label)
             label_json = {
-                label_key: label_value
-                for label_key, label_value in label_json.items()
-                if label_value is not None
+                label_key: label_value for label_key, label_value in label_json.items() if label_value is not None
             }
             label_json["id"] = label_controller.id
 

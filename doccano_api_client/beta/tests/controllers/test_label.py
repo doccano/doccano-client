@@ -132,9 +132,7 @@ class LabelsControllerTest(TestCase):
         self.labels_controller = LabelsController("http://my_labels_url/v1/projects/23", Session())
 
     def test_controller_urls(self):
-        self.assertEqual(
-            self.labels_controller.labels_url, "http://my_labels_url/v1/projects/23/labels"
-        )
+        self.assertEqual(self.labels_controller.labels_url, "http://my_labels_url/v1/projects/23/labels")
 
     @responses.activate
     def test_all_with_no_labels(self):
@@ -148,14 +146,10 @@ class LabelsControllerTest(TestCase):
         label_controllers = self.labels_controller.all()
 
         total_labels = 0
-        expected_label_id_dict = {
-            label_json["id"]: label_json for label_json in mocks.labels_get_json
-        }
+        expected_label_id_dict = {label_json["id"]: label_json for label_json in mocks.labels_get_json}
         for label_controller in label_controllers:
             self.assertIn(label_controller.id, expected_label_id_dict)
-            self.assertEqual(
-                label_controller.label.text, expected_label_id_dict[label_controller.id]["text"]
-            )
+            self.assertEqual(label_controller.label.text, expected_label_id_dict[label_controller.id]["text"])
             self.assertEqual(
                 label_controller.label.suffix_key,
                 expected_label_id_dict[label_controller.id]["suffix_key"],
@@ -198,12 +192,8 @@ class LabelsControllerTest(TestCase):
 
         next_color_cyle_index = 0
         for label_controller in label_controllers:
-            self.assertEqual(
-                label_controller.label.suffix_key, label_controller.label.text.lower()[0]
-            )
-            self.assertEqual(
-                label_controller.label.background_color, LABEL_COLOR_CYCLE[next_color_cyle_index]
-            )
+            self.assertEqual(label_controller.label.suffix_key, label_controller.label.text.lower()[0])
+            self.assertEqual(label_controller.label.background_color, LABEL_COLOR_CYCLE[next_color_cyle_index])
 
             next_color_cyle_index += 1
 

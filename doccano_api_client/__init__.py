@@ -136,10 +136,7 @@ class _Router:
             [
                 "?",
                 "&".join(
-                    [
-                        "&".join(["=".join([tup[0], str(value)]) for value in tup[1]])
-                        for tup in url_parameter.items()
-                    ]
+                    ["&".join(["=".join([tup[0], str(value)]) for value in tup[1]]) for tup in url_parameter.items()]
                 ),
             ]
         )
@@ -216,11 +213,7 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get(
-            "v1/projects{url_parameters}".format(
-                url_parameters=self.build_url_parameter(url_parameters)
-            )
-        )
+        return self.get("v1/projects{url_parameters}".format(url_parameters=self.build_url_parameter(url_parameters)))
 
     def create_project(
         self,
@@ -431,9 +424,7 @@ class DoccanoClient(_Router):
         }
         return self.update(url, data=label_payload)
 
-    def create_span(
-        self, project_id: int, example_id: int, label_id: int, **kwargs
-    ) -> requests.models.Response:
+    def create_span(self, project_id: int, example_id: int, label_id: int, **kwargs) -> requests.models.Response:
         """Creates a span to a given example.
 
         Variable keyword arguments \*\*kwargs give support to doccano
@@ -493,9 +484,7 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get(
-            "v1/projects/{project_id}/metrics/member-progress".format(project_id=project_id)
-        )
+        return self.get("v1/projects/{project_id}/metrics/member-progress".format(project_id=project_id))
 
     def get_metrics_span_distribution(self, project_id: int) -> requests.models.Response:
         """Gets project span_distribution metrics.
@@ -506,9 +495,7 @@ class DoccanoClient(_Router):
         Returns:
             requests.models.Response: The request response.
         """
-        return self.get(
-            "v1/projects/{project_id}/metrics/span-distribution".format(project_id=project_id)
-        )
+        return self.get("v1/projects/{project_id}/metrics/span-distribution".format(project_id=project_id))
 
     def get_span_type_list(self, project_id: int) -> requests.models.Response:
         """Gets a list of span_types in a given project.
@@ -567,9 +554,7 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/examples/{example_id}".format(
-                project_id=project_id, example_id=example_id
-            )
+            "v1/projects/{project_id}/examples/{example_id}".format(project_id=project_id, example_id=example_id)
         )
 
     def get_spans(self, project_id: int, example_id: int) -> requests.models.Response:
@@ -583,14 +568,10 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/examples/{example_id}/spans".format(
-                project_id=project_id, example_id=example_id
-            )
+            "v1/projects/{project_id}/examples/{example_id}/spans".format(project_id=project_id, example_id=example_id)
         )
 
-    def get_span_detail(
-        self, project_id: int, example_id: int, span_id: int
-    ) -> requests.models.Response:
+    def get_span_detail(self, project_id: int, example_id: int, span_id: int) -> requests.models.Response:
         """Gets a span.
 
         Args:
@@ -618,9 +599,7 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/category-types".format(project_id=project_id))
 
-    def get_category_type_detail(
-        self, project_id: int, category_type_id: int
-    ) -> requests.models.Response:
+    def get_category_type_detail(self, project_id: int, category_type_id: int) -> requests.models.Response:
         """Gets details of a specific category type.
 
         Args:
@@ -721,9 +700,7 @@ class DoccanoClient(_Router):
         """
         return self.get("v1/projects/{project_id}/relation-types".format(project_id=project_id))
 
-    def get_relation_type_detail(
-        self, project_id: int, relation_type_id: int
-    ) -> requests.models.Response:
+    def get_relation_type_detail(self, project_id: int, relation_type_id: int) -> requests.models.Response:
         """Gets details of a specific relation type.
 
         Args:
@@ -824,9 +801,7 @@ class DoccanoClient(_Router):
             requests.models.Response: The request response.
         """
         return self.get(
-            "v1/projects/{project_id}/examples/{example_id}/states".format(
-                project_id=project_id, example_id=example_id
-            )
+            "v1/projects/{project_id}/examples/{example_id}/states".format(project_id=project_id, example_id=example_id)
         )
 
     def get_doc_download(
@@ -915,9 +890,7 @@ class DoccanoClient(_Router):
             except Exception as e:
                 # revert previous uploads if we have a problem
                 for upload_id in upload_ids:
-                    self.delete(
-                        "v1/fp/revert/", data=upload_id, headers={"Content-Type": "text/plain"}
-                    )
+                    self.delete("v1/fp/revert/", data=upload_id, headers={"Content-Type": "text/plain"})
                 raise e
 
         task = self.get_project_detail(project_id=project_id).get("project_type")
@@ -1008,9 +981,7 @@ class DoccanoClient(_Router):
 
         return arr_response
 
-    def post_span_type_upload(
-        self, project_id: int, file_name: str, file_path: str = "./"
-    ) -> requests.models.Response:
+    def post_span_type_upload(self, project_id: int, file_name: str, file_path: str = "./") -> requests.models.Response:
         """Uploads a span_type file to a Doccano project.
 
         Args:

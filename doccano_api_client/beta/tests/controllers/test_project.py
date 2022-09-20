@@ -80,9 +80,7 @@ class ProjectsControllerTest(TestCase):
         project_controllers = self.projects_controller.all()
 
         total_projects = 0
-        expected_project_id_dict = {
-            proj_json["id"]: proj_json for proj_json in mocks.projects_get_json["results"]
-        }
+        expected_project_id_dict = {proj_json["id"]: proj_json for proj_json in mocks.projects_get_json["results"]}
         for project_controller in project_controllers:
             self.assertIn(project_controller.id, expected_project_id_dict)
             self.assertEqual(
@@ -93,9 +91,7 @@ class ProjectsControllerTest(TestCase):
                 project_controller.project.description,
                 expected_project_id_dict[project_controller.id]["description"],
             )
-            self.assertIs(
-                project_controller.client_session, self.projects_controller.client_session
-            )
+            self.assertIs(project_controller.client_session, self.projects_controller.client_session)
             total_projects += 1
 
         self.assertEqual(total_projects, len(mocks.projects_get_json["results"]))
@@ -128,9 +124,5 @@ class ProjectsControllerTest(TestCase):
         project_controller = self.projects_controller.get(project_id)
 
         self.assertEqual(project_controller.id, project_id)
-        self.assertEqual(
-            project_controller.project_url, f"http://my_api_url/v1/projects/{project_id}"
-        )
-        self.assertEqual(
-            project_controller.project.project_type, mocks.project_get_json["project_type"]
-        )
+        self.assertEqual(project_controller.project_url, f"http://my_api_url/v1/projects/{project_id}")
+        self.assertEqual(project_controller.project.project_type, mocks.project_get_json["project_type"])

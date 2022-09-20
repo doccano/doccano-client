@@ -59,9 +59,7 @@ class CommentsController:
 
         for comment_dict in comment_dicts:
             # Sanitize comment_dict before converting to Comment
-            sanitized_comment_dict = {
-                comment_key: comment_dict[comment_key] for comment_key in comment_obj_fields
-            }
+            sanitized_comment_dict = {comment_key: comment_dict[comment_key] for comment_key in comment_obj_fields}
 
             yield CommentController(
                 comment=Comment(**sanitized_comment_dict),
