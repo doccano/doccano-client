@@ -23,13 +23,9 @@ comments_get_json = [
     },
 ]
 
-comments_regex = (
-    rf".*/v1/projects/{projects.valid_project_ids_regex_insert}/(examples/\d+/)*comments"
-)
+comments_regex = rf".*/v1/projects/{projects.valid_project_ids_regex_insert}/(examples/\d+/)*comments"
 
-comments_get_empty_response = responses.Response(
-    method="GET", url=re.compile(comments_regex), json=[], status=200
-)
+comments_get_empty_response = responses.Response(method="GET", url=re.compile(comments_regex), json=[], status=200)
 
 comments_get_response = responses.Response(
     method="GET", url=re.compile(comments_regex), json=comments_get_json, status=200

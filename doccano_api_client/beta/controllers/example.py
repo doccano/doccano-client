@@ -70,9 +70,7 @@ class ExamplesController:
         Returns:
             json response from API call to Doccano instance
         """
-        response = self.client_session.get(
-            self.examples_url, params={"limit": limit, "offset": page_index * limit}
-        )
+        response = self.client_session.get(self.examples_url, params={"limit": limit, "offset": page_index * limit})
         verbose_raise_for_status(response)
         return response.json()
 
@@ -105,9 +103,7 @@ class ExamplesController:
 
             for example_dict in example_dicts["results"]:
                 # Sanitize example_dict before converting to Example
-                sanitized_example_dict = {
-                    example_key: example_dict[example_key] for example_key in example_obj_fields
-                }
+                sanitized_example_dict = {example_key: example_dict[example_key] for example_key in example_obj_fields}
 
                 yield ExampleController(
                     example=Example(**sanitized_example_dict),
@@ -134,9 +130,7 @@ class ExamplesController:
         """
         importable_keys = ["text", "meta"]
         example_as_dict = asdict(example)
-        example_json = {
-            importable_key: example_as_dict[importable_key] for importable_key in importable_keys
-        }
+        example_json = {importable_key: example_as_dict[importable_key] for importable_key in importable_keys}
 
         response = self.client_session.post(self.examples_url, json=example_json)
         verbose_raise_for_status(response)

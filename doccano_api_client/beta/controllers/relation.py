@@ -21,9 +21,7 @@ class RelationController:
 class RelationsController:
     """Controls the creation and retrieval of individual annotations for an example."""
 
-    def __init__(
-        self, example_id: int, project: Project, example_url: str, client_session: Session
-    ):
+    def __init__(self, example_id: int, project: Project, example_url: str, client_session: Session):
         """Initializes a RelationsController instance
 
         Args:

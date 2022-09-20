@@ -32,14 +32,10 @@ class DoccanoClient:
 
     def login(self, username: str, password: str) -> None:
         """Login to a session with the Doccano instance related to the base url"""
-        response = self.client_session.post(
-            self.login_url, json={"username": username, "password": password}
-        )
+        response = self.client_session.post(self.login_url, json={"username": username, "password": password})
         # TODO: do we want to do anything with the return value token in the future?
         verbose_raise_for_status(response)
-        self.client_session.headers.update(
-            {"X-CSRFToken": self.client_session.cookies.get("csrftoken")}
-        )
+        self.client_session.headers.update({"X-CSRFToken": self.client_session.cookies.get("csrftoken")})
 
     @property
     def projects(self) -> ProjectsController:

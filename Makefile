@@ -1,11 +1,7 @@
-install:
-	pip install --upgrade pip
-	pip install -e .
-
-develop: install
-	pip install -e ".[dev]"
-	python setup.py develop
-	pre-commit install
-
 lint:
-	flake8 setup.py doccano_api_client --count --statistics
+	poetry run task flake8
+	poetry run task black
+	poetry run task isort
+
+test:
+	poetry run task test

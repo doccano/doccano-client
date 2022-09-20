@@ -34,13 +34,9 @@ label_create_json = {
 
 labels_regex = f".*/v1/projects/{projects.valid_project_ids_regex_insert}/labels"
 
-labels_get_empty_response = responses.Response(
-    method="GET", url=re.compile(labels_regex), json=[], status=200
-)
+labels_get_empty_response = responses.Response(method="GET", url=re.compile(labels_regex), json=[], status=200)
 
-labels_get_response = responses.Response(
-    method="GET", url=re.compile(labels_regex), json=labels_get_json, status=200
-)
+labels_get_response = responses.Response(method="GET", url=re.compile(labels_regex), json=labels_get_json, status=200)
 
 label_create_response = projects_get_updated_response = responses.Response(
     method="POST",

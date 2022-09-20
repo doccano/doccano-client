@@ -80,9 +80,7 @@ class ProjectController:
                 time.sleep(1)
 
         print("export file: " + export_file)
-        with self.client_session.get(
-            f"{self.projects_url}/{self.id}/download?taskId={id_task}", stream=True
-        ) as r:
+        with self.client_session.get(f"{self.projects_url}/{self.id}/download?taskId={id_task}", stream=True) as r:
             r.raise_for_status()
             yield from r.iter_content(chunk_size=65536)
 
@@ -122,17 +120,13 @@ class ProjectsController:
         while True:
             verbose_raise_for_status(response)
             project_dicts = response.json()
-            project_obj_fields = (
-                set(  # Only use fields that are part of the init, skips resourcetype
-                    proj_field.name for proj_field in fields(Project) if proj_field.init
-                )
+            project_obj_fields = set(  # Only use fields that are part of the init, skips resourcetype
+                proj_field.name for proj_field in fields(Project) if proj_field.init
             )
 
             for project_dict in project_dicts["results"]:
                 # Sanitize project_dict before converting to Project
-                sanitized_project_dict = {
-                    proj_key: project_dict[proj_key] for proj_key in project_obj_fields
-                }
+                sanitized_project_dict = {proj_key: project_dict[proj_key] for proj_key in project_obj_fields}
 
                 yield ProjectController(
                     project=Project(**sanitized_project_dict),
