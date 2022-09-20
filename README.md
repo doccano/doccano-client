@@ -45,6 +45,11 @@ label_text = doccano_client.get_label_detail(1, 3)['text']
 r_json_upload = doccano_client.post_doc_upload(1, 'json', 'file.json', '/path/to/file/without/filename/')
 ```
 
+Info: Uploading documents has been reported as broken, but it works with the beta-client (see below)
+- [#16](https://github.com/doccano/doccano-client/issues/16)
+- [#13](https://github.com/doccano/doccano-client/issues/13)
+- [#50](https://github.com/doccano/doccano-client/issues/50)
+
 ## Completion
 
 This wrapper's methods are based on doccano url [paths](https://github.com/chakki-works/doccano/blob/master/app/api/urls.py).
