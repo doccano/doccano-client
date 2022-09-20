@@ -36,6 +36,13 @@
 	poetry run task test
 	```
 
+	Or use the following command:
+
+	```bash
+	make lint
+	make test
+	```
+
 7. Once you're happy with your script file, add your changes and make a commit to record your changes locally:
 
 	```bash
