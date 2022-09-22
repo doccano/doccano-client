@@ -50,6 +50,8 @@ class LabelMapper:
         self.type_to_id = type_to_id
 
     def load(self, filepath, encoding) -> dict[str, str]:
+        if not filepath:
+            return {}
         with open(filepath, encoding=encoding) as f:
             mapping = json.load(f)
             if isinstance(mapping, dict):
@@ -66,7 +68,7 @@ class LabelMapper:
                 label=self.type_to_id[entity.label],
                 prob=0,
             )
-        raise ValueError(f"Label {entity.label} is not defined in the project.")
+        # raise ValueError(f"Label {entity.label} is not defined in the project.")
 
 
 def command_login(args) -> DoccanoClient:
@@ -108,7 +110,7 @@ def command_predict(args):
     total = project.examples.count()
     for example in tqdm(project.examples.all(), total=total):
         entities = predictor.predict(example.example.text)
-        spans = map(mapper.map, entities)
+        spans = filter(None, map(mapper.map, entities))
         for span in spans:
             example.spans.create(span)
 
