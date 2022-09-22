@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from typing import Iterator, TypedDict
 
+from tqdm import tqdm
+
 from doccano_api_client.beta import DoccanoClient
 from doccano_api_client.beta.models.span import Span
 
@@ -96,7 +98,8 @@ def command_predict(args):
     mapper = LabelMapper(args.mapping, type_to_id)
 
     # predict label and post it.
-    for example in project.examples.all():
+    total = project.examples.count()
+    for example in tqdm(project.examples.all(), total=total):
         entities = predictor.predict(example.example.text)
         spans = map(mapper.map, entities)
         for span in spans:

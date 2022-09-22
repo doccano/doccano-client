@@ -35,9 +35,10 @@ pyproject-flake8 = "^5.0.4"
 taskipy = "^1.10.3"
 spacy = "^3.4.1"
 spacy-partial-tagger = "^0.9.1"
+tqdm = "^4.64.1"
 
 [tool.poetry.extras]
-spacy = ["spacy", "spacy-partial-tagger"]
+spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

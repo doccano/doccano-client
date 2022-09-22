@@ -967,7 +967,7 @@ spacy = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "c26646b6b8538c0b0a8bf771a3093606841491ea8f68f93212a6dc94d97400a9"
+content-hash = "5a758cd015c9a078ebdfd4885680bd4d33da6abe1f57b83e6f0c87c244465dc2"
 
 [metadata.files]
 attrs = []
