@@ -5,7 +5,7 @@ import json
 import os
 import sys
 from pathlib import Path
-from typing import Iterator, TypedDict
+from typing import Iterator
 
 from tqdm import tqdm
 
@@ -19,13 +19,20 @@ sys.path.append(base)
 parser = argparse.ArgumentParser(description="doccano CLI.")
 
 
-class Entity(TypedDict):
-    start_char: int
-    end_char: int
-    label: str
+class Entity:
+    def __init__(self, start_char: int, end_char: int, label: str):
+        if start_char < 0 or end_char < 0:
+            raise ValueError("The offset must be greater than or equal to 0")
+        if start_char >= end_char:
+            raise ValueError("The start offset must be less than the end offset")
+        if label == "":
+            raise ValueError("The label text must not be empty text.")
+        self.start_char = start_char
+        self.end_char = end_char
+        self.label = label
 
 
-class SpaCyPredictor:
+class SpaCyEntityPredictor:
     def __init__(self, model: str):
         import spacy
 
@@ -50,16 +57,16 @@ class LabelMapper:
             raise ValueError("Mapping should be dictionary.")
 
     def map(self, entity: Entity) -> Span:
-        if entity["label"] in self.mapping:
-            entity["label"] = self.mapping[entity["label"]]
-        if entity["label"] in self.type_to_id:
+        if entity.label in self.mapping:
+            entity.label = self.mapping[entity.label]
+        if entity.label in self.type_to_id:
             return Span(
-                start_offset=entity["start_char"],
-                end_offset=entity["end_char"],
-                label=self.type_to_id[entity["label"]],
+                start_offset=entity.start_char,
+                end_offset=entity.end_char,
+                label=self.type_to_id[entity.label],
                 prob=0,
             )
-        raise ValueError(f"Label {entity['label']} is not defined in the project.")
+        raise ValueError(f"Label {entity.label} is not defined in the project.")
 
 
 def command_login(args) -> DoccanoClient:
@@ -92,10 +99,10 @@ def command_predict(args):
     # prepare label types
     span_types = project.span_types.all()
     type_to_id = {span_type.span_type.text: span_type.id for span_type in span_types}
+    mapper = LabelMapper(args.mapping, type_to_id)
 
     # prepare the predictor.
-    predictor = SpaCyPredictor(args.model)
-    mapper = LabelMapper(args.mapping, type_to_id)
+    predictor = SpaCyEntityPredictor(args.model)
 
     # predict label and post it.
     total = project.examples.count()
