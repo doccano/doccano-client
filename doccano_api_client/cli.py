@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import Iterator, TypedDict
 
 from doccano_api_client.beta import DoccanoClient
-from doccano_api_client.beta.controllers import ProjectsController
 from doccano_api_client.beta.models.span import Span
 
 DOCCANO_HOME = os.path.expanduser(os.environ.get("DOCCANO_HOME", "~/doccano"))
@@ -62,16 +61,30 @@ class LabelMapper:
 
 
 def command_login(args) -> DoccanoClient:
-    client = DoccanoClient(args.host)
-    client.login(args.username, args.password)
-    return client
+    credentials_path = Path(DOCCANO_HOME) / "credentials.json"
+
+    # If credentials are given as arguments, try to use them.
+    if args.host and args.username and args.password:
+        client = DoccanoClient(args.host)
+        client.login(args.username, args.password)
+        with credentials_path.open(mode="w", encoding="utf-8") as f:
+            credentials = {"host": args.host, "username": args.username, "password": args.password}
+            json.dump(credentials, f)
+        return client
+
+    # If credentials are not given, try to load from the file.
+    if credentials_path.exists():
+        credentials = json.load(credentials_path.open(encoding="utf-8"))
+        client = DoccanoClient(credentials["host"])
+        client.login(credentials["username"], credentials["password"])
+        return client
+    raise ValueError("Any credentials are not given.")
 
 
 def command_predict(args):
     # prepare the project.
     client = command_login(args)
-    projects = ProjectsController(client.api_url, client.client_session)
-    project = projects.get(project_id=args.project)
+    project = client.projects.get(project_id=args.project)
 
     # Todo: delegate function by the task.
     # prepare label types
