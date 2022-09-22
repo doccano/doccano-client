@@ -1,4 +1,4 @@
-from dataclasses import dataclass, fields
+from dataclasses import asdict, dataclass, fields
 from typing import Iterable
 
 from requests import Session
@@ -59,3 +59,26 @@ class SpansController:
                 spans_url=self.spans_url,
                 client_session=self.client_session,
             )
+
+    def create(self, span: Span) -> SpanController:
+        """Create a new span, return the generated controller
+
+        Args:
+            span: Span. The only fields that will be uploaded are text, annnotations, and meta.
+
+        Returns:
+            SpanController. The SpanController now wrapping around the newly created span.
+        """
+        span_json = asdict(span)
+
+        response = self.client_session.post(self.spans_url, json=span_json)
+        verbose_raise_for_status(response)
+        response_id = response.json()["id"]
+
+        return SpanController(
+            span=span,
+            project=self.project,
+            id=response_id,
+            spans_url=self.spans_url,
+            client_session=self.client_session,
+        )
