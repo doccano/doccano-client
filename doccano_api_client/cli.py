@@ -1,15 +1,17 @@
 from __future__ import annotations
 
+import abc
 import argparse
 import json
 import os
 import sys
 from pathlib import Path
-from typing import Iterator
+from typing import Iterable, Iterator
 
 from tqdm import tqdm
 
 from doccano_api_client.beta import DoccanoClient
+from doccano_api_client.beta.controllers.project import ProjectController
 from doccano_api_client.beta.models.span import Span
 
 DOCCANO_HOME = os.path.expanduser(os.environ.get("DOCCANO_HOME", "~/doccano"))
@@ -32,7 +34,7 @@ class Entity:
         self.label = label
 
 
-class SpaCyEntityPredictor:
+class SpaCyEntityEstimator:
     def __init__(self, model: str):
         import spacy
 
@@ -44,31 +46,16 @@ class SpaCyEntityPredictor:
             yield Entity(start_char=entity.start_char, end_char=entity.end_char, label=entity.label_)
 
 
-class LabelMapper:
-    def __init__(self, filepath: str, type_to_id: dict[str, int], encoding="utf-8"):
-        self.mapping = self.load(filepath, encoding)
-        self.type_to_id = type_to_id
-
-    def load(self, filepath, encoding) -> dict[str, str]:
-        if not filepath:
-            return {}
-        with open(filepath, encoding=encoding) as f:
-            mapping = json.load(f)
-            if isinstance(mapping, dict):
-                return mapping
-            raise ValueError("Mapping should be dictionary.")
-
-    def map(self, entity: Entity) -> Span:
-        if entity.label in self.mapping:
-            entity.label = self.mapping[entity.label]
-        if entity.label in self.type_to_id:
-            return Span(
-                start_offset=entity.start_char,
-                end_offset=entity.end_char,
-                label=self.type_to_id[entity.label],
-                prob=0,
-            )
-        # raise ValueError(f"Label {entity.label} is not defined in the project.")
+def load_mapping(filepath: str, encoding="utf-8") -> dict[str, str]:
+    with open(filepath, encoding=encoding) as f:
+        mapping = json.load(f)
+        if not isinstance(mapping, dict):
+            raise ValueError("Mapping must be dictionary.")
+        if all(isinstance(key, str) for key in mapping.keys()):
+            raise ValueError("Key must be string.")
+        if all(isinstance(value, str) for value in mapping.values()):
+            raise ValueError("Value must be string.")
+        return mapping
 
 
 def command_login(args) -> DoccanoClient:
@@ -92,27 +79,66 @@ def command_login(args) -> DoccanoClient:
     raise ValueError("Any credentials are not given.")
 
 
+class LabelAnnotator(abc.ABC):
+    def __init__(self, project: ProjectController, estimator):
+        self.project = project
+        self.estimator = estimator
+
+    def annotate(self, mapping):
+        raise NotImplementedError()
+
+
+class SpanAnnotator(LabelAnnotator):
+    def annotate(self, filename: str | None):
+        span_types = self.project.span_types.all()
+        type_to_id = {span_type.span_type.text: span_type.id for span_type in span_types}
+        mapping = load_mapping(filename) if filename else {}
+
+        # predict label and post it.
+        total = self.project.examples.count()
+        for example in tqdm(self.project.examples.all(), total=total):
+            entities = self.estimator.predict(example.example.text)
+            entities = self._convert_label_name(entities, mapping)
+            spans = self._convert_label_name_to_id(entities, type_to_id)
+            # Todo: bulk create
+            for span in spans:
+                example.spans.create(span)
+
+    def _convert_label_name(self, entities: list[Entity], mapping: dict[str, str]) -> Iterator[Entity]:
+        for entity in entities:
+            if entity.label in mapping:
+                entity.label = mapping[entity.label]
+            yield entity
+
+    def _convert_label_name_to_id(self, entities: Iterable[Entity], type_to_id: dict[str, int]) -> Iterator[Span]:
+        for entity in entities:
+            if entity.label in type_to_id:
+                yield Span(
+                    start_offset=entity.start_char,
+                    end_offset=entity.end_char,
+                    label=type_to_id[entity.label],
+                    prob=0,
+                )
+
+
+def select_estimator_class(task: str, framework: str):
+    if task == "ner" and framework == "spacy":
+        return SpaCyEntityEstimator
+    raise ValueError("There is no estimator.")
+
+
+def build_annotator(task: str, project: ProjectController, estimator) -> LabelAnnotator:
+    if task == "ner":
+        return SpanAnnotator(project, estimator)
+    raise ValueError("There is no annotator.")
+
+
 def command_predict(args):
-    # prepare the project.
     client = command_login(args)
     project = client.projects.get(project_id=args.project)
-
-    # Todo: delegate function by the task.
-    # prepare label types
-    span_types = project.span_types.all()
-    type_to_id = {span_type.span_type.text: span_type.id for span_type in span_types}
-    mapper = LabelMapper(args.mapping, type_to_id)
-
-    # prepare the predictor.
-    predictor = SpaCyEntityPredictor(args.model)
-
-    # predict label and post it.
-    total = project.examples.count()
-    for example in tqdm(project.examples.all(), total=total):
-        entities = predictor.predict(example.example.text)
-        spans = filter(None, map(mapper.map, entities))
-        for span in spans:
-            example.spans.create(span)
+    estimator = select_estimator_class(args.task, args.framework)(args.model)
+    annotator = build_annotator(args.task, project, estimator)
+    annotator.annotate(args.mapping)
 
 
 def command_help(args):
