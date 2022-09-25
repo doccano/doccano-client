@@ -62,7 +62,7 @@ def command_login(args) -> DoccanoClient:
     credentials_path = Path(DOCCANO_HOME) / "credentials.json"
 
     # If credentials are given as arguments, try to use them.
-    if args.host and args.username and args.password:
+    if "host" in args and "username" in args and "password" in args and args.host and args.username and args.password:
         client = DoccanoClient(args.host)
         client.login(args.username, args.password)
         with credentials_path.open(mode="w", encoding="utf-8") as f:
@@ -153,7 +153,7 @@ def main():
     parser_login = subparsers.add_parser("login", help="see `login -h`")
     parser_login.add_argument("--username", type=str, default="admin", help="username")
     parser_login.add_argument("--password", type=str, default="password", help="password")
-    parser_login.add_argument("--host", type=str, default="localhost:8000", help="host address")
+    parser_login.add_argument("--host", type=str, default="http://127.0.0.1:8000", help="host address")
     parser_login.set_defaults(handler=command_login)
 
     # Create a parser for web server.
