@@ -6,9 +6,9 @@ import os
 import sys
 from pathlib import Path
 
-from doccano_api_client.beta import DoccanoClient
-from doccano_api_client.cli.estimators import select_estimator_class
-from doccano_api_client.cli.usecases import build_annotator
+from doccano_client.beta import DoccanoClient
+from doccano_client.cli.estimators import select_estimator_class
+from doccano_client.cli.usecases import build_annotator
 
 DOCCANO_HOME = os.path.expanduser(os.environ.get("DOCCANO_HOME", "~/doccano"))
 Path(DOCCANO_HOME).mkdir(parents=True, exist_ok=True)
