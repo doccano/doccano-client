@@ -42,7 +42,11 @@ class RelationsController:
         return f"{self._example_url}/relations"
 
     def all(self) -> Iterable[RelationController]:
-        """Return a sequence of RelationControllers."""
+        """Return a sequence of RelationControllers.
+
+        Yields:
+            RelationController: The next relation controller.
+        """
         response = self.client_session.get(self.relations_url)
 
         verbose_raise_for_status(response)

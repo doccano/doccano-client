@@ -55,7 +55,7 @@ include = '\.pyi?$'
 [tool.flake8]
 max-line-length = 120
 max-complexity = 18
-ignore = "E203,E266,W503,DAR101,DAR201,DAR301" # Todo: remove DAR*
+ignore = "E203,E266,W503,DAR101,DAR201" # Todo: remove DAR*
 filename = "*.py"
 
 [tool.isort]

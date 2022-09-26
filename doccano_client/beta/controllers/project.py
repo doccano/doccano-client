@@ -57,7 +57,11 @@ class ProjectController:
         return RelationTypesController(self.project_url, self.client_session)
 
     def download(self, api_url: str, only_approved: bool = True) -> Iterable[Any]:
-        """Trigger a download of all approved and labelled texts in jsonl format. It's zipped"""
+        """Trigger a download of all approved and labelled texts in jsonl format. It's zipped
+
+        Yields:
+            binary: The binary data.
+        """
 
         download_json = {"exportApproved": only_approved, "format": "JSONL"}
         responseCreateExportTask = self.client_session.post(
@@ -114,7 +118,11 @@ class ProjectsController:
         )
 
     def all(self) -> Iterable[ProjectController]:
-        """Return a sequence of projects for a given controller, assigned to the user"""
+        """Return a sequence of projects for a given controller, assigned to the user
+
+        Yields:
+            ProjectController: The next project controller.
+        """
         response = self.client_session.get(self.projects_url)
 
         while True:

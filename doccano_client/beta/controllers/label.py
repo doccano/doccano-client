@@ -122,7 +122,11 @@ class LabelsController:
         return f"{self._project_url}/labels"
 
     def all(self) -> Iterable[LabelController]:
-        """Return a sequence of all labels for a given controller, which maps to a project"""
+        """Return a sequence of all labels for a given controller, which maps to a project
+
+        Yields:
+            LabelController: The next label controller.
+        """
         response = self.client_session.get(self.labels_url)
         verbose_raise_for_status(response)
         label_dicts = response.json()
