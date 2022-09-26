@@ -7,8 +7,12 @@ class DoccanoAPIError(exceptions.HTTPError):
         super().__init__(str(response.json()), response=response)
 
 
-def verbose_raise_for_status(response: Response) -> None:
-    """Output a bad response's text before raising for verbosity, return response otherwise"""
+def verbose_raise_for_status(response: Response) -> Response:
+    """Output a bad response's text before raising for verbosity, return response otherwise
+
+    Raises:
+        DoccanoAPIError: if request raises HTTPError.
+    """
     try:
         response.raise_for_status()
     except exceptions.HTTPError as err:

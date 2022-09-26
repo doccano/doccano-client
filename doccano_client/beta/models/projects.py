@@ -51,7 +51,11 @@ class Project(DataClassJsonMixin):
     use_relation: bool = False
 
     def __post_init__(self) -> None:
-        """Propogates resourcetype field based on project_type field, needed for project creation"""
+        """Propogates resourcetype field based on project_type field, needed for project creation
+
+        Raises:
+            AssertionError: If project type is not in resource types.
+        """
         if self.project_type not in PROJECT_TO_RESOURCE_TYPE:
             raise AssertionError(f"project_type not in: {PROJECT_TO_RESOURCE_TYPE.keys()}")
         self.resourcetype = PROJECT_TO_RESOURCE_TYPE.get(self.project_type, "NotAResource")
