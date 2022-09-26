@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: Implementation :: CPython",
 ]
-packages = [{include = "doccano_api_client"}]
+packages = [{include = "doccano_client"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -45,7 +45,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-docli = 'doccano_api_client.cli.commands:main'
+docli = 'doccano_client.cli.commands:main'
 
 [tool.black]
 line-length = 120
@@ -70,8 +70,8 @@ show_error_codes = true
 
 [tool.taskipy.tasks]
 isort = "isort . -c"
-flake8 = "pflake8 doccano_api_client"
+flake8 = "pflake8 doccano_client"
 black = "black --check ."
 darglint = "darglint"
-mypy = "mypy doccano_api_client"
+mypy = "mypy doccano_client"
 test = "python -m pytest"
