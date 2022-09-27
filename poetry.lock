@@ -561,7 +561,7 @@ name = "pydantic"
 version = "1.9.2"
 description = "Data validation and settings management using python type hints"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6.1"
 
 [package.dependencies]
@@ -1153,7 +1153,7 @@ spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "38b339e312e4c779bea6aadb237fa0f9f35a9dbadbd77776c6415a63a6479640"
+content-hash = "14427dcf7c57ec46fbe34c56c029e28ddbd9464bbd04545df57db2eab497a2b4"
 
 [metadata.files]
 attrs = []
