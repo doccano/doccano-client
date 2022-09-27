@@ -23,13 +23,13 @@ pip install doccano-client
 - All methods return a `requests.models.Response` object.
 
 ```python
-from doccano_api_client import DoccanoClient
+from doccano_client import DoccanoClient
 
 # instantiate a client and log in to a Doccano instance
 doccano_client = DoccanoClient(
-    'http://doccano.example.com',
-    'username',
-    'password'
+  'http://doccano.example.com',
+  'username',
+  'password'
 )
 
 # get basic information about the authorized user
@@ -93,4 +93,4 @@ Endpoint Names:
 
 We're introducing a newly revamped Doccano API Client that features more Pythonic interaction as well as more testing and documentation. It also adds more regulated compatibility with specific Doccano release versions.
 
-You can find the documentation on usage of the beta client [here](./doccano_api_client/beta/README.md).
+You can find the documentation on usage of the beta client [here](doccano_client/beta/README.md).

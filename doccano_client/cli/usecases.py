@@ -6,9 +6,9 @@ from typing import Iterable, Iterator
 
 from tqdm import tqdm
 
-from doccano_api_client.beta.controllers import ProjectController
-from doccano_api_client.beta.models import Span
-from doccano_api_client.cli.entity import Entity
+from doccano_client.beta.controllers import ProjectController
+from doccano_client.beta.models import Span
+from doccano_client.cli.entity import Entity
 
 
 def load_mapping(filepath: str, encoding="utf-8") -> dict[str, str]:

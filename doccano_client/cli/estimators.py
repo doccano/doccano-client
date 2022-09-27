@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Iterator
 
-from doccano_api_client.cli.entity import Entity
+from doccano_client.cli.entity import Entity
 
 
 class SpaCyEntityEstimator:

@@ -43,7 +43,11 @@ class AnnotationsController:
         return f"{self._example_url}"
 
     def all(self) -> Iterable[AnnotationController]:
-        """Return a sequence of AnnotationControllers."""
+        """Return a sequence of AnnotationControllers.
+
+        Yields:
+            AnnotationController: The next annotation controller.
+        """
         response = self.client_session.get(self.annotations_url)
         verbose_raise_for_status(response)
         annotation_dicts = response.json()["annotations"]

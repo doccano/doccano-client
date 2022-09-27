@@ -38,7 +38,11 @@ class SpanTypesController:
         return f"{self._project_url}/span-types"
 
     def all(self) -> Iterable[SpanTypeController]:
-        """Return a sequence of all span-types for a given controller, which maps to a project"""
+        """Return a sequence of all span-types for a given controller, which maps to a project
+
+        Yields:
+            SpanTypeController: The next span type controller.
+        """
         response = self.client_session.get(self.span_types_url)
         verbose_raise_for_status(response)
         label_dicts = response.json()

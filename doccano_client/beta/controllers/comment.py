@@ -51,7 +51,11 @@ class CommentsController:
         return f"{self._parent_url}/comments"
 
     def all(self) -> Iterable[CommentController]:
-        """Return a sequence of Comments for a given controller, which maps to an object"""
+        """Return a sequence of Comments for a given controller, which maps to an object
+
+        Yields:
+            CommentController: The next comment controller.
+        """
         response = self.client_session.get(self.comments_url)
         verbose_raise_for_status(response)
         comment_dicts = response.json()

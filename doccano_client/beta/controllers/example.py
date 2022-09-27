@@ -93,7 +93,11 @@ class ExamplesController:
         )
 
     def all(self, confirmed=None) -> Iterable[ExampleController]:
-        """Return a sequence of Examples for a given controller, which maps to a Project"""
+        """Return a sequence of Examples for a given controller, which maps to a Project
+
+        Yields:
+            ExampleController: The next example controller.
+        """
         response = self.client_session.get(f"{self.examples_url}?confirmed={confirmed}")
 
         while True:

@@ -9,7 +9,7 @@ Currently tested for compatibility against Doccano v1.5.0-1.5.5.
 The client can be instatiated with a base URL referring to the target Doccano instance. Once instantiated, you can login using your Doccano username and password.
 
 ```python
-from doccano_api_client.beta import DoccanoClient, controllers
+from doccano_client.beta import DoccanoClient, controllers
 
 client = DoccanoClient("your_instance_url_here")
 client.login("my_username", "my_password")

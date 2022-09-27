@@ -42,7 +42,11 @@ class SpansController:
         return f"{self._example_url}/spans"
 
     def all(self) -> Iterable[SpanController]:
-        """Return a sequence of SpanControllers."""
+        """Return a sequence of SpanControllers.
+
+        Yields:
+            SpanController: The next span controller.
+        """
         response = self.client_session.get(self.spans_url)
         verbose_raise_for_status(response)
         span_dicts = response.json()
