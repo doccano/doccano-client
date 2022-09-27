@@ -134,7 +134,7 @@ class ProjectsController:
 
             for project_dict in project_dicts["results"]:
                 # Sanitize project_dict before converting to Project
-                sanitized_project_dict = {proj_key: project_dict[proj_key] for proj_key in project_obj_fields}
+                sanitized_project_dict = {proj_key: project_dict.get(proj_key) for proj_key in project_obj_fields}
 
                 yield ProjectController(
                     project=Project(**sanitized_project_dict),
