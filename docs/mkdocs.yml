@@ -29,7 +29,15 @@ extra:
 plugins:
   - same-dir
 
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
 # Page tree
 nav:
   - Overview: index.md
   - Install: install.md
+  - Usage: usage.md
