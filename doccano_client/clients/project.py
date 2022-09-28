@@ -27,7 +27,7 @@ class ProjectClient:
         Yields:
             ProjectController: The next project controller.
         """
-        response = self.client.get("projects")
+        response = self._client.get("projects")
 
         while True:
             projects = response.json()
@@ -37,7 +37,7 @@ class ProjectClient:
             if projects["next"] is None:
                 break
             else:
-                response = self.client.get(projects["next"])
+                response = self._client.get(projects["next"])
 
     def create(self, project: Project) -> Project:
         """Create a new project
