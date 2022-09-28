@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: '{"text": "Test Example", "meta": {}, "annotation_approver": null, "comment_count":
+      0, "is_confirmed": false, "filename": "", "upload_name": ""}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '143'
+      Cookie:
+      - csrftoken=gJvGpE4U6m8bIfWDrit6SWSykfRZZEpM6NAl3u3Rxzw2pXDPALlLzdNGbiHydN08;
+        sessionid=hscb9julcs80kxu2dc8ey7xu91akns9k
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - gJvGpE4U6m8bIfWDrit6SWSykfRZZEpM6NAl3u3Rxzw2pXDPALlLzdNGbiHydN08
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects/16/examples
+  response:
+    body:
+      string: '{"id":14068,"filename":"http://localhost:8000/media/","meta":{},"annotation_approver":null,"comment_count":0,"text":"Test
+        Example","is_confirmed":false,"upload_name":""}'
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '169'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 28 Sep 2022 05:40:12 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+version: 1

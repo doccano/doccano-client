@@ -404,6 +404,14 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "multidict"
+version = "6.0.2"
+description = "multidict implementation"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "murmurhash"
 version = "1.0.8"
 description = "Cython bindings for MurmurHash"
@@ -1117,6 +1125,20 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
+name = "vcrpy"
+version = "4.2.1"
+description = "Automatically mock your HTTP interactions to simplify and speed up testing"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+PyYAML = "*"
+six = ">=1.5"
+wrapt = "*"
+yarl = "*"
+
+[[package]]
 name = "wasabi"
 version = "0.10.1"
 description = "A lightweight console printing and formatting toolkit"
@@ -1136,6 +1158,26 @@ python-versions = ">=3.6"
 watchmedo = ["PyYAML (>=3.10)"]
 
 [[package]]
+name = "wrapt"
+version = "1.14.1"
+description = "Module for decorators, wrappers and monkey patching."
+category = "dev"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+
+[[package]]
+name = "yarl"
+version = "1.8.1"
+description = "Yet another URL library"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+idna = ">=2.0"
+multidict = ">=4.0"
+
+[[package]]
 name = "zipp"
 version = "3.8.1"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -1153,7 +1195,7 @@ spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "14427dcf7c57ec46fbe34c56c029e28ddbd9464bbd04545df57db2eab497a2b4"
+content-hash = "89cdff3f89edab28ff33e635480f6f56092a3c3392d512e44661348eca9808ba"
 
 [metadata.files]
 attrs = []
@@ -1265,6 +1307,7 @@ mkdocs-material = []
 mkdocs-material-extensions = []
 mkdocs-same-dir = []
 mslex = []
+multidict = []
 murmurhash = []
 mypy = []
 mypy-extensions = [
@@ -1345,6 +1388,9 @@ types-urllib3 = []
 typing-extensions = []
 typing-inspect = []
 urllib3 = []
+vcrpy = []
 wasabi = []
 watchdog = []
+wrapt = []
+yarl = []
 zipp = []
