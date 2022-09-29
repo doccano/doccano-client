@@ -97,3 +97,14 @@ class ExampleClient:
         """
         ids = [example if isinstance(example, int) else example.id for example in examples]
         self._client.delete(f"projects/{project_id}/examples", **{"ids": ids})
+
+    def update_state(self, project_id: int, example: Example | int):
+        """Update completed state of example
+
+        Args:
+            project_id (int): The id of the project
+            example (Example | int): The example to confirm
+        """
+        example_id = example if isinstance(example, int) else example.id
+        resource = f"projects/{project_id}/examples/{example_id}/states"
+        self._client.post(resource)
