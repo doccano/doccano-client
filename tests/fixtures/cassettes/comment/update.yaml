@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: '{"id": 2, "text": "Updated Type", "example": 14069, "user": 1, "username":
+      "admin", "created_at": "2022-09-29T12:46:39.166721Z"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '128'
+      Cookie:
+      - csrftoken=GKXRT0ynEqZ6LKVh8KIm7J1RpsPzP8yYkDPTrUm3At4GOxlkHMMmRn6GQIBEbi9v;
+        sessionid=8czutj4pl50odndek7rwb0t68rxiwnsw
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - GKXRT0ynEqZ6LKVh8KIm7J1RpsPzP8yYkDPTrUm3At4GOxlkHMMmRn6GQIBEbi9v
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: PUT
+    uri: http://localhost:8000/v1/projects/16/comments/2
+  response:
+    body:
+      string: '{"id":2,"user":1,"username":"admin","example":14069,"text":"Updated
+        Type","created_at":"2022-09-29T12:46:39.166721Z"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '117'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 29 Sep 2022 12:46:39 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
