@@ -1,0 +1,67 @@
+interactions:
+- request:
+    body: !!python/object/new:_io.BytesIO
+      state: !!python/tuple
+      - !!binary |
+        LS1iOWY5MTNhNjViYzM0N2EzYmFjMjYxNmFkYzJiYzg2ZQ0KQ29udGVudC1EaXNwb3NpdGlvbjog
+        Zm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImxhYmVscy5qc29uIg0KQ29udGVudC1U
+        eXBlOiBhcHBsaWNhdGlvbi9qc29uDQoNClsKICB7CiAgICAiaWQiOiA0NCwKICAgICJ0ZXh0Ijog
+        IkRvZyIsCiAgICAicHJlZml4X2tleSI6IG51bGwsCiAgICAic3VmZml4X2tleSI6ICJhIiwKICAg
+        ICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGRjAwMDAiLAogICAgInRleHRfY29sb3IiOiAiI2ZmZmZm
+        ZiIsCiAgICAidGFza190eXBlIjogIkNhdGVnb3J5IgogIH0sCiAgewogICAgImlkIjogNDUsCiAg
+        ICAidGV4dCI6ICJDYXQiLAogICAgInByZWZpeF9rZXkiOiBudWxsLAogICAgInN1ZmZpeF9rZXki
+        OiAiYyIsCiAgICAiYmFja2dyb3VuZF9jb2xvciI6ICIjRkYwMDAwIiwKICAgICJ0ZXh0X2NvbG9y
+        IjogIiNmZmZmZmYiLAogICAgInRhc2tfdHlwZSI6ICJTcGFuIgogIH0KXQoNCi0tYjlmOTEzYTY1
+        YmMzNDdhM2JhYzI2MTZhZGMyYmM4NmUtLQ0K
+      - 0
+      - null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '540'
+      Content-Type:
+      - multipart/form-data; boundary=b9f913a65bc347a3bac2616adc2bc86e
+      Cookie:
+      - csrftoken=z8s2Hr9yz2zf9fTCrkbykGBasMYCz0IxjGKJxBBFBJmpzvDKL23ECcNq25cuqzco;
+        sessionid=canl1n7tgn5jzhge9qmammz6x9wx4yxu
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - z8s2Hr9yz2zf9fTCrkbykGBasMYCz0IxjGKJxBBFBJmpzvDKL23ECcNq25cuqzco
+      accept:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects/16/category-type-upload
+  response:
+    body:
+      string: ''
+    headers:
+      Allow:
+      - POST, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '0'
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 29 Sep 2022 06:36:53 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+version: 1

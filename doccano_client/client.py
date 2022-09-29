@@ -1,4 +1,7 @@
+import pathlib
+
 import requests
+from requests_toolbelt import MultipartEncoder
 
 from .beta.utils.response import verbose_raise_for_status
 
@@ -61,5 +64,21 @@ class DoccanoClient:
         """Make a delete request to the Doccano API"""
         url = f"{self.api_url}/{resource}"
         response = self.client_session.delete(url, json=kwargs)
+        verbose_raise_for_status(response)
+        return response
+
+    def upload(self, resource: str, file_path: str) -> requests.Response:
+        """Upload a file to the Doccano API"""
+        url = f"{self.api_url}/{resource}"
+        file = pathlib.Path(file_path)
+        with file.open("rb") as f:
+            # headers = {
+            #     "Content-Type": "multipart/form-data; boundary = something",
+            # }
+            # response = self.client_session.post(
+            #     url, files={"file": (file.name, f, "application/json")}, headers=headers
+            # )
+            m = MultipartEncoder(fields={"file": (file.name, f, "application/json")})
+            response = self.client_session.post(url, data=m, headers={"Content-Type": m.content_type})
         verbose_raise_for_status(response)
         return response

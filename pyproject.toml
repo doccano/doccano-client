@@ -25,6 +25,7 @@ spacy = { version = "^3.4.1", optional = true }
 spacy-partial-tagger = { version = "^0.9.1", optional = true }
 tqdm = { version = "^4.64.1", optional = true }
 pydantic = "^1.9.2"
+requests-toolbelt = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"

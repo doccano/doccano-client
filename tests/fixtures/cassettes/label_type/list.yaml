@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=z8s2Hr9yz2zf9fTCrkbykGBasMYCz0IxjGKJxBBFBJmpzvDKL23ECcNq25cuqzco;
+        sessionid=canl1n7tgn5jzhge9qmammz6x9wx4yxu
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - z8s2Hr9yz2zf9fTCrkbykGBasMYCz0IxjGKJxBBFBJmpzvDKL23ECcNq25cuqzco
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/projects/16/category-types
+  response:
+    body:
+      string: '[{"id":23,"text":"Dog","prefix_key":null,"suffix_key":"a","background_color":"#FF0000","text_color":"#ffffff"},{"id":24,"text":"Cat","prefix_key":null,"suffix_key":"c","background_color":"#FF0000","text_color":"#ffffff"}]'
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '221'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 29 Sep 2022 06:36:54 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
