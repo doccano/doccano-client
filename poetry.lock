@@ -717,6 +717,17 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "requests-toolbelt"
+version = "0.9.1"
+description = "A utility belt for advanced users of python-requests"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = ">=2.0.1,<3.0.0"
+
+[[package]]
 name = "responses"
 version = "0.21.0"
 description = "A utility library for mocking out the `requests` Python library."
@@ -1195,7 +1206,7 @@ spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "89cdff3f89edab28ff33e635480f6f56092a3c3392d512e44661348eca9808ba"
+content-hash = "7ab92372c15f4bf61ff4d5e5cb66f3c7008aa83212d865cd4594e766aeb8078c"
 
 [metadata.files]
 attrs = []
@@ -1356,6 +1367,7 @@ pyyaml = []
 pyyaml-env-tag = []
 regex = []
 requests = []
+requests-toolbelt = []
 responses = []
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},

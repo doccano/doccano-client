@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      Cookie:
+      - csrftoken=z8s2Hr9yz2zf9fTCrkbykGBasMYCz0IxjGKJxBBFBJmpzvDKL23ECcNq25cuqzco;
+        sessionid=canl1n7tgn5jzhge9qmammz6x9wx4yxu
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - z8s2Hr9yz2zf9fTCrkbykGBasMYCz0IxjGKJxBBFBJmpzvDKL23ECcNq25cuqzco
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: DELETE
+    uri: http://localhost:8000/v1/projects/16/category-types/22
+  response:
+    body:
+      string: ''
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '0'
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 29 Sep 2022 05:12:29 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 204
+      message: No Content
+version: 1
