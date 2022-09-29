@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Iterator
+from typing import Iterator, List
 
 from doccano_client.client import DoccanoClient
 from doccano_client.models.example import Example
@@ -88,12 +88,12 @@ class ExampleClient:
         """
         self._client.delete(f"projects/{project_id}/examples")
 
-    def bulk_delete(self, project_id: int, examples: list[int | Example]):
+    def bulk_delete(self, project_id: int, examples: List[int | Example]):
         """Bulk delete examples
 
         Args:
             project_id (int): The id of the project
-            examples (list[int | Example]): The list of example ids to delete
+            examples (List[int | Example]): The list of example ids to delete
         """
         ids = [example if isinstance(example, int) else example.id for example in examples]
         self._client.delete(f"projects/{project_id}/examples", **{"ids": ids})

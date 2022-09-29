@@ -68,7 +68,7 @@ class LabelType(BaseModel):
     prefix_key: Optional[PREFIX_KEY] = None
     suffix_key: Optional[SUFFIX_KEY] = None
     background_color: Color = Field(default_factory=generate_random_hex_color)
-    text_color: Color = "#ffffff"
+    text_color: Color = Field(default="#ffffff")
 
 
 CategoryType = LabelType

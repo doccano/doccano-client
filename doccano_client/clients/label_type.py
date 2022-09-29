@@ -75,12 +75,12 @@ class LabelTypeClient:
         resource = f"projects/{project_id}/{self.resource_type}s/{label_type_id}"
         self._client.delete(resource)
 
-    def bulk_delete(self, project_id: int, label_types: list[int | LabelType]):
+    def bulk_delete(self, project_id: int, label_types: List[int | LabelType]):
         """Bulk delete label_types
 
         Args:
             project_id (int): The id of the project
-            label_types (list[int | LabelType]): The list of label_type ids to delete
+            label_types (List[int | LabelType]): The list of label_type ids to delete
         """
         ids = [label_type if isinstance(label_type, int) else label_type.id for label_type in label_types]
         self._client.delete(f"projects/{project_id}/{self.resource_type}s", **{"ids": ids})
