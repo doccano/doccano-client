@@ -39,7 +39,7 @@ class RelationTypesController:
 
     def all(self) -> Iterable[RelationTypeController]:
         """Return a sequence of all relation-types for a given controller, which maps to a project
-        
+
         Yields:
             RelationTypeController: The next relation type controller.
         """
@@ -51,7 +51,8 @@ class RelationTypesController:
         for relation_type_dict in relation_type_dicts:
             # Sanitize relation_type_dict before converting to RelationType
             sanitized_relation_type_dict = {
-                relation_type_key: relation_type_dict[relation_type_key] for relation_type_key in relation_type_object_fields
+                relation_type_key: relation_type_dict[relation_type_key]
+                for relation_type_key in relation_type_object_fields
             }
 
             yield RelationTypeController(
