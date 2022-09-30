@@ -48,16 +48,16 @@ class CommentsController:
     @property
     def comments_url(self) -> str:
         """Return an api url for comments list of an object"""
-        if "/examples" in self._parent_url: # example url has the format http://my_comments_url/v1/projects/23/examples/11
-            base_url = self._parent_url[:self._parent_url.rindex("/examples")] # parse the project url
-            example_id = self._parent_url[self._parent_url.rindex("/examples") + 10:] # parse the example id
+        if "/examples" in self._parent_url:
+            base_url = self._parent_url[:self._parent_url.rindex("/examples")]
+            example_id = self._parent_url[self._parent_url.rindex("/examples") + 10:]
             return f"{base_url}/comments?example={example_id}"
         else:
             return f"{self._parent_url}/comments"
 
     def all(self) -> Iterable[CommentController]:
         """Return a sequence of Comments for a given controller, which maps to an object
-        
+
         Yields:
             CommentController: The next comment controller.
         """
