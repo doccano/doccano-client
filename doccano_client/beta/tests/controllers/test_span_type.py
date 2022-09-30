@@ -33,9 +33,7 @@ class SpanTypesControllerTest(TestCase):
         self.span_types_controller = SpanTypesController("http://my_labels_url/v1/projects/23", Session())
 
     def test_controller_urls(self):
-        self.assertEqual(
-            self.span_types_controller.span_types_url, "http://my_labels_url/v1/projects/23/span-types"
-        )
+        self.assertEqual(self.span_types_controller.span_types_url, "http://my_labels_url/v1/projects/23/span-types")
 
     @responses.activate
     def test_all_with_no_span_types(self):
