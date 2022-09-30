@@ -38,10 +38,14 @@ class ExamplesControllerTest(TestCase):
             project_type=ProjectTypes.DOCUMENT_CLASSIFICATION,
         )
         self.example_a = Example(text="This is an example text2", meta={"key": "val"})
-        self.examples_controller = ExamplesController(project, "http://my_examples_url/v1/projects/23", Session())
+        self.examples_controller = ExamplesController(
+            project, "http://my_examples_url/v1/projects/23", Session()
+        )
 
     def test_controller_urls(self):
-        self.assertEqual(self.examples_controller.examples_url, "http://my_examples_url/v1/projects/23/examples")
+        self.assertEqual(
+            self.examples_controller.examples_url, "http://my_examples_url/v1/projects/23/examples"
+        )
 
     @responses.activate
     def test_count_empty(self):
@@ -71,7 +75,9 @@ class ExamplesControllerTest(TestCase):
         total_examples = 0
         expected_example_id_dict = {
             example_json["id"]: example_json
-            for example_json in (mocks.examples_get_json["results"] + mocks.examples_get_json_second_page["results"])
+            for example_json in (
+                mocks.examples_get_json["results"] + mocks.examples_get_json_second_page["results"]
+            )
         }
         for example_controller in example_controllers:
             self.assertIn(example_controller.id, expected_example_id_dict)
@@ -79,12 +85,16 @@ class ExamplesControllerTest(TestCase):
                 example_controller.example.text,
                 expected_example_id_dict[example_controller.id]["text"],
             )
-            self.assertIs(example_controller.client_session, self.examples_controller.client_session)
+            self.assertIs(
+                example_controller.client_session, self.examples_controller.client_session
+            )
             total_examples += 1
 
         self.assertEqual(
             total_examples,
-            len(mocks.examples_get_json["results"] + mocks.examples_get_json_second_page["results"]),
+            len(
+                mocks.examples_get_json["results"] + mocks.examples_get_json_second_page["results"]
+            ),
         )
         self.assertEqual(total_examples, mocks.examples_get_json["count"])
 
