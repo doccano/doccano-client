@@ -18,7 +18,7 @@ T = TypeVar("T", bound=Label)
 
 
 class LabelClient(Generic[T]):
-    """Client for interacting with the Doccano label type API"""
+    """Client for interacting with the Doccano label API"""
 
     def __init__(self, client: DoccanoClient, label_class: T, resource_type: str):
         self._client = client
@@ -26,15 +26,15 @@ class LabelClient(Generic[T]):
         self._resource_type = resource_type
 
     def find_by_id(self, project_id: int, example_id: int, label_id: int) -> T:
-        """Find a label type by id
+        """Find a label by id
 
         Args:
             project_id (int): The id of the project
             example_id (int): The id of the example
-            label_id (int): The id of the label type to find
+            label_id (int): The id of the label to find
 
         Returns:
-            T: The found label type
+            T: The found label
         """
         resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}/{label_id}"
         response = self._client.get(resource)
@@ -56,42 +56,42 @@ class LabelClient(Generic[T]):
         return labels
 
     def create(self, project_id: int, example_id: int, label: T) -> T:
-        """Create a new label type
+        """Create a new label
 
         Args:
             project_id (int): The id of the project
             example_id (int): The id of the example
-            label (T): The label type to create
+            label (T): The label to create
 
         Returns:
-            T: The created label type
+            T: The created label
         """
         resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}"
         response = self._client.post(resource, **label.dict(exclude={"id"}))
         return self._label_class.parse_obj(response.json())
 
     def update(self, project_id: int, example_id: int, label: T) -> T:
-        """Update a label type
+        """Update a label
 
         Args:
             project_id (int): The id of the project
             example_id (int): The id of the example
-            label (T): The label type to update
+            label (T): The label to update
 
         Returns:
-            T: The updated label type
+            T: The updated label
         """
         resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}/{label.id}"
         response = self._client.put(resource, **label.dict())
         return self._label_class.parse_obj(response.json())
 
     def delete(self, project_id: int, example_id: int, label: T | int):
-        """Delete a label type
+        """Delete a label
 
         Args:
             project_id (int): The id of the project
             example_id (int): The id of the example
-            label (T | int): The label type to delete
+            label (T | int): The label to delete
         """
         label_id = label if isinstance(label, int) else label.id
         resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}/{label_id}"
@@ -103,7 +103,7 @@ class LabelClient(Generic[T]):
         Args:
             project_id (int): The id of the project
             example_id (int): The id of the example
-            labels (List[int | T]): The list of label type ids to delete
+            labels (List[int | T]): The list of label ids to delete
         """
         resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}"
         ids = [label if isinstance(label, int) else label.id for label in labels]
