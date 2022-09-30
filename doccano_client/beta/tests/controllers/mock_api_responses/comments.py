@@ -5,10 +5,10 @@ import responses
 from . import projects
 
 comments_get_json = {
-    'count': 2,
-    'next': None,
-    'previous': None,
-    'results': [
+    "count": 2,
+    "next": None,
+    "previous": None,
+    "results": [
         {
             "id": 109,
             "user": 1,
@@ -25,12 +25,10 @@ comments_get_json = {
             "text": "General Kenobi",
             "created_at": "2021-07-23T17:29:14.890131Z",
         },
-    ]
+    ],
 }
 
-comments_regex = (
-    rf".*/v1/projects/{projects.valid_project_ids_regex_insert}/comments"
-)
+comments_regex = rf".*/v1/projects/{projects.valid_project_ids_regex_insert}/comments"
 
 comments_get_empty_response = responses.Response(
     method="GET",
