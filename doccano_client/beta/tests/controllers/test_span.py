@@ -30,9 +30,7 @@ class SpansControllerTest(TestCase):
         responses.add(mocks.spans_get_response)
         span_controllers = list(self.spans_controller.all())
 
-        expected_spans_id_map = {
-            span_json["id"]: span_json for span_json in mocks.spans_get_json
-        }
+        expected_spans_id_map = {span_json["id"]: span_json for span_json in mocks.spans_get_json}
 
         for span_controller in span_controllers:
             span_id = span_controller.id
@@ -41,9 +39,7 @@ class SpansControllerTest(TestCase):
             self.assertEqual(span.label, expected_spans_id_map[span_id]["label"])
             self.assertEqual(span.prob, expected_spans_id_map[span_id]["prob"])
 
-        self.assertEqual(
-            len(span_controllers), len(mocks.spans_get_json)
-        )
+        self.assertEqual(len(span_controllers), len(mocks.spans_get_json))
 
     @responses.activate
     def test_all_with_bad_response(self) -> None:
