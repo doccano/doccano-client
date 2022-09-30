@@ -49,8 +49,8 @@ class CommentsController:
     def comments_url(self) -> str:
         """Return an api url for comments list of an object"""
         if "/examples" in self._parent_url:
-            base_url = self._parent_url[:self._parent_url.rindex("/examples")]
-            example_id = self._parent_url[self._parent_url.rindex("/examples") + 10:]
+            base_url = self._parent_url[: self._parent_url.rindex("/examples")]
+            example_id = self._parent_url[self._parent_url.rindex("/examples") + 10 :]
             return f"{base_url}/comments?example={example_id}"
         else:
             return f"{self._parent_url}/comments"
@@ -70,9 +70,7 @@ class CommentsController:
 
             for comment_dict in comment_dicts["results"]:
                 # Sanitize comment_dict before converting to Comment
-                sanitized_comment_dict = {
-                    comment_key: comment_dict[comment_key] for comment_key in comment_obj_fields
-                }
+                sanitized_comment_dict = {comment_key: comment_dict[comment_key] for comment_key in comment_obj_fields}
 
                 yield CommentController(
                     comment=Comment(**sanitized_comment_dict),
