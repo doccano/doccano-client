@@ -54,7 +54,7 @@ class SpansController:
 
         for span_dict in span_dicts:
             # Sanitize span_dict before converting to Example
-            sanitized_span_dict = {span_Key: span_dict[span_Key] for span_Key in span_obj_fields}
+            sanitized_span_dict = {span_key: span_dict[span_key] for span_key in span_obj_fields}
 
             yield SpanController(
                 span=Span(**sanitized_span_dict),
@@ -68,7 +68,7 @@ class SpansController:
         """Create a new span, return the generated controller
 
         Args:
-            span: Span. The only fields that will be uploaded are text, annnotations, and meta.
+            span: Span. See mock_api_responses for the desired format.
 
         Returns:
             SpanController. The SpanController now wrapping around the newly created span.
