@@ -30,9 +30,7 @@ class CategoriesControllerTest(TestCase):
         responses.add(mocks.categories_get_response)
         category_controllers = list(self.categories_controller.all())
 
-        expected_categories_id_map = {
-            category_json["id"]: category_json for category_json in mocks.categories_get_json
-        }
+        expected_categories_id_map = {category_json["id"]: category_json for category_json in mocks.categories_get_json}
 
         for category_controller in category_controllers:
             category_id = category_controller.id
@@ -41,9 +39,7 @@ class CategoriesControllerTest(TestCase):
             self.assertEqual(category.label, expected_categories_id_map[category_id]["label"])
             self.assertEqual(category.prob, expected_categories_id_map[category_id]["prob"])
 
-        self.assertEqual(
-            len(category_controllers), len(mocks.categories_get_json)
-        )
+        self.assertEqual(len(category_controllers), len(mocks.categories_get_json))
 
     @responses.activate
     def test_all_with_bad_response(self) -> None:
