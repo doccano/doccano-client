@@ -39,7 +39,7 @@ class SpanTypesController:
 
     def all(self) -> Iterable[SpanTypeController]:
         """Return a sequence of all span-types for a given controller, which maps to a project
-        
+
         Yields:
             SpanTypeController: The next span type controller.
         """
