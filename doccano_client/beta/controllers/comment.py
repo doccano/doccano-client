@@ -48,29 +48,43 @@ class CommentsController:
     @property
     def comments_url(self) -> str:
         """Return an api url for comments list of an object"""
-        return f"{self._parent_url}/comments"
+        if "/examples" in self._parent_url: # example url has the format http://my_comments_url/v1/projects/23/examples/11
+            base_url = self._parent_url[:self._parent_url.rindex("/examples")] # parse the project url
+            example_id = self._parent_url[self._parent_url.rindex("/examples") + 10:] # parse the example id
+            return f"{base_url}/comments?example={example_id}"
+        else:
+            return f"{self._parent_url}/comments"
 
     def all(self) -> Iterable[CommentController]:
         """Return a sequence of Comments for a given controller, which maps to an object
-
+        
         Yields:
             CommentController: The next comment controller.
         """
         response = self.client_session.get(self.comments_url)
-        verbose_raise_for_status(response)
-        comment_dicts = response.json()
-        comment_obj_fields = set(comment_field.name for comment_field in fields(Comment))
 
-        for comment_dict in comment_dicts:
-            # Sanitize comment_dict before converting to Comment
-            sanitized_comment_dict = {comment_key: comment_dict[comment_key] for comment_key in comment_obj_fields}
+        while True:
+            verbose_raise_for_status(response)
+            comment_dicts = response.json()
+            comment_obj_fields = set(comment_field.name for comment_field in fields(Comment))
 
-            yield CommentController(
-                comment=Comment(**sanitized_comment_dict),
-                username=comment_dict["username"],
-                created_at=comment_dict["created_at"],
-                example=comment_dict["example"],
-                id=comment_dict["id"],
-                comments_url=self.comments_url,
-                client_session=self.client_session,
-            )
+            for comment_dict in comment_dicts["results"]:
+                # Sanitize comment_dict before converting to Comment
+                sanitized_comment_dict = {
+                    comment_key: comment_dict[comment_key] for comment_key in comment_obj_fields
+                }
+
+                yield CommentController(
+                    comment=Comment(**sanitized_comment_dict),
+                    username=comment_dict["username"],
+                    created_at=comment_dict["created_at"],
+                    example=comment_dict["example"],
+                    id=comment_dict["id"],
+                    comments_url=self.comments_url,
+                    client_session=self.client_session,
+                )
+
+            if comment_dicts["next"] is None:
+                break
+            else:
+                response = self.client_session.get(comment_dicts["next"])
