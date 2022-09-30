@@ -49,7 +49,7 @@ class ExampleController:
     def relations(self) -> RelationsController:
         """Return an RelationController mapped to this example"""
         return RelationsController(self.id, self.project, self.example_url, self.client_session)
-    
+
     @property
     def texts(self) -> TextsController:
         """Return an TextsController mapped to this example"""
