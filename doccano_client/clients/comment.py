@@ -20,6 +20,9 @@ class CommentClient:
         Args:
             project_id (int): The id of the project
             comment_id (int): The id of the comment to find
+
+        Returns:
+            Comment: The found comment
         """
         response = self._client.get(f"projects/{project_id}/{self.resource_type}/{comment_id}")
         return Comment.parse_obj(response.json())

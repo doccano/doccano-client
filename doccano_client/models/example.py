@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class Example(BaseModel):
-    """Contains the data and operations relevant to a example on a Doccano project"""
+    """Contains the data relevant to a example on a Doccano project"""
 
     id: Optional[int]
     text: str = ""

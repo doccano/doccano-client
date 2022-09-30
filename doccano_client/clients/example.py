@@ -18,6 +18,9 @@ class ExampleClient:
         Args:
             project_id (int): The id of the project
             example_id (int): The id of the example to find
+
+        Returns:
+            Example: The found example
         """
         response = self._client.get(f"projects/{project_id}/examples/{example_id}")
         return Example.parse_obj(response.json())

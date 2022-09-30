@@ -61,7 +61,7 @@ class Color(ConstrainedStr):
 
 
 class LabelType(BaseModel):
-    """Contains the data and operations relevant to a LabelType on a Doccano project"""
+    """Contains the data relevant to a LabelType on a Doccano project"""
 
     id: Optional[int]
     text: Text

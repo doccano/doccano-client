@@ -17,6 +17,9 @@ class ProjectClient:
 
         Args:
             project_id (int): The id of the project to find
+
+        Returns:
+            Project: The found project
         """
         response = self._client.get(f"projects/{project_id}")
         return Project.parse_obj(response.json())
@@ -25,7 +28,7 @@ class ProjectClient:
         """Return all projects in which you are a member
 
         Yields:
-            ProjectController: The next project controller.
+            Project: The next project.
         """
         response = self._client.get("projects")
 
