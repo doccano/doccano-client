@@ -34,9 +34,7 @@ span_type_create_json = {
 
 span_types_regex = f".*/v1/projects/{projects.valid_project_ids_regex_insert}/span-types"
 
-span_types_get_empty_response = responses.Response(
-    method="GET", url=re.compile(span_types_regex), json=[], status=200
-)
+span_types_get_empty_response = responses.Response(method="GET", url=re.compile(span_types_regex), json=[], status=200)
 
 span_types_get_response = responses.Response(
     method="GET", url=re.compile(span_types_regex), json=span_types_get_json, status=200
