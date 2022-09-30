@@ -30,9 +30,7 @@ class RelationsControllerTest(TestCase):
         responses.add(mocks.relations_get_response)
         relation_controllers = list(self.relations_controller.all())
 
-        expected_relations_id_map = {
-            relation_json["id"]: relation_json for relation_json in mocks.relations_get_json
-        }
+        expected_relations_id_map = {relation_json["id"]: relation_json for relation_json in mocks.relations_get_json}
 
         for relation_controller in relation_controllers:
             relation_id = relation_controller.id
@@ -41,9 +39,7 @@ class RelationsControllerTest(TestCase):
             self.assertEqual(relation.type, expected_relations_id_map[relation_id]["type"])
             self.assertEqual(relation.prob, expected_relations_id_map[relation_id]["prob"])
 
-        self.assertEqual(
-            len(relation_controllers), len(mocks.relations_get_json)
-        )
+        self.assertEqual(len(relation_controllers), len(mocks.relations_get_json))
 
     @responses.activate
     def test_all_with_bad_response(self) -> None:
