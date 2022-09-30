@@ -32,9 +32,7 @@ class CommentsControllerTest(TestCase):
         self.comments_controller_from_example = CommentsController(
             "http://my_comments_url/v1/projects/23/examples/11", Session()
         )
-        self.comments_controller_from_project = CommentsController(
-            "http://my_comments_url/v1/projects/23", Session()
-        )
+        self.comments_controller_from_project = CommentsController("http://my_comments_url/v1/projects/23", Session())
 
     def test_controller_urls(self):
         self.assertEqual(
