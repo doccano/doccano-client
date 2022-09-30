@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=ZFXoFhJy3Kg5cXvleNqF3asZyqemiNoTrtQ8xFvngNrfQ8GVSc8rAoGVYAP9qHI8;
+        sessionid=1tcqome0opyrqamkcagwibe630ok9cb3
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - ZFXoFhJy3Kg5cXvleNqF3asZyqemiNoTrtQ8xFvngNrfQ8GVSc8rAoGVYAP9qHI8
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/me
+  response:
+    body:
+      string: '{"id":1,"username":"admin","is_superuser":true,"is_staff":true}'
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '63'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 30 Sep 2022 00:10:34 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
