@@ -30,9 +30,7 @@ class TextsControllerTest(TestCase):
         responses.add(mocks.texts_get_response)
         text_controllers = list(self.texts_controller.all())
 
-        expected_texts_id_map = {
-            text_json["id"]: text_json for text_json in mocks.texts_get_json
-        }
+        expected_texts_id_map = {text_json["id"]: text_json for text_json in mocks.texts_get_json}
 
         for text_controller in text_controllers:
             text_id = text_controller.id
@@ -41,9 +39,7 @@ class TextsControllerTest(TestCase):
             self.assertEqual(text.text, expected_texts_id_map[text_id]["text"])
             self.assertEqual(text.prob, expected_texts_id_map[text_id]["prob"])
 
-        self.assertEqual(
-            len(text_controllers), len(mocks.texts_get_json)
-        )
+        self.assertEqual(len(text_controllers), len(mocks.texts_get_json))
 
     @responses.activate
     def test_all_with_bad_response(self) -> None:
