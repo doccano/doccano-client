@@ -38,7 +38,11 @@ class CategoryTypesController:
         return f"{self._project_url}/category-types"
 
     def all(self) -> Iterable[CategoryTypeController]:
-        """Return a sequence of all category-types for a given controller, which maps to a project"""
+        """Return a sequence of all category-types for a given controller, which maps to a project
+
+        Yields:
+            CategoryTypeController: The next category type controller.
+        """
         response = self.client_session.get(self.category_types_url)
         verbose_raise_for_status(response)
         category_type_dicts = response.json()
@@ -47,7 +51,8 @@ class CategoryTypesController:
         for category_type_dict in category_type_dicts:
             # Sanitize category_type_dict before converting to CategoryType
             sanitized_category_type_dict = {
-                category_type_key: category_type_dict[category_type_key] for category_type_key in category_type_object_fields
+                category_type_key: category_type_dict[category_type_key]
+                for category_type_key in category_type_object_fields
             }
 
             yield CategoryTypeController(
