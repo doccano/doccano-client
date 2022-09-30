@@ -17,7 +17,7 @@ class RelationTypeControllerTest(TestCase):
             relation_type=self.relation_type_a,
             id=43,
             relation_types_url="http://my_relation_types_url",
-            client_session=Session()
+            client_session=Session(),
         )
 
     def test_urls(self):
@@ -59,7 +59,7 @@ class RelationTypesControllerTest(TestCase):
             self.assertIn(relation_type_controller.id, expected_relation_type_id_dict)
             self.assertEqual(
                 relation_type_controller.relation_type.text,
-                expected_relation_type_id_dict[relation_type_controller.id]["text"]
+                expected_relation_type_id_dict[relation_type_controller.id]["text"],
             )
             self.assertEqual(
                 relation_type_controller.relation_type.suffix_key,
