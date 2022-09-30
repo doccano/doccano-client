@@ -54,7 +54,9 @@ class CategoriesController:
 
         for category_dict in category_dicts:
             # Sanitize category_dict before converting to Example
-            sanitized_category_dict = {category_key: category_dict[category_key] for category_key in category_obj_fields}
+            sanitized_category_dict = {
+                category_key: category_dict[category_key] for category_key in category_obj_fields
+            }
 
             yield CategoryController(
                 category=Category(**sanitized_category_dict),
