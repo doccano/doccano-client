@@ -17,7 +17,7 @@ class CategoryTypeControllerTest(TestCase):
             category_type=self.category_type_a,
             id=43,
             category_types_url="http://my_category_types_url",
-            client_session=Session()
+            client_session=Session(),
         )
 
     def test_urls(self):
@@ -59,7 +59,7 @@ class CategoryTypesControllerTest(TestCase):
             self.assertIn(category_type_controller.id, expected_category_type_id_dict)
             self.assertEqual(
                 category_type_controller.category_type.text,
-                expected_category_type_id_dict[category_type_controller.id]["text"]
+                expected_category_type_id_dict[category_type_controller.id]["text"],
             )
             self.assertEqual(
                 category_type_controller.category_type.suffix_key,
