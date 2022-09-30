@@ -1,0 +1,55 @@
+interactions:
+- request:
+    body: '{"username": "admin", "password": "password"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '45'
+      User-Agent:
+      - python-requests/2.28.1
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/auth/login/
+  response:
+    body:
+      string: '{"key":"b37c59f6e0db6bf8a829858ce925b9c2b4d7b03d"}'
+    headers:
+      Allow:
+      - POST, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '50'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 30 Sep 2022 02:56:25 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Set-Cookie:
+      - csrftoken=8rof30s5feEJ46wjawl015jqli9KnihIKgCdxn7EwFgJCMwjHSuUg0Y97C4jgb9H;
+        expires=Fri, 29 Sep 2023 02:56:25 GMT; Max-Age=31449600; Path=/; SameSite=Lax
+      - sessionid=6v6atgbiq12zp4ohi20jjhp8cpcijgkk; expires=Fri, 14 Oct 2022 02:56:25
+        GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
