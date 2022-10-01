@@ -55,59 +55,54 @@ class LabelClient(Generic[T]):
         labels = [self._label_class.parse_obj(label) for label in response.json()]
         return labels
 
-    def create(self, project_id: int, example_id: int, label: T) -> T:
+    def create(self, project_id: int, label: T) -> T:
         """Create a new label
 
         Args:
             project_id (int): The id of the project
-            example_id (int): The id of the example
             label (T): The label to create
 
         Returns:
             T: The created label
         """
-        resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}"
+        resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}"
         response = self._client.post(resource, **label.dict(exclude={"id"}))
         return self._label_class.parse_obj(response.json())
 
-    def update(self, project_id: int, example_id: int, label: T) -> T:
+    def update(self, project_id: int, label: T) -> T:
         """Update a label
 
         Args:
             project_id (int): The id of the project
-            example_id (int): The id of the example
             label (T): The label to update
 
         Returns:
             T: The updated label
+
+        Raises:
+            ValueError: If the label id is not set
         """
-        resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}/{label.id}"
+        if not label.id:
+            raise ValueError("Label id is required")
+        resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}/{label.id}"
         response = self._client.put(resource, **label.dict())
         return self._label_class.parse_obj(response.json())
 
-    def delete(self, project_id: int, example_id: int, label: T | int):
+    def delete(self, project_id: int, label: T | int):
         """Delete a label
 
         Args:
             project_id (int): The id of the project
-            example_id (int): The id of the example
             label (T | int): The label to delete
+
+        Raises:
+            ValueError: If the label id is not set
         """
         label_id = label if isinstance(label, int) else label.id
-        resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}/{label_id}"
+        if not label_id:
+            raise ValueError("Label id is required")
+        resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}/{label_id}"
         self._client.delete(resource)
-
-    def bulk_delete(self, project_id: int, example_id: int, labels: List[int | T]):
-        """Bulk delete label
-
-        Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            labels (List[int | T]): The list of label ids to delete
-        """
-        resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}"
-        ids = [label if isinstance(label, int) else label.id for label in labels]
-        self._client.delete(resource, **{"ids": ids})
 
     def delete_all(self, project_id: int, example_id: int):
         """Delete all labels
@@ -116,7 +111,7 @@ class LabelClient(Generic[T]):
             project_id (int): The id of the project
             example_id (int): The id of the example
         """
-        resource = f"projects/{project_id}/examples/{example_id}"
+        resource = f"projects/{project_id}/examples/{example_id}/{self._resource_type}"
         self._client.delete(resource)
 
 

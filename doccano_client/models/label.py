@@ -1,5 +1,4 @@
 from typing import List, Optional
-from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field, NonNegativeInt, root_validator, validator
 
@@ -7,7 +6,6 @@ from pydantic import BaseModel, Field, NonNegativeInt, root_validator, validator
 class Label(BaseModel):
     id: Optional[int]
     example: int
-    uuid: UUID = Field(default_factory=uuid4)
     prob: float = 0.0
     manual: bool = False
     user: Optional[int]
