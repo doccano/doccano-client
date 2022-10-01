@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import functools
 from typing import List
 
 from doccano_client.client import DoccanoClient
@@ -9,10 +10,9 @@ from doccano_client.models.label_type import LabelType
 class LabelTypeClient:
     """Client for interacting with the Doccano label type API"""
 
-    resource_type = "label-type"
-
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: DoccanoClient, resource_type="label-type"):
         self._client = client
+        self._resource_type = resource_type
 
     def find_by_id(self, project_id: int, label_type_id: int) -> LabelType:
         """Find a label type by id
@@ -24,7 +24,7 @@ class LabelTypeClient:
         Returns:
             LabelType: The found label type
         """
-        response = self._client.get(f"projects/{project_id}/{self.resource_type}s/{label_type_id}")
+        response = self._client.get(f"projects/{project_id}/{self._resource_type}s/{label_type_id}")
         return LabelType.parse_obj(response.json())
 
     def list(self, project_id: int) -> List[LabelType]:
@@ -36,7 +36,7 @@ class LabelTypeClient:
         Returns:
             LabelType: The list of the label types.
         """
-        response = self._client.get(f"projects/{project_id}/{self.resource_type}s")
+        response = self._client.get(f"projects/{project_id}/{self._resource_type}s")
         label_types = [LabelType.parse_obj(label_type) for label_type in response.json()]
         return label_types
 
@@ -50,7 +50,7 @@ class LabelTypeClient:
         Returns:
             LabelType: The created label type
         """
-        response = self._client.post(f"projects/{project_id}/{self.resource_type}s", **label_type.dict(exclude={"id"}))
+        response = self._client.post(f"projects/{project_id}/{self._resource_type}s", **label_type.dict(exclude={"id"}))
         return LabelType.parse_obj(response.json())
 
     def update(self, project_id: int, label_type: LabelType) -> LabelType:
@@ -62,8 +62,13 @@ class LabelTypeClient:
 
         Returns:
             LabelType: The updated label type
+
+        Raises:
+            ValueError: If the label_type id is not set
         """
-        resource = f"projects/{project_id}/{self.resource_type}s/{label_type.id}"
+        if label_type.id is None:
+            raise ValueError("label_type id must be set")
+        resource = f"projects/{project_id}/{self._resource_type}s/{label_type.id}"
         response = self._client.put(resource, **label_type.dict())
         return LabelType.parse_obj(response.json())
 
@@ -73,9 +78,14 @@ class LabelTypeClient:
         Args:
             project_id (int): The id of the project
             label_type (LabelType | int): The label type to delete
+
+        Raises:
+            ValueError: If the label_type id is not set
         """
         label_type_id = label_type if isinstance(label_type, int) else label_type.id
-        resource = f"projects/{project_id}/{self.resource_type}s/{label_type_id}"
+        if label_type_id is None:
+            raise ValueError("label_type id must be set")
+        resource = f"projects/{project_id}/{self._resource_type}s/{label_type_id}"
         self._client.delete(resource)
 
     def bulk_delete(self, project_id: int, label_types: List[int | LabelType]):
@@ -86,7 +96,7 @@ class LabelTypeClient:
             label_types (List[int | LabelType]): The list of label type ids to delete
         """
         ids = [label_type if isinstance(label_type, int) else label_type.id for label_type in label_types]
-        self._client.delete(f"projects/{project_id}/{self.resource_type}s", **{"ids": ids})
+        self._client.delete(f"projects/{project_id}/{self._resource_type}s", **{"ids": ids})
 
     def upload(self, project_id: int, file_path: str):
         """Upload a label type
@@ -95,22 +105,9 @@ class LabelTypeClient:
             project_id (int): The id of the project
             file_path (str): The path to the file to upload
         """
-        self._client.upload(f"projects/{project_id}/{self.resource_type}-upload", file_path)
+        self._client.upload(f"projects/{project_id}/{self._resource_type}-upload", file_path)
 
 
-class CategoryTypeClient(LabelTypeClient):
-    """Client for interacting with the Doccano category type API"""
-
-    resource_type = "category-type"
-
-
-class SpanTypeClient(LabelTypeClient):
-    """Client for interacting with the Doccano span type API"""
-
-    resource_type = "span-type"
-
-
-class RelationTypeClient(LabelTypeClient):
-    """Client for interacting with the Doccano relation type API"""
-
-    resource_type = "relation-type"
+CategoryTypeClient = functools.partial(LabelTypeClient, resource_type="category-type")
+SpanTypeClient = functools.partial(LabelTypeClient, resource_type="span-type")
+RelationTypeClient = functools.partial(LabelTypeClient, resource_type="relation-type")
