@@ -82,7 +82,7 @@ class LabelClient(Generic[T]):
         Raises:
             ValueError: If the label id is not set
         """
-        if not label.id:
+        if label.id is None:
             raise ValueError("Label id is required")
         resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}/{label.id}"
         response = self._client.put(resource, **label.dict())
@@ -99,7 +99,7 @@ class LabelClient(Generic[T]):
             ValueError: If the label id is not set
         """
         label_id = label if isinstance(label, int) else label.id
-        if not label_id:
+        if label_id is None:
             raise ValueError("Label id is required")
         resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}/{label_id}"
         self._client.delete(resource)
