@@ -26,6 +26,9 @@ class UserRepository:
     def list(self, name: str = "") -> List[User]:
         """Return users
 
+        Args:
+            name (str): The name of the user to search for
+
         Returns:
             User: The list of the users.
         """

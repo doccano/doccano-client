@@ -13,6 +13,9 @@ class TaskStatusRepository:
     def get(self, task_id: int) -> TaskStatus:
         """Return the specified task_status
 
+        Args:
+            task_id (int): The celery task id
+
         Returns:
             TaskStatus: The task_status.
         """
