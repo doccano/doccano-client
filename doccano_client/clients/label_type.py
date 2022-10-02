@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import functools
+import pathlib
 from typing import List
+
+from requests_toolbelt import MultipartEncoder
 
 from doccano_client.client import DoccanoClient
 from doccano_client.models.label_type import LabelType
@@ -50,7 +53,9 @@ class LabelTypeClient:
         Returns:
             LabelType: The created label type
         """
-        response = self._client.post(f"projects/{project_id}/{self._resource_type}s", **label_type.dict(exclude={"id"}))
+        response = self._client.post(
+            f"projects/{project_id}/{self._resource_type}s", json=label_type.dict(exclude={"id"})
+        )
         return LabelType.parse_obj(response.json())
 
     def update(self, project_id: int, label_type: LabelType) -> LabelType:
@@ -69,7 +74,7 @@ class LabelTypeClient:
         if label_type.id is None:
             raise ValueError("label_type id must be set")
         resource = f"projects/{project_id}/{self._resource_type}s/{label_type.id}"
-        response = self._client.put(resource, **label_type.dict())
+        response = self._client.put(resource, json=label_type.dict())
         return LabelType.parse_obj(response.json())
 
     def delete(self, project_id: int, label_type: LabelType | int):
@@ -96,7 +101,7 @@ class LabelTypeClient:
             label_types (List[int | LabelType]): The list of label type ids to delete
         """
         ids = [label_type if isinstance(label_type, int) else label_type.id for label_type in label_types]
-        self._client.delete(f"projects/{project_id}/{self._resource_type}s", **{"ids": ids})
+        self._client.delete(f"projects/{project_id}/{self._resource_type}s", json={"ids": ids})
 
     def upload(self, project_id: int, file_path: str):
         """Upload a label type
@@ -105,7 +110,12 @@ class LabelTypeClient:
             project_id (int): The id of the project
             file_path (str): The path to the file to upload
         """
-        self._client.upload(f"projects/{project_id}/{self._resource_type}-upload", file_path)
+        resource = f"projects/{project_id}/{self._resource_type}-upload"
+        path = pathlib.Path(file_path)
+        with path.open("rb") as f:
+            m = MultipartEncoder(fields={"file": (path.name, f, "application/json")})
+            headers = {"Content-Type": m.content_type}
+            self._client.post(resource, data=m, headers=headers)
 
 
 CategoryTypeClient = functools.partial(LabelTypeClient, resource_type="category-type")

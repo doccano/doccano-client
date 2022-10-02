@@ -66,7 +66,7 @@ class LabelClient(Generic[T]):
             T: The created label
         """
         resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}"
-        response = self._client.post(resource, **label.dict(exclude={"id"}))
+        response = self._client.post(resource, json=label.dict(exclude={"id"}))
         return self._label_class.parse_obj(response.json())
 
     def update(self, project_id: int, label: T) -> T:
@@ -85,7 +85,7 @@ class LabelClient(Generic[T]):
         if label.id is None:
             raise ValueError("Label id is required")
         resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}/{label.id}"
-        response = self._client.put(resource, **label.dict())
+        response = self._client.put(resource, json=label.dict())
         return self._label_class.parse_obj(response.json())
 
     def delete(self, project_id: int, label: T | int):
