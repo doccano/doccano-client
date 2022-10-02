@@ -1,0 +1,113 @@
+interactions:
+- request:
+    body: '{"format": "JSONL", "exportApproved": false}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '44'
+      Cookie:
+      - csrftoken=FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ;
+        sessionid=rmbx2nr20xbrk8ofdi9u4ocgai6bze9g
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects/16/download
+  response:
+    body:
+      string: '{"task_id":"775c0bde-3ee5-4e19-b9cd-6f4d53c3c120"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '50'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Sun, 02 Oct 2022 07:57:46 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ;
+        sessionid=rmbx2nr20xbrk8ofdi9u4ocgai6bze9g
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/projects/16/download?taskId=775c0bde-3ee5-4e19-b9cd-6f4d53c3c120
+  response:
+    body:
+      string: !!binary |
+        UEsDBBQAAAAIADc/QlW3l8FGmgAAAGsCAAALAAAAYWRtaW4uanNvbmytzTELwjAQhuHdn/HNGdRW
+        q9lsXdzcS4eIRwkmaSFRC6X/3WCxaEGpkOnuOHjeFvIMvojnScTgqHHgflgHBiVOpMDzgiGrtCbj
+        bH89H343V6UYNDnR792sHbQ4qLYKqq2DasmgUSN0rWg3RcxRV1Y6eSMUL7nFXV7kUZR02Hu7e69s
+        xpX0zwqDoVL8Ci4/gttxMJsU/GJH3n4AUEsBAhQDFAAAAAgANz9CVbeXwUaaAAAAawIAAAsAAAAA
+        AAAAAAAAAKSBAAAAAGFkbWluLmpzb25sUEsFBgAAAAABAAEAOQAAAMMAAAAAAA==
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Disposition:
+      - attachment; filename="169be049-d9b1-4882-a974-cd8625adcd67.zip"
+      Content-Length:
+      - '274'
+      Content-Type:
+      - application/zip
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Sun, 02 Oct 2022 07:57:56 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

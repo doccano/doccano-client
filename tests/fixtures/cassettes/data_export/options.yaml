@@ -1,0 +1,62 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ;
+        sessionid=rmbx2nr20xbrk8ofdi9u4ocgai6bze9g
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/projects/16/download-format
+  response:
+    body:
+      string: '[{"name":"CSV","example":"text,label\n\"Terrible customer service.\",\"negative\"\n\"Really
+        great transaction.\",\"positive\"\n\"Great price.\",\"positive\"\n"},{"name":"fastText","example":"__label__negative
+        Terrible customer service.\n__label__positive Really great transaction.\n__label__positive
+        Great price.\n"},{"name":"JSON","example":"[\n    {\n        \"text\": \"Terrible
+        customer service.\",\n        \"label\": [\"negative\"]\n    },\n    {\n        \"text\":
+        \"Really great transaction.\",\n        \"label\": [\"positive\"]\n    },\n    {\n        \"text\":
+        \"Great price.\",\n        \"label\": [\"positive\"]\n    }\n]\n"},{"name":"JSONL","example":"{\"text\":
+        \"Terrible customer service.\", \"label\": [\"negative\"]}\n{\"text\": \"Really
+        great transaction.\", \"label\": [\"positive\"]}\n{\"text\": \"Great price.\",
+        \"label\": [\"positive\"]}\n"}]'
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '867'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Sun, 02 Oct 2022 07:53:26 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
