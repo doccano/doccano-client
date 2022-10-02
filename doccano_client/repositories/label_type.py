@@ -6,14 +6,14 @@ from typing import List
 
 from requests_toolbelt import MultipartEncoder
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.label_type import LabelType
+from doccano_client.repositories.base import BaseRepository
 
 
 class LabelTypeRepository:
     """Repository for interacting with the Doccano label type API"""
 
-    def __init__(self, client: DoccanoClient, resource_type="label-type"):
+    def __init__(self, client: BaseRepository, resource_type="label-type"):
         self._client = client
         self._resource_type = resource_type
 

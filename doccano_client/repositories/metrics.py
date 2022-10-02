@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import Iterator, List
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.metrics import (
     LabelCount,
     LabelDistribution,
     MemberProgress,
     Progress,
 )
+from doccano_client.repositories.base import BaseRepository
 
 
 class MetricsRepository:
@@ -16,7 +16,7 @@ class MetricsRepository:
 
     resource_type = "label-type"
 
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: BaseRepository):
         self._client = client
 
     def get_progress(self, project_id: int) -> Progress:

@@ -3,8 +3,8 @@ import time
 
 import vcr
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.data_export import Option
+from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.data_export import DataExportRepository
 from tests.conftest import cassettes_path
 
@@ -13,7 +13,7 @@ class TestDataExportRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "data_export/login.yaml"), mode="once"):
-            client = DoccanoClient("http://localhost:8000")
+            client = BaseRepository("http://localhost:8000")
             client.login(username="admin", password="password")
         cls.client = DataExportRepository(client)
         cls.project_id = 16

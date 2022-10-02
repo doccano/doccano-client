@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Iterator, List, Optional
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.comment import Comment
+from doccano_client.repositories.base import BaseRepository
 
 
 class CommentRepository:
@@ -11,7 +11,7 @@ class CommentRepository:
 
     resource_type = "comments"
 
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: BaseRepository):
         self._client = client
 
     def find_by_id(self, project_id: int, comment_id: int) -> Comment:

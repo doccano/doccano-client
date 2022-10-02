@@ -2,8 +2,8 @@ import pathlib
 
 import vcr
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.data_import import Option
+from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.data_import import DataImportRepository
 from tests.conftest import cassettes_path
 
@@ -12,7 +12,7 @@ class TestDataImportRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "data_import/login.yaml"), mode="once"):
-            client = DoccanoClient("http://localhost:8000")
+            client = BaseRepository("http://localhost:8000")
             client.login(username="admin", password="password")
         cls.client = DataImportRepository(client)
         cls.project_id = 16

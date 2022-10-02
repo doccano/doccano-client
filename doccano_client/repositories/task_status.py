@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.task_status import TaskStatus
+from doccano_client.repositories.base import BaseRepository
 
 
 class TaskStatusRepository:
     """Repository for interacting with the Doccano task status API"""
 
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: BaseRepository):
         self._client = client
 
     def get(self, task_id: int) -> TaskStatus:

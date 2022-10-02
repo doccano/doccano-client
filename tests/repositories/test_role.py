@@ -1,6 +1,6 @@
 import vcr
 
-from doccano_client.client import DoccanoClient
+from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.role import RoleRepository
 from tests.conftest import cassettes_path
 
@@ -9,7 +9,7 @@ class TestRoleRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "role/login.yaml"), mode="once"):
-            client = DoccanoClient("http://localhost:8000")
+            client = BaseRepository("http://localhost:8000")
             client.login(username="admin", password="password")
         cls.client = RoleRepository(client)
 

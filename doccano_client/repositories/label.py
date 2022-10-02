@@ -3,7 +3,6 @@ from __future__ import annotations
 import functools
 from typing import Generic, List, TypeVar
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.label import (
     BoundingBox,
     Category,
@@ -13,6 +12,7 @@ from doccano_client.models.label import (
     Span,
     Text,
 )
+from doccano_client.repositories.base import BaseRepository
 
 T = TypeVar("T", bound=Label)
 
@@ -20,7 +20,7 @@ T = TypeVar("T", bound=Label)
 class LabelRepository(Generic[T]):
     """Repository for interacting with the Doccano label API"""
 
-    def __init__(self, client: DoccanoClient, label_class: T, resource_type: str):
+    def __init__(self, client: BaseRepository, label_class: T, resource_type: str):
         self._client = client
         self._label_class = label_class
         self._resource_type = resource_type

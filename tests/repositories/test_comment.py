@@ -3,8 +3,8 @@ import pathlib
 import pytest
 import vcr
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.comment import Comment
+from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.comment import CommentRepository
 from tests.conftest import cassettes_path
 
@@ -18,7 +18,7 @@ class TestCommentRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "comment/login.yaml"), mode="once"):
-            client = DoccanoClient("http://localhost:8000")
+            client = BaseRepository("http://localhost:8000")
             client.login(username="admin", password="password")
         cls.client = CommentRepository(client)
         cls.project_id = 16

@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import List
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.user import User
+from doccano_client.repositories.base import BaseRepository
 
 
 class UserRepository:
@@ -11,7 +11,7 @@ class UserRepository:
 
     resource_type = "label-type"
 
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: BaseRepository):
         self._client = client
 
     def get_profile(self) -> User:

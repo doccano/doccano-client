@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from typing import Any, Iterator, List
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.data_export import Option
+from doccano_client.repositories.base import BaseRepository
 
 
 class DataExportRepository:
     """Repository for interacting with the Doccano data export API"""
 
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: BaseRepository):
         self._client = client
 
     def list_options(self, project_id: int) -> List[Option]:

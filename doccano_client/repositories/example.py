@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from typing import Iterator, List
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.example import Example
+from doccano_client.repositories.base import BaseRepository
 
 
 class ExampleRepository:
     """Repository for interacting with the Doccano example API"""
 
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: BaseRepository):
         self._client = client
 
     def find_by_id(self, project_id: int, example_id: int) -> Example:

@@ -1,17 +1,12 @@
 import requests
 
-from .beta.utils.response import verbose_raise_for_status
+from ..beta.utils.response import verbose_raise_for_status
 
 
-class DoccanoClient:
-    """Base client for interacting with the Doccano API"""
+class BaseRepository:
+    """Base repository for interacting with the Doccano API"""
 
     def __init__(self, base_url: str) -> None:
-        """Initialize a Doccano client with a base url and authorization token for headers
-
-        Args:
-            base_url (str): The base url of the Doccano instance
-        """
         self._base_url = base_url
         self._session = requests.Session()
         headers = {

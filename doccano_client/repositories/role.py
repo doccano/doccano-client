@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import List
 
-from doccano_client.client import DoccanoClient
 from doccano_client.models.role import Role
+from doccano_client.repositories.base import BaseRepository
 
 
 class RoleRepository:
@@ -11,7 +11,7 @@ class RoleRepository:
 
     resource_type = "label-type"
 
-    def __init__(self, client: DoccanoClient):
+    def __init__(self, client: BaseRepository):
         self._client = client
 
     def list(self) -> List[Role]:
