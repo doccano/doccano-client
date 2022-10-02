@@ -88,20 +88,19 @@ class LabelClient(Generic[T]):
         response = self._client.put(resource, json=label.dict())
         return self._label_class.parse_obj(response.json())
 
-    def delete(self, project_id: int, label: T | int):
+    def delete(self, project_id: int, label: T):
         """Delete a label
 
         Args:
             project_id (int): The id of the project
-            label (T | int): The label to delete
+            label (T): The label to delete
 
         Raises:
             ValueError: If the label id is not set
         """
-        label_id = label if isinstance(label, int) else label.id
-        if label_id is None:
+        if label.id is None:
             raise ValueError("Label id is required")
-        resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}/{label_id}"
+        resource = f"projects/{project_id}/examples/{label.example}/{self._resource_type}/{label.id}"
         self._client.delete(resource)
 
     def delete_all(self, project_id: int, example_id: int):
