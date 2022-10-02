@@ -6,8 +6,6 @@ from .beta.utils.response import verbose_raise_for_status
 class DoccanoClient:
     """Base client for interacting with the Doccano API"""
 
-    __slots__ = ["_base_url", "session"]
-
     def __init__(self, base_url: str) -> None:
         """Initialize a Doccano client with a base url and authorization token for headers
 
@@ -15,13 +13,13 @@ class DoccanoClient:
             base_url (str): The base url of the Doccano instance
         """
         self._base_url = base_url
-        self.session = requests.Session()
+        self._session = requests.Session()
         headers = {
             "content-type": "application/json",
             "accept": "application/json",
             "referer": base_url,
         }
-        self.session.headers.update(headers)
+        self._session.headers.update(headers)
 
     @property
     def login_url(self) -> str:
@@ -48,10 +46,10 @@ class DoccanoClient:
             username (str): The username of the user
             password (str): The password of the user
         """
-        response = self.session.post(self.login_url, json={"username": username, "password": password})
+        response = self._session.post(self.login_url, json={"username": username, "password": password})
         # TODO: do we want to do anything with the return value token in the future?
         verbose_raise_for_status(response)
-        self.session.headers.update({"X-CSRFToken": self.session.cookies.get("csrftoken")})
+        self._session.headers.update({"X-CSRFToken": self._session.cookies.get("csrftoken")})
 
     def get(self, resource: str, **kwargs) -> requests.Response:
         """Make a get request to the Doccano API
@@ -64,7 +62,7 @@ class DoccanoClient:
             requests.Response: The response from the API
         """
         url = f"{self.api_url}/{resource}"
-        response = self.session.get(url, **kwargs)
+        response = self._session.get(url, **kwargs)
         verbose_raise_for_status(response)
         return response
 
@@ -79,7 +77,7 @@ class DoccanoClient:
             requests.Response: The response from the API
         """
         url = f"{self.api_url}/{resource}"
-        response = self.session.post(url, **kwargs)
+        response = self._session.post(url, **kwargs)
         verbose_raise_for_status(response)
         return response
 
@@ -94,7 +92,7 @@ class DoccanoClient:
             requests.Response: The response from the API
         """
         url = f"{self.api_url}/{resource}"
-        response = self.session.put(url, **kwargs)
+        response = self._session.put(url, **kwargs)
         verbose_raise_for_status(response)
         return response
 
@@ -109,6 +107,6 @@ class DoccanoClient:
             requests.Response: The response from the API
         """
         url = f"{self.api_url}/{resource}"
-        response = self.session.delete(url, **kwargs)
+        response = self._session.delete(url, **kwargs)
         verbose_raise_for_status(response)
         return response
