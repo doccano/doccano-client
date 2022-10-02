@@ -11,8 +11,8 @@ from doccano_client.models.metrics import (
 )
 
 
-class MetricsClient:
-    """Client for interacting with the Doccano metrics API"""
+class MetricsRepository:
+    """Repository for interacting with the Doccano metrics API"""
 
     resource_type = "label-type"
 

@@ -4,8 +4,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.task_status import TaskStatus
 
 
-class TaskStatusClient:
-    """Client for interacting with the Doccano task status API"""
+class TaskStatusRepository:
+    """Repository for interacting with the Doccano task status API"""
 
     def __init__(self, client: DoccanoClient):
         self._client = client

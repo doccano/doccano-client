@@ -1,17 +1,17 @@
 import vcr
 
 from doccano_client.client import DoccanoClient
-from doccano_client.clients.task_status import TaskStatusClient
+from doccano_client.repositories.task_status import TaskStatusRepository
 from tests.conftest import cassettes_path
 
 
-class TestTaskStatusClient:
+class TestTaskStatusRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "task_status/login.yaml"), mode="once"):
             client = DoccanoClient("http://localhost:8000")
             client.login(username="admin", password="password")
-        cls.client = TaskStatusClient(client)
+        cls.client = TaskStatusRepository(client)
 
     def test_get(self):
         with vcr.use_cassette(str(cassettes_path / "task_status/list.yaml"), mode="once"):

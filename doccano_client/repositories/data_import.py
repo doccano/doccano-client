@@ -9,8 +9,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.data_import import AvailableTask, Option
 
 
-class DataImportClient:
-    """Client for interacting with the Doccano data import API"""
+class DataImportRepository:
+    """Repository for interacting with the Doccano data import API"""
 
     def __init__(self, client: DoccanoClient):
         self._client = client

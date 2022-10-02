@@ -4,8 +4,8 @@ import pytest
 import vcr
 
 from doccano_client.client import DoccanoClient
-from doccano_client.clients.label_type import CategoryTypeClient
 from doccano_client.models.label_type import LabelType
+from doccano_client.repositories.label_type import CategoryTypeRepository
 from tests.conftest import cassettes_path
 
 
@@ -14,13 +14,13 @@ def label_type():
     return LabelType(text="Test Label Type")
 
 
-class TestCategoryTypeClient:
+class TestCategoryTypeRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "label_type/login.yaml"), mode="once"):
             client = DoccanoClient("http://localhost:8000")
             client.login(username="admin", password="password")
-        cls.client = CategoryTypeClient(client)
+        cls.client = CategoryTypeRepository(client)
         cls.project_id = 16
 
     def test_create(self, label_type):

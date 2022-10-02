@@ -6,8 +6,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.example import Example
 
 
-class ExampleClient:
-    """Client for interacting with the Doccano example API"""
+class ExampleRepository:
+    """Repository for interacting with the Doccano example API"""
 
     def __init__(self, client: DoccanoClient):
         self._client = client

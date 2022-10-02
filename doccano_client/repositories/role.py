@@ -6,8 +6,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.role import Role
 
 
-class RoleClient:
-    """Client for interacting with the Doccano role API"""
+class RoleRepository:
+    """Repository for interacting with the Doccano role API"""
 
     resource_type = "label-type"
 

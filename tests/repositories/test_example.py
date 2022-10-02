@@ -2,8 +2,8 @@ import pytest
 import vcr
 
 from doccano_client.client import DoccanoClient
-from doccano_client.clients.example import ExampleClient
 from doccano_client.models.example import Example
+from doccano_client.repositories.example import ExampleRepository
 from tests.conftest import cassettes_path
 
 
@@ -12,13 +12,13 @@ def example():
     return Example(text="Test Example")
 
 
-class TestExampleClient:
+class TestExampleRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "example/login.yaml"), mode="once"):
             client = DoccanoClient("http://localhost:8000")
             client.login(username="admin", password="password")
-        cls.client = ExampleClient(client)
+        cls.client = ExampleRepository(client)
         cls.project_id = 16
 
     def test_create(self, example):

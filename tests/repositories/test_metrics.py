@@ -1,18 +1,18 @@
 import vcr
 
 from doccano_client.client import DoccanoClient
-from doccano_client.clients.metrics import MetricsClient
 from doccano_client.models.metrics import LabelDistribution, MemberProgress, Progress
+from doccano_client.repositories.metrics import MetricsRepository
 from tests.conftest import cassettes_path
 
 
-class TestMetricsClient:
+class TestMetricsRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "metrics/login.yaml"), mode="once"):
             client = DoccanoClient("http://localhost:8000")
             client.login(username="admin", password="password")
-        cls.client = MetricsClient(client)
+        cls.client = MetricsRepository(client)
         cls.project_id = 16
 
     def test_get_progress(self):

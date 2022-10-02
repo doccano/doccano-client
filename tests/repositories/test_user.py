@@ -1,18 +1,18 @@
 import vcr
 
 from doccano_client.client import DoccanoClient
-from doccano_client.clients.user import UserClient
 from doccano_client.models.user import User
+from doccano_client.repositories.user import UserRepository
 from tests.conftest import cassettes_path
 
 
-class TestUserClient:
+class TestUserRepository:
     @classmethod
     def setup_class(cls):
         with vcr.use_cassette(str(cassettes_path / "user/login.yaml"), mode="once"):
             client = DoccanoClient("http://localhost:8000")
             client.login(username="admin", password="password")
-        cls.client = UserClient(client)
+        cls.client = UserRepository(client)
 
     def test_get_profile(self):
         with vcr.use_cassette(str(cassettes_path / "user/get_profile.yaml"), mode="once"):

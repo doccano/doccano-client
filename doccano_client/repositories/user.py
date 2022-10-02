@@ -6,8 +6,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.user import User
 
 
-class UserClient:
-    """Client for interacting with the Doccano user API"""
+class UserRepository:
+    """Repository for interacting with the Doccano user API"""
 
     resource_type = "label-type"
 

@@ -6,8 +6,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.comment import Comment
 
 
-class CommentClient:
-    """Client for interacting with the Doccano comment API"""
+class CommentRepository:
+    """Repository for interacting with the Doccano comment API"""
 
     resource_type = "comments"
 

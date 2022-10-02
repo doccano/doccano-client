@@ -17,8 +17,8 @@ from doccano_client.models.label import (
 T = TypeVar("T", bound=Label)
 
 
-class LabelClient(Generic[T]):
-    """Client for interacting with the Doccano label API"""
+class LabelRepository(Generic[T]):
+    """Repository for interacting with the Doccano label API"""
 
     def __init__(self, client: DoccanoClient, label_class: T, resource_type: str):
         self._client = client
@@ -114,9 +114,9 @@ class LabelClient(Generic[T]):
         self._client.delete(resource)
 
 
-CategoryClient = functools.partial(LabelClient[Category], label_class=Category, resource_type="categories")
-SpanClient = functools.partial(LabelClient[Span], label_class=Span, resource_type="spans")
-RelationClient = functools.partial(LabelClient[Relation], label_class=Relation, resource_type="relations")
-SegmentClient = functools.partial(LabelClient[Segment], label_class=Segment, resource_type="segments")
-TextClient = functools.partial(LabelClient[Text], label_class=Text, resource_type="texts")
-BoundingBoxClient = functools.partial(LabelClient[BoundingBox], label_class=BoundingBox, resource_type="bboxes")
+CategoryRepository = functools.partial(LabelRepository[Category], label_class=Category, resource_type="categories")
+SpanRepository = functools.partial(LabelRepository[Span], label_class=Span, resource_type="spans")
+RelationRepository = functools.partial(LabelRepository[Relation], label_class=Relation, resource_type="relations")
+SegmentRepository = functools.partial(LabelRepository[Segment], label_class=Segment, resource_type="segments")
+TextRepository = functools.partial(LabelRepository[Text], label_class=Text, resource_type="texts")
+BoundingBoxRepository = functools.partial(LabelRepository[BoundingBox], label_class=BoundingBox, resource_type="bboxes")

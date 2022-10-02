@@ -10,8 +10,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.label_type import LabelType
 
 
-class LabelTypeClient:
-    """Client for interacting with the Doccano label type API"""
+class LabelTypeRepository:
+    """Repository for interacting with the Doccano label type API"""
 
     def __init__(self, client: DoccanoClient, resource_type="label-type"):
         self._client = client
@@ -118,6 +118,6 @@ class LabelTypeClient:
             self._client.post(resource, data=m, headers=headers)
 
 
-CategoryTypeClient = functools.partial(LabelTypeClient, resource_type="category-type")
-SpanTypeClient = functools.partial(LabelTypeClient, resource_type="span-type")
-RelationTypeClient = functools.partial(LabelTypeClient, resource_type="relation-type")
+CategoryTypeRepository = functools.partial(LabelTypeRepository, resource_type="category-type")
+SpanTypeRepository = functools.partial(LabelTypeRepository, resource_type="span-type")
+RelationTypeRepository = functools.partial(LabelTypeRepository, resource_type="relation-type")

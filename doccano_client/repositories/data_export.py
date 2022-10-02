@@ -6,8 +6,8 @@ from doccano_client.client import DoccanoClient
 from doccano_client.models.data_export import Option
 
 
-class DataExportClient:
-    """Client for interacting with the Doccano data export API"""
+class DataExportRepository:
+    """Repository for interacting with the Doccano data export API"""
 
     def __init__(self, client: DoccanoClient):
         self._client = client
