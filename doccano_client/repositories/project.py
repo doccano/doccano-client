@@ -24,7 +24,7 @@ class ProjectRepository:
         response = self._client.get(f"projects/{project_id}")
         return Project.parse_obj(response.json())
 
-    def all(self) -> Iterator[Project]:
+    def list(self) -> Iterator[Project]:
         """Return all projects in which you are a member
 
         Yields:
