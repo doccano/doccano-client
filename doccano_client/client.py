@@ -1,7 +1,4 @@
-import pathlib
-
 import requests
-from requests_toolbelt import MultipartEncoder
 
 from .beta.utils.response import verbose_raise_for_status
 
@@ -42,37 +39,27 @@ class DoccanoClient:
     def get(self, resource: str, **kwargs) -> requests.Response:
         """Make a get request to the Doccano API"""
         url = f"{self.api_url}/{resource}"
-        response = self.session.get(url, params=kwargs)
+        response = self.session.get(url, **kwargs)
         verbose_raise_for_status(response)
         return response
 
     def post(self, resource: str, **kwargs) -> requests.Response:
         """Make a post request to the Doccano API"""
         url = f"{self.api_url}/{resource}"
-        response = self.session.post(url, json=kwargs)
+        response = self.session.post(url, **kwargs)
         verbose_raise_for_status(response)
         return response
 
     def put(self, resource: str, **kwargs) -> requests.Response:
         """Make a put request to the Doccano API"""
         url = f"{self.api_url}/{resource}"
-        response = self.session.put(url, json=kwargs)
+        response = self.session.put(url, **kwargs)
         verbose_raise_for_status(response)
         return response
 
     def delete(self, resource: str, **kwargs) -> requests.Response:
         """Make a delete request to the Doccano API"""
         url = f"{self.api_url}/{resource}"
-        response = self.session.delete(url, json=kwargs)
-        verbose_raise_for_status(response)
-        return response
-
-    def upload(self, resource: str, file_path: str) -> requests.Response:
-        """Upload a file to the Doccano API"""
-        url = f"{self.api_url}/{resource}"
-        file = pathlib.Path(file_path)
-        with file.open("rb") as f:
-            m = MultipartEncoder(fields={"file": (file.name, f, "application/json")})
-            response = self.session.post(url, data=m, headers={"Content-Type": m.content_type})
+        response = self.session.delete(url, **kwargs)
         verbose_raise_for_status(response)
         return response

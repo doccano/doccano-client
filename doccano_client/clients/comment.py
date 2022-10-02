@@ -42,7 +42,7 @@ class CommentClient:
         if not example_id:
             params.pop("example")
 
-        response = self._client.get(f"projects/{project_id}/{self.resource_type}", **params)
+        response = self._client.get(f"projects/{project_id}/{self.resource_type}", params=params)
         while True:
             comments = response.json()
             for comment in comments["results"]:
@@ -64,7 +64,7 @@ class CommentClient:
             Comment: The created comment
         """
         resource = f"projects/{project_id}/{self.resource_type}?example={comment.example}"
-        response = self._client.post(resource, **comment.dict(exclude={"id", "example"}))
+        response = self._client.post(resource, json=comment.dict(exclude={"id", "example"}))
         return Comment.parse_obj(response.json())
 
     def update(self, project_id: int, comment: Comment) -> Comment:
@@ -78,7 +78,7 @@ class CommentClient:
             Comment: The updated comment
         """
         resource = f"projects/{project_id}/{self.resource_type}/{comment.id}"
-        response = self._client.put(resource, **comment.dict())
+        response = self._client.put(resource, json=comment.dict())
         return Comment.parse_obj(response.json())
 
     def delete(self, project_id: int, comment: Comment | int):
@@ -100,4 +100,4 @@ class CommentClient:
             comments (List[int | Comment]): The list of comment ids to delete
         """
         ids = [comment if isinstance(comment, int) else comment.id for comment in comments]
-        self._client.delete(f"projects/{project_id}/{self.resource_type}", **{"ids": ids})
+        self._client.delete(f"projects/{project_id}/{self.resource_type}", json={"ids": ids})

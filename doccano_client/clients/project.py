@@ -51,7 +51,7 @@ class ProjectClient:
         Returns:
             Project: The created project
         """
-        response = self._client.post("projects", **project.dict(exclude={"id"}))
+        response = self._client.post("projects", json=project.dict(exclude={"id"}))
         return Project.parse_obj(response.json())
 
     def update(self, project: Project) -> Project:
@@ -64,7 +64,7 @@ class ProjectClient:
             Project: The updated project
         """
         resource = f"projects/{project.id}"
-        response = self._client.put(resource, **project.dict())
+        response = self._client.put(resource, json=project.dict())
         return Project.parse_obj(response.json())
 
     def delete(self, project: Project | int):

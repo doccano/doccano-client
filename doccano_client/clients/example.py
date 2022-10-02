@@ -56,7 +56,7 @@ class ExampleClient:
         Returns:
             Example: The created example
         """
-        response = self._client.post(f"projects/{project_id}/examples", **example.dict(exclude={"id"}))
+        response = self._client.post(f"projects/{project_id}/examples", json=example.dict(exclude={"id"}))
         return Example.parse_obj(response.json())
 
     def update(self, project_id: int, example: Example) -> Example:
@@ -70,7 +70,7 @@ class ExampleClient:
             Example: The updated example
         """
         resource = f"projects/{project_id}/examples/{example.id}"
-        response = self._client.put(resource, **example.dict())
+        response = self._client.put(resource, json=example.dict())
         return Example.parse_obj(response.json())
 
     def delete(self, project_id: int, example: Example | int):
@@ -99,7 +99,7 @@ class ExampleClient:
             examples (List[int | Example]): The list of example ids to delete
         """
         ids = [example if isinstance(example, int) else example.id for example in examples]
-        self._client.delete(f"projects/{project_id}/examples", **{"ids": ids})
+        self._client.delete(f"projects/{project_id}/examples", json={"ids": ids})
 
     def update_state(self, project_id: int, example: Example | int):
         """Update completed state of example
