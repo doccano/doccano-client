@@ -1,0 +1,80 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=dt7iPmKOH48xSezmmypld4izNQtiMVcEA64Qf4a7sSVlTIToGyXjnsQHJRYHuy2b;
+        sessionid=fcjn46n6aqmya549fego0q7igo89cxks
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - dt7iPmKOH48xSezmmypld4izNQtiMVcEA64Qf4a7sSVlTIToGyXjnsQHJRYHuy2b
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/projects/16/catalog
+  response:
+    body:
+      string: "[{\"name\":\"TextFile\",\"accept_types\":\"text/*\",\"title\":\"ArgEncoding\",\"type\":\"object\",\"properties\":{\"encoding\":{\"title\":\"Encoding\",\"default\":\"utf_8\",\"enum\":[\"Auto\",\"ascii\",\"big5\",\"big5hkscs\",\"cp037\",\"cp273\",\"cp424\",\"cp437\",\"cp500\",\"cp720\",\"cp737\",\"cp775\",\"cp850\",\"cp852\",\"cp855\",\"cp856\",\"cp857\",\"cp858\",\"cp860\",\"cp861\",\"cp862\",\"cp863\",\"cp864\",\"cp865\",\"cp866\",\"cp869\",\"cp874\",\"cp875\",\"cp932\",\"cp949\",\"cp950\",\"cp1006\",\"cp1026\",\"cp1125\",\"cp1140\",\"cp1250\",\"cp1251\",\"cp1252\",\"cp1253\",\"cp1254\",\"cp1255\",\"cp1256\",\"cp1257\",\"cp1258\",\"cp65001\",\"euc_jp\",\"euc_jis_2004\",\"euc_jisx0213\",\"euc_kr\",\"gb2312\",\"gbk\",\"gb18030\",\"hz\",\"iso2022_jp\",\"iso2022_jp_1\",\"iso2022_jp_2\",\"iso2022_jp_2004\",\"iso2022_jp_3\",\"iso2022_jp_ext\",\"iso2022_kr\",\"latin_1\",\"iso8859_2\",\"iso8859_3\",\"iso8859_4\",\"iso8859_5\",\"iso8859_6\",\"iso8859_7\",\"iso8859_8\",\"iso8859_9\",\"iso8859_10\",\"iso8859_11\",\"iso8859_13\",\"iso8859_14\",\"iso8859_15\",\"iso8859_16\",\"johab\",\"koi8_r\",\"koi8_t\",\"koi8_u\",\"kz1048\",\"mac_cyrillic\",\"mac_greek\",\"mac_iceland\",\"mac_latin2\",\"mac_roman\",\"mac_turkish\",\"ptcp154\",\"shift_jis\",\"shift_jis_2004\",\"shift_jisx0213\",\"utf_32\",\"utf_32_be\",\"utf_32_le\",\"utf_16\",\"utf_16_be\",\"utf_16_le\",\"utf_7\",\"utf_8\",\"utf_8_sig\"],\"type\":\"string\"}},\"example\":\"\u251C\u2500\u2500
+        202104210943.txt\\n\u251C\u2500\u2500 202104210944.txt\\n\u2514\u2500\u2500
+        202104210945.txt\\n\",\"task_id\":\"DocumentClassification\",\"display_name\":\"TextFile\"},{\"name\":\"TextLine\",\"accept_types\":\"text/*\",\"title\":\"ArgEncoding\",\"type\":\"object\",\"properties\":{\"encoding\":{\"title\":\"Encoding\",\"default\":\"utf_8\",\"enum\":[\"Auto\",\"ascii\",\"big5\",\"big5hkscs\",\"cp037\",\"cp273\",\"cp424\",\"cp437\",\"cp500\",\"cp720\",\"cp737\",\"cp775\",\"cp850\",\"cp852\",\"cp855\",\"cp856\",\"cp857\",\"cp858\",\"cp860\",\"cp861\",\"cp862\",\"cp863\",\"cp864\",\"cp865\",\"cp866\",\"cp869\",\"cp874\",\"cp875\",\"cp932\",\"cp949\",\"cp950\",\"cp1006\",\"cp1026\",\"cp1125\",\"cp1140\",\"cp1250\",\"cp1251\",\"cp1252\",\"cp1253\",\"cp1254\",\"cp1255\",\"cp1256\",\"cp1257\",\"cp1258\",\"cp65001\",\"euc_jp\",\"euc_jis_2004\",\"euc_jisx0213\",\"euc_kr\",\"gb2312\",\"gbk\",\"gb18030\",\"hz\",\"iso2022_jp\",\"iso2022_jp_1\",\"iso2022_jp_2\",\"iso2022_jp_2004\",\"iso2022_jp_3\",\"iso2022_jp_ext\",\"iso2022_kr\",\"latin_1\",\"iso8859_2\",\"iso8859_3\",\"iso8859_4\",\"iso8859_5\",\"iso8859_6\",\"iso8859_7\",\"iso8859_8\",\"iso8859_9\",\"iso8859_10\",\"iso8859_11\",\"iso8859_13\",\"iso8859_14\",\"iso8859_15\",\"iso8859_16\",\"johab\",\"koi8_r\",\"koi8_t\",\"koi8_u\",\"kz1048\",\"mac_cyrillic\",\"mac_greek\",\"mac_iceland\",\"mac_latin2\",\"mac_roman\",\"mac_turkish\",\"ptcp154\",\"shift_jis\",\"shift_jis_2004\",\"shift_jisx0213\",\"utf_32\",\"utf_32_be\",\"utf_32_le\",\"utf_16\",\"utf_16_be\",\"utf_16_le\",\"utf_7\",\"utf_8\",\"utf_8_sig\"],\"type\":\"string\"}},\"example\":\"Terrible
+        customer service.\\nReally great transaction.\\nGreat price.\\n\",\"task_id\":\"DocumentClassification\",\"display_name\":\"TextLine\"},{\"name\":\"CSV\",\"accept_types\":\"text/csv\",\"title\":\"ArgDelimiter\",\"type\":\"object\",\"properties\":{\"encoding\":{\"title\":\"Encoding\",\"default\":\"utf_8\",\"enum\":[\"Auto\",\"ascii\",\"big5\",\"big5hkscs\",\"cp037\",\"cp273\",\"cp424\",\"cp437\",\"cp500\",\"cp720\",\"cp737\",\"cp775\",\"cp850\",\"cp852\",\"cp855\",\"cp856\",\"cp857\",\"cp858\",\"cp860\",\"cp861\",\"cp862\",\"cp863\",\"cp864\",\"cp865\",\"cp866\",\"cp869\",\"cp874\",\"cp875\",\"cp932\",\"cp949\",\"cp950\",\"cp1006\",\"cp1026\",\"cp1125\",\"cp1140\",\"cp1250\",\"cp1251\",\"cp1252\",\"cp1253\",\"cp1254\",\"cp1255\",\"cp1256\",\"cp1257\",\"cp1258\",\"cp65001\",\"euc_jp\",\"euc_jis_2004\",\"euc_jisx0213\",\"euc_kr\",\"gb2312\",\"gbk\",\"gb18030\",\"hz\",\"iso2022_jp\",\"iso2022_jp_1\",\"iso2022_jp_2\",\"iso2022_jp_2004\",\"iso2022_jp_3\",\"iso2022_jp_ext\",\"iso2022_kr\",\"latin_1\",\"iso8859_2\",\"iso8859_3\",\"iso8859_4\",\"iso8859_5\",\"iso8859_6\",\"iso8859_7\",\"iso8859_8\",\"iso8859_9\",\"iso8859_10\",\"iso8859_11\",\"iso8859_13\",\"iso8859_14\",\"iso8859_15\",\"iso8859_16\",\"johab\",\"koi8_r\",\"koi8_t\",\"koi8_u\",\"kz1048\",\"mac_cyrillic\",\"mac_greek\",\"mac_iceland\",\"mac_latin2\",\"mac_roman\",\"mac_turkish\",\"ptcp154\",\"shift_jis\",\"shift_jis_2004\",\"shift_jisx0213\",\"utf_32\",\"utf_32_be\",\"utf_32_le\",\"utf_16\",\"utf_16_be\",\"utf_16_le\",\"utf_7\",\"utf_8\",\"utf_8_sig\"],\"type\":\"string\"},\"column_data\":{\"title\":\"Column
+        Data\",\"default\":\"text\",\"type\":\"string\"},\"column_label\":{\"title\":\"Column
+        Label\",\"default\":\"label\",\"type\":\"string\"},\"delimiter\":{\"title\":\"Delimiter\",\"default\":\",\",\"enum\":[\",\",\"\\t\",\";\",\"|\",\"
+        \"],\"type\":\"string\"}},\"example\":\"column_data,column_label\\n\\\"Terrible
+        customer service.\\\",\\\"negative\\\"\\n\\\"Really great transaction.\\\",\\\"positive\\\"\\n\\\"Great
+        price.\\\",\\\"positive\\\"\\n\",\"task_id\":\"DocumentClassification\",\"display_name\":\"CSV\"},{\"name\":\"fastText\",\"accept_types\":\"text/plain\",\"title\":\"ArgEncoding\",\"type\":\"object\",\"properties\":{\"encoding\":{\"title\":\"Encoding\",\"default\":\"utf_8\",\"enum\":[\"Auto\",\"ascii\",\"big5\",\"big5hkscs\",\"cp037\",\"cp273\",\"cp424\",\"cp437\",\"cp500\",\"cp720\",\"cp737\",\"cp775\",\"cp850\",\"cp852\",\"cp855\",\"cp856\",\"cp857\",\"cp858\",\"cp860\",\"cp861\",\"cp862\",\"cp863\",\"cp864\",\"cp865\",\"cp866\",\"cp869\",\"cp874\",\"cp875\",\"cp932\",\"cp949\",\"cp950\",\"cp1006\",\"cp1026\",\"cp1125\",\"cp1140\",\"cp1250\",\"cp1251\",\"cp1252\",\"cp1253\",\"cp1254\",\"cp1255\",\"cp1256\",\"cp1257\",\"cp1258\",\"cp65001\",\"euc_jp\",\"euc_jis_2004\",\"euc_jisx0213\",\"euc_kr\",\"gb2312\",\"gbk\",\"gb18030\",\"hz\",\"iso2022_jp\",\"iso2022_jp_1\",\"iso2022_jp_2\",\"iso2022_jp_2004\",\"iso2022_jp_3\",\"iso2022_jp_ext\",\"iso2022_kr\",\"latin_1\",\"iso8859_2\",\"iso8859_3\",\"iso8859_4\",\"iso8859_5\",\"iso8859_6\",\"iso8859_7\",\"iso8859_8\",\"iso8859_9\",\"iso8859_10\",\"iso8859_11\",\"iso8859_13\",\"iso8859_14\",\"iso8859_15\",\"iso8859_16\",\"johab\",\"koi8_r\",\"koi8_t\",\"koi8_u\",\"kz1048\",\"mac_cyrillic\",\"mac_greek\",\"mac_iceland\",\"mac_latin2\",\"mac_roman\",\"mac_turkish\",\"ptcp154\",\"shift_jis\",\"shift_jis_2004\",\"shift_jisx0213\",\"utf_32\",\"utf_32_be\",\"utf_32_le\",\"utf_16\",\"utf_16_be\",\"utf_16_le\",\"utf_7\",\"utf_8\",\"utf_8_sig\"],\"type\":\"string\"}},\"example\":\"__label__negative
+        Terrible customer service.\\n__label__positive Really great transaction.\\n__label__positive
+        Great price.\\n\",\"task_id\":\"DocumentClassification\",\"display_name\":\"fastText\"},{\"name\":\"JSON\",\"accept_types\":\"application/json\",\"title\":\"ArgColumn\",\"type\":\"object\",\"properties\":{\"encoding\":{\"title\":\"Encoding\",\"default\":\"utf_8\",\"enum\":[\"Auto\",\"ascii\",\"big5\",\"big5hkscs\",\"cp037\",\"cp273\",\"cp424\",\"cp437\",\"cp500\",\"cp720\",\"cp737\",\"cp775\",\"cp850\",\"cp852\",\"cp855\",\"cp856\",\"cp857\",\"cp858\",\"cp860\",\"cp861\",\"cp862\",\"cp863\",\"cp864\",\"cp865\",\"cp866\",\"cp869\",\"cp874\",\"cp875\",\"cp932\",\"cp949\",\"cp950\",\"cp1006\",\"cp1026\",\"cp1125\",\"cp1140\",\"cp1250\",\"cp1251\",\"cp1252\",\"cp1253\",\"cp1254\",\"cp1255\",\"cp1256\",\"cp1257\",\"cp1258\",\"cp65001\",\"euc_jp\",\"euc_jis_2004\",\"euc_jisx0213\",\"euc_kr\",\"gb2312\",\"gbk\",\"gb18030\",\"hz\",\"iso2022_jp\",\"iso2022_jp_1\",\"iso2022_jp_2\",\"iso2022_jp_2004\",\"iso2022_jp_3\",\"iso2022_jp_ext\",\"iso2022_kr\",\"latin_1\",\"iso8859_2\",\"iso8859_3\",\"iso8859_4\",\"iso8859_5\",\"iso8859_6\",\"iso8859_7\",\"iso8859_8\",\"iso8859_9\",\"iso8859_10\",\"iso8859_11\",\"iso8859_13\",\"iso8859_14\",\"iso8859_15\",\"iso8859_16\",\"johab\",\"koi8_r\",\"koi8_t\",\"koi8_u\",\"kz1048\",\"mac_cyrillic\",\"mac_greek\",\"mac_iceland\",\"mac_latin2\",\"mac_roman\",\"mac_turkish\",\"ptcp154\",\"shift_jis\",\"shift_jis_2004\",\"shift_jisx0213\",\"utf_32\",\"utf_32_be\",\"utf_32_le\",\"utf_16\",\"utf_16_be\",\"utf_16_le\",\"utf_7\",\"utf_8\",\"utf_8_sig\"],\"type\":\"string\"},\"column_data\":{\"title\":\"Column
+        Data\",\"default\":\"text\",\"type\":\"string\"},\"column_label\":{\"title\":\"Column
+        Label\",\"default\":\"label\",\"type\":\"string\"}},\"example\":\"[\\n    {\\n
+        \       \\\"column_data\\\": \\\"Terrible customer service.\\\",\\n        \\\"column_label\\\":
+        [\\\"negative\\\"]\\n    },\\n    {\\n        \\\"column_data\\\": \\\"Really
+        great transaction.\\\",\\n        \\\"column_label\\\": [\\\"positive\\\"]\\n
+        \   },\\n    {\\n        \\\"column_data\\\": \\\"Great price.\\\",\\n        \\\"column_label\\\":
+        [\\\"positive\\\"]\\n    }\\n]\\n\",\"task_id\":\"DocumentClassification\",\"display_name\":\"JSON\"},{\"name\":\"JSONL\",\"accept_types\":\"*\",\"title\":\"ArgColumn\",\"type\":\"object\",\"properties\":{\"encoding\":{\"title\":\"Encoding\",\"default\":\"utf_8\",\"enum\":[\"Auto\",\"ascii\",\"big5\",\"big5hkscs\",\"cp037\",\"cp273\",\"cp424\",\"cp437\",\"cp500\",\"cp720\",\"cp737\",\"cp775\",\"cp850\",\"cp852\",\"cp855\",\"cp856\",\"cp857\",\"cp858\",\"cp860\",\"cp861\",\"cp862\",\"cp863\",\"cp864\",\"cp865\",\"cp866\",\"cp869\",\"cp874\",\"cp875\",\"cp932\",\"cp949\",\"cp950\",\"cp1006\",\"cp1026\",\"cp1125\",\"cp1140\",\"cp1250\",\"cp1251\",\"cp1252\",\"cp1253\",\"cp1254\",\"cp1255\",\"cp1256\",\"cp1257\",\"cp1258\",\"cp65001\",\"euc_jp\",\"euc_jis_2004\",\"euc_jisx0213\",\"euc_kr\",\"gb2312\",\"gbk\",\"gb18030\",\"hz\",\"iso2022_jp\",\"iso2022_jp_1\",\"iso2022_jp_2\",\"iso2022_jp_2004\",\"iso2022_jp_3\",\"iso2022_jp_ext\",\"iso2022_kr\",\"latin_1\",\"iso8859_2\",\"iso8859_3\",\"iso8859_4\",\"iso8859_5\",\"iso8859_6\",\"iso8859_7\",\"iso8859_8\",\"iso8859_9\",\"iso8859_10\",\"iso8859_11\",\"iso8859_13\",\"iso8859_14\",\"iso8859_15\",\"iso8859_16\",\"johab\",\"koi8_r\",\"koi8_t\",\"koi8_u\",\"kz1048\",\"mac_cyrillic\",\"mac_greek\",\"mac_iceland\",\"mac_latin2\",\"mac_roman\",\"mac_turkish\",\"ptcp154\",\"shift_jis\",\"shift_jis_2004\",\"shift_jisx0213\",\"utf_32\",\"utf_32_be\",\"utf_32_le\",\"utf_16\",\"utf_16_be\",\"utf_16_le\",\"utf_7\",\"utf_8\",\"utf_8_sig\"],\"type\":\"string\"},\"column_data\":{\"title\":\"Column
+        Data\",\"default\":\"text\",\"type\":\"string\"},\"column_label\":{\"title\":\"Column
+        Label\",\"default\":\"label\",\"type\":\"string\"}},\"example\":\"{\\\"column_data\\\":
+        \\\"Terrible customer service.\\\", \\\"column_label\\\": [\\\"negative\\\"]}\\n{\\\"column_data\\\":
+        \\\"Really great transaction.\\\", \\\"column_label\\\": [\\\"positive\\\"]}\\n{\\\"column_data\\\":
+        \\\"Great price.\\\", \\\"column_label\\\": [\\\"positive\\\"]}\\n\",\"task_id\":\"DocumentClassification\",\"display_name\":\"JSONL\"},{\"name\":\"Excel\",\"accept_types\":\"application/vnd.ms-excel,
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\"title\":\"ArgColumn\",\"type\":\"object\",\"properties\":{\"encoding\":{\"title\":\"Encoding\",\"default\":\"utf_8\",\"enum\":[\"Auto\",\"ascii\",\"big5\",\"big5hkscs\",\"cp037\",\"cp273\",\"cp424\",\"cp437\",\"cp500\",\"cp720\",\"cp737\",\"cp775\",\"cp850\",\"cp852\",\"cp855\",\"cp856\",\"cp857\",\"cp858\",\"cp860\",\"cp861\",\"cp862\",\"cp863\",\"cp864\",\"cp865\",\"cp866\",\"cp869\",\"cp874\",\"cp875\",\"cp932\",\"cp949\",\"cp950\",\"cp1006\",\"cp1026\",\"cp1125\",\"cp1140\",\"cp1250\",\"cp1251\",\"cp1252\",\"cp1253\",\"cp1254\",\"cp1255\",\"cp1256\",\"cp1257\",\"cp1258\",\"cp65001\",\"euc_jp\",\"euc_jis_2004\",\"euc_jisx0213\",\"euc_kr\",\"gb2312\",\"gbk\",\"gb18030\",\"hz\",\"iso2022_jp\",\"iso2022_jp_1\",\"iso2022_jp_2\",\"iso2022_jp_2004\",\"iso2022_jp_3\",\"iso2022_jp_ext\",\"iso2022_kr\",\"latin_1\",\"iso8859_2\",\"iso8859_3\",\"iso8859_4\",\"iso8859_5\",\"iso8859_6\",\"iso8859_7\",\"iso8859_8\",\"iso8859_9\",\"iso8859_10\",\"iso8859_11\",\"iso8859_13\",\"iso8859_14\",\"iso8859_15\",\"iso8859_16\",\"johab\",\"koi8_r\",\"koi8_t\",\"koi8_u\",\"kz1048\",\"mac_cyrillic\",\"mac_greek\",\"mac_iceland\",\"mac_latin2\",\"mac_roman\",\"mac_turkish\",\"ptcp154\",\"shift_jis\",\"shift_jis_2004\",\"shift_jisx0213\",\"utf_32\",\"utf_32_be\",\"utf_32_le\",\"utf_16\",\"utf_16_be\",\"utf_16_le\",\"utf_7\",\"utf_8\",\"utf_8_sig\"],\"type\":\"string\"},\"column_data\":{\"title\":\"Column
+        Data\",\"default\":\"text\",\"type\":\"string\"},\"column_label\":{\"title\":\"Column
+        Label\",\"default\":\"label\",\"type\":\"string\"}},\"example\":\"column_data,column_label\\n\\\"Terrible
+        customer service.\\\",\\\"negative\\\"\\n\\\"Really great transaction.\\\",\\\"positive\\\"\\n\\\"Great
+        price.\\\",\\\"positive\\\"\\n\",\"task_id\":\"DocumentClassification\",\"display_name\":\"Excel\"}]"
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '10734'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Sun, 02 Oct 2022 04:31:52 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
