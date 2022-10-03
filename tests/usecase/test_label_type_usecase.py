@@ -16,9 +16,11 @@ def payload():
 
 class TestLabelTypeUseCase:
     @classmethod
-    def setup_class(cls):
+    def setup_method(cls):
         cls.label_type_repository = MagicMock()
-        cls.label_type_usecase = LabelTypeUseCase(cls.label_type_repository)
+        cls.label_type_service = MagicMock()
+        cls.label_type_service.exists.return_value = False
+        cls.label_type_usecase = LabelTypeUseCase(cls.label_type_repository, cls.label_type_service)
 
     def test_find_by_id(self):
         self.label_type_usecase.find_by_id(0, 1)
@@ -34,6 +36,12 @@ class TestLabelTypeUseCase:
         payload["background_color"] = payload.pop("color")
         self.label_type_repository.create.assert_called_once_with(project_id, LabelType.parse_obj(payload))
 
+    def test_cannot_create_duplicate_label_type(self, payload):
+        project_id = 0
+        self.label_type_service.exists.return_value = True
+        with pytest.raises(ValueError):
+            self.label_type_usecase.create(project_id, **payload)
+
     def test_update(self, payload):
         project_id = 0
         label_type_id = 1
@@ -41,6 +49,13 @@ class TestLabelTypeUseCase:
         payload["id"] = label_type_id
         payload["background_color"] = payload.pop("color")
         self.label_type_repository.update.assert_called_once_with(project_id, LabelType.parse_obj(payload))
+
+    def test_cannot_update_duplicate_label_type(self, payload):
+        project_id = 0
+        label_type_id = 1
+        self.label_type_service.exists.return_value = True
+        with pytest.raises(ValueError):
+            self.label_type_usecase.update(project_id, label_type_id, **payload)
 
     def test_delete(self):
         self.label_type_usecase.delete(0, 1)

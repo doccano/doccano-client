@@ -2,11 +2,13 @@ from typing import List, Optional
 
 from doccano_client.models.label_type import PREFIX_KEY, SUFFIX_KEY, LabelType
 from doccano_client.repositories.label_type import LabelTypeRepository
+from doccano_client.services.label_type import LabelTypeService
 
 
 class LabelTypeUseCase:
-    def __init__(self, repository: LabelTypeRepository):
+    def __init__(self, repository: LabelTypeRepository, service: LabelTypeService):
         self._repository = repository
+        self._service = service
 
     def find_by_id(self, project_id: int, label_type_id: int) -> LabelType:
         """Find a label type by id
@@ -50,8 +52,13 @@ class LabelTypeUseCase:
 
         Returns:
             LabelType: The created label type
+
+        Raises:
+            ValueError: If the label type already exists
         """
         label_type = LabelType.create(text=text, prefix_key=prefix_key, suffix_key=suffix_key, color=color)
+        if self._service.exists(project_id, label_type):
+            raise ValueError("The label type already exists")
         return self._repository.create(project_id, label_type)
 
     def update(
@@ -75,10 +82,15 @@ class LabelTypeUseCase:
 
         Returns:
             LabelType: The updated label type
+
+        Raises:
+            ValueError: If the label type already exists
         """
         label_type = LabelType.create(
             id=label_type_id, text=text, prefix_key=prefix_key, suffix_key=suffix_key, color=color
         )
+        if self._service.exists(project_id, label_type):
+            raise ValueError("The label type already exists")
         return self._repository.update(project_id, label_type)
 
     def delete(self, project_id: int, label_type_id: int):
