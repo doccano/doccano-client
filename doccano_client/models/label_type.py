@@ -70,6 +70,20 @@ class LabelType(BaseModel):
     background_color: Color = Field(default_factory=generate_random_hex_color)
     text_color: Color = Field(default="#ffffff")
 
+    @classmethod
+    def create(
+        cls,
+        text: str,
+        prefix_key: PREFIX_KEY = None,
+        suffix_key: SUFFIX_KEY = None,
+        color: Optional[str] = None,
+        id: Optional[int] = None,
+    ):
+        if color is None:
+            return cls(id=id, text=text, prefix_key=prefix_key, suffix_key=suffix_key)
+        else:
+            return cls(id=id, text=text, prefix_key=prefix_key, suffix_key=suffix_key, background_color=color)
+
 
 CategoryType = LabelType
 SpanType = LabelType

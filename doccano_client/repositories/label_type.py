@@ -93,7 +93,7 @@ class LabelTypeRepository:
         resource = f"projects/{project_id}/{self._resource_type}s/{label_type_id}"
         self._client.delete(resource)
 
-    def bulk_delete(self, project_id: int, label_types: List[int | LabelType]):
+    def bulk_delete(self, project_id: int, label_types: List[int] | List[LabelType]):
         """Bulk delete label types
 
         Args:
