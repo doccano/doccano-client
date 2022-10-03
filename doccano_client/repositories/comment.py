@@ -92,12 +92,12 @@ class CommentRepository:
         resource = f"projects/{project_id}/{self.resource_type}/{comment_id}"
         self._client.delete(resource)
 
-    def bulk_delete(self, project_id: int, comments: List[int | Comment]):
+    def bulk_delete(self, project_id: int, comments: List[int] | List[Comment]):
         """Bulk delete comments
 
         Args:
             project_id (int): The id of the project
-            comments (List[int | Comment]): The list of comment ids to delete
+            comments (List[int] | List[Comment]): The list of comment ids to delete
         """
         ids = [comment if isinstance(comment, int) else comment.id for comment in comments]
         self._client.delete(f"projects/{project_id}/{self.resource_type}", json={"ids": ids})
