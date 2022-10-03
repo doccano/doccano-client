@@ -35,7 +35,7 @@ class TestDataExportRepository:
         with vcr.use_cassette(str(cassettes_path / "data_export/download.yaml"), mode="once"):
             option = Option(name="JSONL")
             task_id = self.client.schedule_download(self.project_id, option)
-            time.sleep(10)  # lazy work
+            time.sleep(1)  # lazy work
             chunks = self.client.download(self.project_id, task_id)
             file = pathlib.Path(__file__).parent / "data/annotation.zip"
             with file.open("wb") as f:
