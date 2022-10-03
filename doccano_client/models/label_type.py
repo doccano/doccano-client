@@ -2,7 +2,7 @@ import random
 import re
 from typing import Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, root_validator
 from pydantic.types import ConstrainedStr
 
 PREFIX_KEY = Literal["ctrl", "shift", "ctrl shift"]
@@ -69,6 +69,14 @@ class LabelType(BaseModel):
     suffix_key: Optional[SUFFIX_KEY] = None
     background_color: Color = Field(default_factory=generate_random_hex_color)
     text_color: Color = Field(default="#ffffff")
+
+    @root_validator
+    def deny_only_prefix_key(cls, values):
+        prefix_key = values.get("prefix_key")
+        suffix_key = values.get("suffix_key")
+        if prefix_key and suffix_key is None:
+            raise ValueError("You must specify a suffix_key if you specify a prefix_key.")
+        return values
 
     @classmethod
     def create(
