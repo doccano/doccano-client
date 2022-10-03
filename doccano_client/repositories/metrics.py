@@ -14,8 +14,6 @@ from doccano_client.repositories.base import BaseRepository
 class MetricsRepository:
     """Repository for interacting with the Doccano metrics API"""
 
-    resource_type = "label-type"
-
     def __init__(self, client: BaseRepository):
         self._client = client
 

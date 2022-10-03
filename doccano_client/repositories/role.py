@@ -9,8 +9,6 @@ from doccano_client.repositories.base import BaseRepository
 class RoleRepository:
     """Repository for interacting with the Doccano role API"""
 
-    resource_type = "label-type"
-
     def __init__(self, client: BaseRepository):
         self._client = client
 
