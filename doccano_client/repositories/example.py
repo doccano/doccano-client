@@ -91,12 +91,12 @@ class ExampleRepository:
         """
         self._client.delete(f"projects/{project_id}/examples")
 
-    def bulk_delete(self, project_id: int, examples: List[int | Example]):
+    def bulk_delete(self, project_id: int, examples: List[int] | List[Example]):
         """Bulk delete examples
 
         Args:
             project_id (int): The id of the project
-            examples (List[int | Example]): The list of example ids to delete
+            examples (List[int] | List[Example]): The list of example ids to delete
         """
         ids = [example if isinstance(example, int) else example.id for example in examples]
         self._client.delete(f"projects/{project_id}/examples", json={"ids": ids})

@@ -18,7 +18,7 @@ class LabelTypeUseCase:
             label_type_id (int): The id of the label type to find
 
         Returns:
-            LabelType: The found project
+            LabelType: The found label type
         """
         return self._repository.find_by_id(project_id, label_type_id)
 
@@ -41,7 +41,7 @@ class LabelTypeUseCase:
         suffix_key: SUFFIX_KEY = None,
         color: Optional[str] = None,
     ) -> LabelType:
-        """Create a new project
+        """Create a new label type
 
         Args:
             project_id (int): The id of the project
