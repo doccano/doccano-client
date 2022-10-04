@@ -6,8 +6,8 @@ from requests import Session
 from ...controllers import CategoriesController
 from ...models import Project, ProjectTypes
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import categories as mocks
 from .mock_api_responses import bad
+from .mock_api_responses import categories as mocks
 
 
 class CategoriesControllerTest(TestCase):
