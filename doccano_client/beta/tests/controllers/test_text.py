@@ -6,8 +6,8 @@ from requests import Session
 from ...controllers import TextsController
 from ...models import Project, ProjectTypes
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import texts as mocks
 from .mock_api_responses import bad
+from .mock_api_responses import texts as mocks
 
 
 class TextsControllerTest(TestCase):
