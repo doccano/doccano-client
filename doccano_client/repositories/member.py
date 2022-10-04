@@ -73,19 +73,20 @@ class MemberRepository:
         response = self._client.put(resource, json=member.dict(exclude={"username", "rolename"}))
         return Member.parse_obj(response.json())
 
-    def delete(self, project_id: int, member: Member):
+    def delete(self, project_id: int, member: Member | int):
         """Delete a member
 
         Args:
             project_id (int): The id of the project
-            member (Member): The member to delete
+            member (Member | int): The member to delete
 
         Raises:
             ValueError: If the member id is not set
         """
-        if member.id is None:
+        if isinstance(member, Member) and member.id is None:
             raise ValueError("Member id is required")
-        self.bulk_delete(project_id, [member.id])
+        member_id = member if isinstance(member, int) else member.id
+        self.bulk_delete(project_id, [member_id])
 
     def bulk_delete(self, project_id: int, members: List[int] | List[Member]):
         """Bulk delete members

@@ -21,3 +21,21 @@ class RoleRepository:
         response = self._client.get("roles")
         roles = [Role.parse_obj(role) for role in response.json()]
         return roles
+
+    def find_by_name(self, name: str) -> Role:
+        """Find a role by name
+
+        Args:
+            name (str): The name of the role to find
+
+        Returns:
+            Role: The found role
+
+        Raises:
+            ValueError: If the role is not found
+        """
+        roles = self.list()
+        for role in roles:
+            if role.name == name:
+                return role
+        raise ValueError(f"Role '{name}' not found")
