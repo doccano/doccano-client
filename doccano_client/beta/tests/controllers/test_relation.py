@@ -6,8 +6,8 @@ from requests import Session
 from ...controllers import RelationsController
 from ...models import Project, ProjectTypes
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import relations as mocks
 from .mock_api_responses import bad
+from .mock_api_responses import relations as mocks
 
 
 class RelationsControllerTest(TestCase):
