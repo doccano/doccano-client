@@ -6,8 +6,8 @@ from requests import Session
 from ...controllers import SpansController
 from ...models import Project, ProjectTypes
 from ...utils.response import DoccanoAPIError
-from .mock_api_responses import spans as mocks
 from .mock_api_responses import bad
+from .mock_api_responses import spans as mocks
 
 
 class SpansControllerTest(TestCase):
