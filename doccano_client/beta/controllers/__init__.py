@@ -1,5 +1,5 @@
 from .annotation import AnnotationController, AnnotationsController
-from .category import CategoryController, CategoriesController
+from .category import CategoriesController, CategoryController
 from .category_type import CategoryTypeController, CategoryTypesController
 from .comment import CommentController, CommentsController
 from .example import (
