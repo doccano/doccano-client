@@ -36,11 +36,7 @@ class TestDataExportRepository:
             option = Option(name="JSONL")
             task_id = self.client.schedule_download(self.project_id, option)
             time.sleep(1)  # lazy work
-            chunks = self.client.download(self.project_id, task_id)
-            file = pathlib.Path(__file__).parent / "data/annotation.zip"
-            with file.open("wb") as f:
-                for chunk in chunks:
-                    f.write(chunk)
+            file = self.client.download(self.project_id, task_id)
             assert file.exists()
             assert file.stat().st_size > 0
             file.unlink()
