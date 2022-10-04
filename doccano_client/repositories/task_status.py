@@ -12,11 +12,11 @@ class TaskStatusRepository:
     def __init__(self, client: BaseRepository):
         self._client = client
 
-    def get(self, task_id: int) -> TaskStatus:
+    def get(self, task_id: str) -> TaskStatus:
         """Return the specified task_status
 
         Args:
-            task_id (int): The celery task id
+            task_id (str): The celery task id
 
         Returns:
             TaskStatus: The task_status.
@@ -24,11 +24,11 @@ class TaskStatusRepository:
         response = self._client.get(f"tasks/status/{task_id}")
         return TaskStatus.parse_obj(response.json())
 
-    def wait(self, task_id: int, timeout: int = 300) -> TaskStatus:
+    def wait(self, task_id: str, timeout: int = 3600) -> TaskStatus:
         """Wait for the specified task id
 
         Args:
-            task_id (int): The celery task id
+            task_id (str): The celery task id
             timeout (int): The timeout in seconds
 
         Returns:

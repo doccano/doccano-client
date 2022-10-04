@@ -86,7 +86,7 @@ class MemberRepository:
         if isinstance(member, Member) and member.id is None:
             raise ValueError("Member id is required")
         member_id = member if isinstance(member, int) else member.id
-        self.bulk_delete(project_id, [member_id])
+        self.bulk_delete(project_id, [member_id])  # type: ignore
 
     def bulk_delete(self, project_id: int, members: List[int] | List[Member]):
         """Bulk delete members
