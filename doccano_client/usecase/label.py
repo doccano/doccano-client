@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from typing import Generic, List, Optional, TypeVar
 
-from doccano_client.models.label import Category, Label, Relation, Span, Text
+from doccano_client.models.label import (
+    BoundingBox,
+    Category,
+    Label,
+    Relation,
+    Span,
+    Text,
+)
 from doccano_client.repositories.label import LabelRepository
 from doccano_client.repositories.label_type import LabelTypeRepository
 
@@ -383,3 +390,110 @@ class TextUseCase(LabelUseCase[Text]):
             prob=confidence or text_label.prob,
         )
         return self._repository.update(project_id, text_label)
+
+
+class BoundingBoxUseCase(LabelUseCase[BoundingBox]):
+    def create(
+        self,
+        project_id: int,
+        example_id: int,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        label: int | str,
+        human_annotated: bool = False,
+        confidence: float = 0.0,
+    ) -> BoundingBox:
+        """Create a new bounding box label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            x (float): The x coordinate of the bounding box
+            y (float): The y coordinate of the bounding box
+            width (float): The width of the bounding box
+            height (float): The height of the bounding box
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            BoundingBox: The created bounding box label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id  # type: ignore
+
+        bounding_box = BoundingBox(
+            example=example_id,
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            label=label,
+            manual=human_annotated,
+            prob=confidence,
+        )
+        return self._repository.create(project_id, bounding_box)
+
+    def update(
+        self,
+        project_id: int,
+        example_id: int,
+        label_id: int,
+        x: Optional[float] = None,
+        y: Optional[float] = None,
+        width: Optional[float] = None,
+        height: Optional[float] = None,
+        label: Optional[int | str] = None,
+        human_annotated: bool = None,
+        confidence: float = None,
+    ) -> BoundingBox:
+        """Update a bounding box label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            label_id (int): The id of the label
+            x (float): The x coordinate of the bounding box
+            y (float): The y coordinate of the bounding box
+            width (float): The width of the bounding box
+            height (float): The height of the bounding box
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            BoundingBox: The updated bounding box label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        bounding_box = self.find_by_id(project_id, example_id, label_id)
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id
+
+        bounding_box = BoundingBox(
+            id=bounding_box.id,
+            example=example_id,
+            x=x or bounding_box.x,
+            y=y or bounding_box.y,
+            width=width or bounding_box.width,
+            height=height or bounding_box.height,
+            label=label or bounding_box.label,
+            manual=human_annotated or bounding_box.manual,
+            prob=confidence or bounding_box.prob,
+        )
+        return self._repository.update(project_id, bounding_box)
