@@ -1,6 +1,13 @@
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, NonNegativeInt, root_validator, validator
+from pydantic import (
+    BaseModel,
+    Field,
+    NonNegativeFloat,
+    NonNegativeInt,
+    root_validator,
+    validator,
+)
 
 
 class Label(BaseModel):
@@ -35,15 +42,15 @@ class Relation(Label):
 
 
 class BoundingBox(Label):
-    x: NonNegativeInt
-    y: NonNegativeInt
-    width: NonNegativeInt
-    height: NonNegativeInt
+    x: NonNegativeFloat
+    y: NonNegativeFloat
+    width: NonNegativeFloat
+    height: NonNegativeFloat
     label: int
 
 
 class Segment(Label):
-    points: List[NonNegativeInt] = Field(default_factory=list)
+    points: List[NonNegativeFloat] = Field(default_factory=list)
     label: int
 
     @validator("points")

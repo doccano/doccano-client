@@ -17,6 +17,25 @@ class LabelTypeRepository:
         self._client = client
         self._resource_type = resource_type
 
+    def find_by_name(self, project_id: int, name: str) -> LabelType:
+        """Find a label type by name
+
+        Args:
+            project_id (int): The id of the project
+            name (str): The name of the label type to find
+
+        Returns:
+            LabelType: The found label type
+
+        Raises:
+            ValueError: If the label type is not found
+        """
+        label_types = self.list(project_id)
+        for label_type in label_types:
+            if label_type.text == name:
+                return label_type
+        raise ValueError(f"Label type with name {name} not found")
+
     def find_by_id(self, project_id: int, label_type_id: int) -> LabelType:
         """Find a label type by id
 
@@ -93,7 +112,7 @@ class LabelTypeRepository:
         resource = f"projects/{project_id}/{self._resource_type}s/{label_type_id}"
         self._client.delete(resource)
 
-    def bulk_delete(self, project_id: int, label_types: List[int | LabelType]):
+    def bulk_delete(self, project_id: int, label_types: List[int] | List[LabelType]):
         """Bulk delete label types
 
         Args:

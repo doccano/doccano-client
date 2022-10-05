@@ -33,7 +33,6 @@ class Name(ConstrainedStr):
 
 
 class Description(ConstrainedStr):
-    min_length = 1
     strip_whitespace = True
 
 

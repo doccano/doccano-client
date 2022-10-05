@@ -9,8 +9,6 @@ from doccano_client.repositories.base import BaseRepository
 class UserRepository:
     """Repository for interacting with the Doccano user API"""
 
-    resource_type = "label-type"
-
     def __init__(self, client: BaseRepository):
         self._client = client
 
@@ -35,3 +33,21 @@ class UserRepository:
         response = self._client.get(f"users?q={name}")
         users = [User.parse_obj(user) for user in response.json()]
         return users
+
+    def find_by_name(self, name: str) -> User:
+        """Find a user by name
+
+        Args:
+            name (str): The name of the user to find
+
+        Returns:
+            User: The found user
+
+        Raises:
+            ValueError: If the user is not found
+        """
+        users = self.list(name)
+        for user in users:
+            if user.username == name:
+                return user
+        raise ValueError(f"User '{name}' not found")

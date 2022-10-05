@@ -28,6 +28,9 @@ extra:
 
 plugins:
   - same-dir
+  - mkdocstrings:
+      default_handler: crystal
+      watch: [doccano_client]
 
 markdown_extensions:
   - pymdownx.highlight:

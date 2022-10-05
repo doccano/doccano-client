@@ -1,0 +1,159 @@
+interactions:
+- request:
+    body: '{"user": 3, "role": 1}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '22'
+      Cookie:
+      - csrftoken=aN3vvSOwjjR64tJzDgjAo8dj2M3H0A44WGpTgktwjAEQloAEOGweXlUeQT1qU6td;
+        sessionid=5cjypm6avynu40oob98ybbw5mb1d7xq3
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - aN3vvSOwjjR64tJzDgjAo8dj2M3H0A44WGpTgktwjAEQloAEOGweXlUeQT1qU6td
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects/16/members
+  response:
+    body:
+      string: '{"id":22,"user":3,"role":1,"username":"hironsan","rolename":"project_admin"}'
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '76'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 03 Oct 2022 08:25:05 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"id": 22, "user": 3, "role": 2}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '32'
+      Cookie:
+      - csrftoken=aN3vvSOwjjR64tJzDgjAo8dj2M3H0A44WGpTgktwjAEQloAEOGweXlUeQT1qU6td;
+        sessionid=5cjypm6avynu40oob98ybbw5mb1d7xq3
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - aN3vvSOwjjR64tJzDgjAo8dj2M3H0A44WGpTgktwjAEQloAEOGweXlUeQT1qU6td
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: PUT
+    uri: http://localhost:8000/v1/projects/16/members/22
+  response:
+    body:
+      string: '{"id":22,"user":3,"role":2,"username":"hironsan","rolename":"annotator"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '72'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 03 Oct 2022 08:25:05 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ids": [22]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '13'
+      Cookie:
+      - csrftoken=aN3vvSOwjjR64tJzDgjAo8dj2M3H0A44WGpTgktwjAEQloAEOGweXlUeQT1qU6td;
+        sessionid=5cjypm6avynu40oob98ybbw5mb1d7xq3
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - aN3vvSOwjjR64tJzDgjAo8dj2M3H0A44WGpTgktwjAEQloAEOGweXlUeQT1qU6td
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: DELETE
+    uri: http://localhost:8000/v1/projects/16/members
+  response:
+    body:
+      string: ''
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '0'
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 03 Oct 2022 08:25:05 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 204
+      message: No Content
+version: 1
