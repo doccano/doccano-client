@@ -22,7 +22,15 @@ class DataImportUseCase:
         """
         return self._data_import_repository.list_options(project_id)
 
-    def upload(self, project_id: int, file_paths: List[str], task: AvailableTask, format: str) -> TaskStatus:
+    def upload(
+        self,
+        project_id: int,
+        file_paths: List[str],
+        task: AvailableTask,
+        format: str,
+        column_data: str = "text",
+        column_label: str = "label",
+    ) -> TaskStatus:
         """Upload a file
 
         Args:
@@ -30,10 +38,14 @@ class DataImportUseCase:
             file_paths (List[str]): The list of the file paths
             task (AvailableTask): The task of the upload
             format (str): The format of the upload
+            column_data (str): The column name of the data
+            column_label (str): The column name of the label
 
         Returns:
             TaskStatus: The status of the upload task.
         """
         upload_ids = [self._data_import_repository.upload(file_path) for file_path in file_paths]
-        task_id = self._data_import_repository.ingest(project_id, upload_ids, task, format)
+        task_id = self._data_import_repository.ingest(
+            project_id, upload_ids, task, format, column_data=column_data, column_label=column_label
+        )
         return self._task_status_repository.wait(task_id)

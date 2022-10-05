@@ -17,8 +17,15 @@ class TestDataImportUseCase:
     def test_upload(self):
         project_id = 0
         self.data_import_repository.upload.return_value = "upload_id"
-        self.usecase.upload(project_id, file_paths=["test.txt"], task="DocumentClassification", format="JSONL")
+        self.usecase.upload(
+            project_id,
+            file_paths=["test.txt"],
+            task="DocumentClassification",
+            format="JSONL",
+            column_data="text",
+            column_label="label",
+        )
         self.data_import_repository.upload.assert_called_once_with("test.txt")
         self.data_import_repository.ingest.assert_called_once_with(
-            project_id, ["upload_id"], "DocumentClassification", "JSONL"
+            project_id, ["upload_id"], "DocumentClassification", "JSONL", column_data="text", column_label="label"
         )

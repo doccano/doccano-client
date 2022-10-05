@@ -56,7 +56,7 @@ class DataImportRepository:
         headers = {"Content-Type": "text/plain", "Accept": "*/*"}
         self._client.delete(resource, data=upload_id, headers=headers)
 
-    def ingest(self, project_id: int, upload_ids: List[str], task: AvailableTask, format: str) -> str:
+    def ingest(self, project_id: int, upload_ids: List[str], task: AvailableTask, format: str, **kwargs) -> str:
         """Ingest the uploaded files into the project
 
         Args:
@@ -64,11 +64,12 @@ class DataImportRepository:
             upload_ids (List[str]): The ids of the uploaded files
             task (AvailableTask): The project's task name
             format (str): The format of the uploaded files
+            **kwargs: Additional keyword arguments like column_data and column_label
 
         Returns:
             str: The celery task id
         """
         resource = f"projects/{project_id}/upload"
-        data = {"uploadIds": upload_ids, "task": task, "format": format}
+        data = {"uploadIds": upload_ids, "task": task, "format": format, **kwargs}
         response = self._client.post(resource, json=data)
         return response.json()["task_id"]
