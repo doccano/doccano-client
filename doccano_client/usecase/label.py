@@ -7,6 +7,7 @@ from doccano_client.models.label import (
     Category,
     Label,
     Relation,
+    Segment,
     Span,
     Text,
 )
@@ -497,3 +498,92 @@ class BoundingBoxUseCase(LabelUseCase[BoundingBox]):
             prob=confidence or bounding_box.prob,
         )
         return self._repository.update(project_id, bounding_box)
+
+
+class SegmentUseCase(LabelUseCase[Segment]):
+    def create(
+        self,
+        project_id: int,
+        example_id: int,
+        points: List[float],
+        label: int | str,
+        human_annotated: bool = False,
+        confidence: float = 0.0,
+    ) -> Segment:
+        """Create a new segment label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            points (List[float]): The points of the segment
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Segment: The created segment label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id  # type: ignore
+
+        segment = Segment(
+            example=example_id,
+            points=points,
+            label=label,
+            manual=human_annotated,
+            prob=confidence,
+        )
+        return self._repository.create(project_id, segment)
+
+    def update(
+        self,
+        project_id: int,
+        example_id: int,
+        label_id: int,
+        points: Optional[List[float]] = None,
+        label: Optional[int | str] = None,
+        human_annotated: bool = None,
+        confidence: float = None,
+    ) -> Segment:
+        """Update a segment label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            label_id (int): The id of the label
+            points (List[float]): The points of the segment
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Segment: The updated segment label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        segment = self.find_by_id(project_id, example_id, label_id)
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id
+
+        segment = Segment(
+            id=segment.id,
+            example=example_id,
+            points=points or segment.points,
+            label=label or segment.label,
+            manual=human_annotated or segment.manual,
+            prob=confidence or segment.prob,
+        )
+        return self._repository.update(project_id, segment)

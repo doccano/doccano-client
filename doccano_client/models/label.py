@@ -50,7 +50,7 @@ class BoundingBox(Label):
 
 
 class Segment(Label):
-    points: List[NonNegativeInt] = Field(default_factory=list)
+    points: List[NonNegativeFloat] = Field(default_factory=list)
     label: int
 
     @validator("points")
