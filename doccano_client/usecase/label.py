@@ -84,7 +84,7 @@ class CategoryUseCase(LabelUseCase[Category]):
 
         if isinstance(label, str):
             label_type = self._label_type_repository.find_by_name(project_id, label)
-            label = getattr(label_type, "id", "")
+            label = label_type.id  # type: ignore
 
         category = Category(example=example_id, label=label, manual=human_annotated, prob=confidence)
         return self._repository.create(project_id, category)
@@ -121,7 +121,7 @@ class CategoryUseCase(LabelUseCase[Category]):
 
         if isinstance(label, str):
             label_type = self._label_type_repository.find_by_name(project_id, label)
-            label = getattr(label_type, "id", "")
+            label = label_type.id  # type: ignore
 
         category = Category(
             id=category.id,
