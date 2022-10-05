@@ -89,16 +89,16 @@ class ProjectUseCase:
     def update(
         self,
         project_id: int,
-        name: str,
-        project_type: ProjectType,
-        description: str = "",
-        guideline: str = "",
-        random_order: bool = False,
-        collaborative_annotation: bool = False,
-        single_class_classification: bool = False,
-        allow_overlapping: bool = False,
-        grapheme_mode: bool = False,
-        use_relation: bool = False,
+        name: str = None,
+        project_type: ProjectType = None,
+        description: str = None,
+        guideline: str = None,
+        random_order: bool = None,
+        collaborative_annotation: bool = None,
+        single_class_classification: bool = None,
+        allow_overlapping: bool = None,
+        grapheme_mode: bool = None,
+        use_relation: bool = None,
         tags: Optional[List[str]] = None,
     ) -> Project:
         """Update a project
@@ -119,18 +119,23 @@ class ProjectUseCase:
         Returns:
             Project: The updated project
         """
+        project = self.find_by_id(project_id)
         project = Project(
             id=project_id,
-            name=name,
-            description=description,
-            guideline=guideline,
-            project_type=project_type,
-            random_order=random_order,
-            collaborative_annotation=collaborative_annotation,
-            single_class_classification=single_class_classification,
-            allow_overlapping=allow_overlapping,
-            grapheme_mode=grapheme_mode,
-            use_relation=use_relation,
+            name=name or project.name,
+            description=description or project.description,
+            guideline=guideline if guideline is not None else project.guideline,
+            project_type=project_type or project.project_type,
+            random_order=random_order if random_order is not None else project.random_order,
+            collaborative_annotation=collaborative_annotation
+            if collaborative_annotation is not None
+            else project.collaborative_annotation,
+            single_class_classification=single_class_classification
+            if single_class_classification is not None
+            else project.single_class_classification,
+            allow_overlapping=allow_overlapping if allow_overlapping is not None else project.allow_overlapping,
+            grapheme_mode=grapheme_mode if grapheme_mode is not None else project.grapheme_mode,
+            use_relation=use_relation if use_relation is not None else project.use_relation,
             tags=tags or [],
         )
         return self._repository.update(project)

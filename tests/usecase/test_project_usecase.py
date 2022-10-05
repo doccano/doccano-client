@@ -9,7 +9,7 @@ from doccano_client.usecase.project import ProjectUseCase
 @pytest.fixture
 def payload():
     return {
-        "project_id": 1,
+        "id": 1,
         "name": "Test Project",
         "description": "Test project",
         "project_type": "SequenceLabeling",
@@ -19,7 +19,7 @@ def payload():
 
 class TestProjectUseCase:
     @classmethod
-    def setup_class(cls):
+    def setup_method(cls):
         cls.project_repository = MagicMock()
         cls.project_usecase = ProjectUseCase(cls.project_repository)
 
@@ -32,14 +32,17 @@ class TestProjectUseCase:
         self.project_repository.list.assert_called_once()
 
     def test_create(self, payload):
-        payload.pop("project_id")
+        payload.pop("id")
         self.project_usecase.create(**payload)
         self.project_repository.create.assert_called_once_with(Project.parse_obj(payload))
 
     def test_update(self, payload):
-        self.project_usecase.update(**payload)
-        payload["id"] = payload.pop("project_id")
-        self.project_repository.update.assert_called_once_with(Project.parse_obj(payload))
+        project = Project.parse_obj(payload)
+        self.project_repository.find_by_id.return_value = project
+        self.project_usecase.update(project_id=1, name="New Name")
+        project.name = "New Name"
+        self.project_repository.find_by_id.assert_called_once_with(1)
+        self.project_repository.update.assert_called_once_with(project)
 
     def test_delete(self):
         self.project_usecase.delete(1)
