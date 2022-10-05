@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, Optional
 
 from doccano_client.models.label_type import PREFIX_KEY, SUFFIX_KEY, LabelType
@@ -65,10 +67,10 @@ class LabelTypeUseCase:
         self,
         project_id: int,
         label_type_id: int,
-        text: str,
-        prefix_key: PREFIX_KEY = None,
-        suffix_key: SUFFIX_KEY = None,
-        color: Optional[str] = None,
+        text: str = None,
+        prefix_key: PREFIX_KEY | int = -1,
+        suffix_key: SUFFIX_KEY | int = -1,
+        color: str = None,
     ) -> LabelType:
         """Update a label type
 
@@ -86,8 +88,13 @@ class LabelTypeUseCase:
         Raises:
             ValueError: If the label type already exists
         """
-        label_type = LabelType.create(
-            id=label_type_id, text=text, prefix_key=prefix_key, suffix_key=suffix_key, color=color
+        label_type = self._repository.find_by_id(project_id, label_type_id)
+        label_type = LabelType(
+            id=label_type.id,
+            text=text or label_type.text,
+            prefix_key=prefix_key if prefix_key != -1 else label_type.prefix_key,
+            suffix_key=suffix_key if suffix_key != -1 else label_type.suffix_key,
+            background_color=color or label_type.background_color,
         )
         if self._service.exists(project_id, label_type):
             raise ValueError("The label type already exists")

@@ -42,13 +42,13 @@ class TestLabelTypeUseCase:
         with pytest.raises(ValueError):
             self.label_type_usecase.create(project_id, **payload)
 
-    def test_update(self, payload):
+    def test_update(self):
         project_id = 0
-        label_type_id = 1
-        self.label_type_usecase.update(project_id, label_type_id, **payload)
-        payload["id"] = label_type_id
-        payload["background_color"] = payload.pop("color")
-        self.label_type_repository.update.assert_called_once_with(project_id, LabelType.parse_obj(payload))
+        label_type = LabelType(id=1, text="Test Label Type", background_color="#000000")
+        self.label_type_repository.find_by_id.return_value = label_type
+        self.label_type_usecase.update(project_id, label_type.id, text="New Label Type")
+        label_type.text = "New Label Type"
+        self.label_type_repository.update.assert_called_once_with(project_id, label_type)
 
     def test_cannot_update_duplicate_label_type(self, payload):
         project_id = 0
