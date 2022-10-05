@@ -70,7 +70,7 @@ class CategoriesController:
         """Create a new category, return the generated controller
 
         Args:
-            category: Category. See mock_api_responses for the desired format.
+            category: Category. Automatically assigns session variables.
 
         Returns:
             CategoryController. The CategoryController now wrapping around the newly created category.
