@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generic, List, Optional, TypeVar
 
-from doccano_client.models.label import Category, Label
+from doccano_client.models.label import Category, Label, Span
 from doccano_client.repositories.label import LabelRepository
 from doccano_client.repositories.label_type import LabelTypeRepository
 
@@ -131,3 +131,98 @@ class CategoryUseCase(LabelUseCase[Category]):
             prob=confidence or category.prob,
         )
         return self._repository.update(project_id, category)
+
+
+class SpanUseCase(LabelUseCase[Span]):
+    def create(
+        self,
+        project_id: int,
+        example_id: int,
+        start_offset: int,
+        end_offset: int,
+        label: int | str,
+        human_annotated: bool = False,
+        confidence: float = 0.0,
+    ) -> Span:
+        """Create a new span label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            start_offset (int): The start offset of the span
+            end_offset (int): The end offset of the span
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Span: The created span label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id  # type: ignore
+
+        span = Span(
+            example=example_id,
+            start_offset=start_offset,
+            end_offset=end_offset,
+            label=label,
+            manual=human_annotated,
+            prob=confidence,
+        )
+        return self._repository.create(project_id, span)
+
+    def update(
+        self,
+        project_id: int,
+        example_id: int,
+        label_id: int,
+        start_offset: Optional[int] = None,
+        end_offset: Optional[int] = None,
+        label: Optional[int | str] = None,
+        human_annotated: bool = None,
+        confidence: float = None,
+    ) -> Span:
+        """Update a span label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            label_id (int): The id of the label
+            start_offset (int): The start offset of the span
+            end_offset (int): The end offset of the span
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Span: The updated span label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        span = self.find_by_id(project_id, example_id, label_id)
+
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id
+
+        span = Span(
+            id=span.id,
+            example=example_id,
+            start_offset=start_offset or span.start_offset,
+            end_offset=end_offset or span.end_offset,
+            label=label or span.label,
+            manual=human_annotated or span.manual,
+            prob=confidence or span.prob,
+        )
+        return self._repository.update(project_id, span)

@@ -37,28 +37,22 @@ class TestCategoryUseCase:
         cls.label_repository = MagicMock()
         cls.label_type_repository = MagicMock()
         cls.usecase = CategoryUseCase(cls.label_repository, cls.label_type_repository)
+        cls.name = "Test"
+        cls.project_id = 0
+        cls.example_id = 1
+        cls.label_type_id = 2
+        cls.label_id = 3
+        cls.category = Category(label=cls.label_type_id, example=cls.example_id)
+        cls.label_type_repository.find_by_name.return_value = MagicMock(id=cls.label_type_id)
 
     def test_create(self):
-        name = "Test"
-        project_id = 0
-        example_id = 1
-        label_type_id = 2
-        category = Category(label=label_type_id, example=example_id)
-        self.label_type_repository.find_by_name.return_value = MagicMock(id=label_type_id)
-        self.usecase.create(project_id, example_id, name)
-        self.label_type_repository.find_by_name.assert_called_once_with(project_id, name)
-        self.label_repository.create.assert_called_once_with(project_id, category)
+        self.usecase.create(self.project_id, self.example_id, self.name)
+        self.label_type_repository.find_by_name.assert_called_once_with(self.project_id, self.name)
+        self.label_repository.create.assert_called_once_with(self.project_id, self.category)
 
     def test_update(self):
-        name = "Test"
-        project_id = 0
-        example_id = 1
-        label_type_id = 2
-        label_id = 3
-        category = Category(label=label_type_id, example=example_id)
-        self.label_type_repository.find_by_name.return_value = MagicMock(id=label_type_id)
-        self.label_repository.find_by_id.return_value = category
+        self.label_repository.find_by_id.return_value = self.category
 
-        self.usecase.update(project_id, example_id, label_id, name)
-        self.label_type_repository.find_by_name.assert_called_once_with(project_id, name)
-        self.label_repository.update.assert_called_once_with(project_id, category)
+        self.usecase.update(self.project_id, self.example_id, self.label_id, self.name)
+        self.label_type_repository.find_by_name.assert_called_once_with(self.project_id, self.name)
+        self.label_repository.update.assert_called_once_with(self.project_id, self.category)
