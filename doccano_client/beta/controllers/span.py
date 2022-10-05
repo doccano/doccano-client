@@ -68,7 +68,7 @@ class SpansController:
         """Create a new span, return the generated controller
 
         Args:
-            span: Span. See mock_api_responses for the desired format.
+            span: Span. Automatically assigns session variables.
 
         Returns:
             SpanController. The SpanController now wrapping around the newly created span.
