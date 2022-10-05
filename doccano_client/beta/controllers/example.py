@@ -138,7 +138,7 @@ class ExamplesController:
         """Upload new example for Doccano project, return the generated controller
 
         Args:
-            example: Example. See mock_api_responses for the desired format.
+            example: Example. Automatically assigns session variables.
 
         Returns:
             ExampleController. The ExampleController now wrapping around the newly created example
