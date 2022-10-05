@@ -71,7 +71,7 @@ class RelationsController:
         """Create a new relation, return the generated controller
 
         Args:
-            relation: Relation. See mock_api_responses for the desired format.
+            relation: Relation. Automatically assigns session variables.
 
         Returns:
             RelationController. The RelationController now wrapping around the newly created relation.
