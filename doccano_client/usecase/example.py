@@ -56,7 +56,7 @@ class ExampleUseCase:
         self,
         project_id: int,
         example_id: int,
-        text: str,
+        text: str = None,
         meta: Dict[str, Any] = None,
     ) -> Example:
         """Update a example
@@ -70,9 +70,12 @@ class ExampleUseCase:
         Returns:
             Example: The updated example
         """
-        if meta is None:
-            meta = {}
-        example = Example(id=example_id, text=text, meta=meta)
+        example = self.find_by_id(project_id, example_id)
+        example = Example(
+            id=example_id,
+            text=text if text is not None else example.text,
+            meta=meta if meta is not None else example.meta,
+        )
         return self._repository.update(project_id, example)
 
     def delete(self, project_id: int, example_id: int):

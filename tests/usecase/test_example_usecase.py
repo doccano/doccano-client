@@ -34,10 +34,12 @@ class TestExampleUseCase:
 
     def test_update(self, payload):
         project_id = 0
-        example_id = 1
-        self.usecase.update(project_id, example_id, **payload)
-        payload["id"] = example_id
-        self.repository.update.assert_called_once_with(project_id, Example.parse_obj(payload))
+        example = Example(id=1, text="Test text")
+        self.repository.find_by_id.return_value = example
+        self.usecase.update(project_id, example.id, **payload)
+        example.text = payload["text"]
+        self.repository.find_by_id.assert_called_once_with(project_id, example.id)
+        self.repository.update.assert_called_once_with(project_id, example)
 
     def test_delete(self):
         self.usecase.delete(0, 1)
