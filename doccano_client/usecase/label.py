@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generic, List, Optional, TypeVar
 
-from doccano_client.models.label import Category, Label, Span
+from doccano_client.models.label import Category, Label, Relation, Span
 from doccano_client.repositories.label import LabelRepository
 from doccano_client.repositories.label_type import LabelTypeRepository
 
@@ -226,3 +226,98 @@ class SpanUseCase(LabelUseCase[Span]):
             prob=confidence or span.prob,
         )
         return self._repository.update(project_id, span)
+
+
+class RelationUseCase(LabelUseCase[Relation]):
+    def create(
+        self,
+        project_id: int,
+        example_id: int,
+        from_id: int,
+        to_id: int,
+        label: int | str,
+        human_annotated: bool = False,
+        confidence: float = 0.0,
+    ) -> Relation:
+        """Create a new relation label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            from_id (int): The id of the from span
+            to_id (int): The id of the to span
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Relation: The created relation label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id  # type: ignore
+
+        relation = Relation(
+            example=example_id,
+            from_id=from_id,
+            to_id=to_id,
+            type=label,
+            manual=human_annotated,
+            prob=confidence,
+        )
+        return self._repository.create(project_id, relation)
+
+    def update(
+        self,
+        project_id: int,
+        example_id: int,
+        label_id: int,
+        from_id: Optional[int] = None,
+        to_id: Optional[int] = None,
+        label: Optional[int | str] = None,
+        human_annotated: bool = None,
+        confidence: float = None,
+    ) -> Relation:
+        """Update a relation label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            label_id (int): The id of the label
+            from_id (int): The id of the from span
+            to_id (int): The id of the to span
+            label (int | str): The label to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Relation: The updated relation label
+
+        Raises:
+            ValueError: If the label type repository is not set
+        """
+        relation = self.find_by_id(project_id, example_id, label_id)
+
+        if self._label_type_repository is None:
+            raise ValueError("LabelTypeRepository is not set")
+
+        if isinstance(label, str):
+            label_type = self._label_type_repository.find_by_name(project_id, label)
+            label = label_type.id
+
+        relation = Relation(
+            id=relation.id,
+            example=example_id,
+            from_id=from_id or relation.from_id,
+            to_id=to_id or relation.to_id,
+            type=label or relation.type,
+            manual=human_annotated or relation.manual,
+            prob=confidence or relation.prob,
+        )
+        return self._repository.update(project_id, relation)
