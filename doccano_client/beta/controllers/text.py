@@ -68,7 +68,7 @@ class TextsController:
         """Create a new text, return the generated controller
 
         Args:
-            text: Text. See mock_api_responses for the desired format.
+            text: Text. Automatically assigns session variables.
 
         Returns:
             TextController. The TextController now wrapping around the newly created text.
