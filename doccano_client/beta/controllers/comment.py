@@ -47,7 +47,11 @@ class CommentsController:
 
     @property
     def comments_url(self) -> str:
-        """Return an api url for comments list of an object"""
+        """Return an api url for comments list of an object
+
+        Either a project or example can have a comments property. If the instantiating url
+        is an example, then we parse the example id in order to form the comments list url.
+        """
         if "/examples" in self._parent_url:
             base_url = self._parent_url[: self._parent_url.rindex("/examples")]
             example_id = self._parent_url[self._parent_url.rindex("/examples") + 10 :]
@@ -60,6 +64,9 @@ class CommentsController:
 
         Yields:
             CommentController: The next comment controller.
+
+        A while loop is used because not all comments are returned at once, and additional
+        comments must be retrieved by calling the next url in the django response.
         """
         response = self.client_session.get(self.comments_url)
 
