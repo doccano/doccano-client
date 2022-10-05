@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generic, List, Optional, TypeVar
 
-from doccano_client.models.label import Category, Label, Relation, Span
+from doccano_client.models.label import Category, Label, Relation, Span, Text
 from doccano_client.repositories.label import LabelRepository
 from doccano_client.repositories.label_type import LabelTypeRepository
 
@@ -321,3 +321,65 @@ class RelationUseCase(LabelUseCase[Relation]):
             prob=confidence or relation.prob,
         )
         return self._repository.update(project_id, relation)
+
+
+class TextUseCase(LabelUseCase[Text]):
+    def create(
+        self,
+        project_id: int,
+        example_id: int,
+        text: str,
+        human_annotated: bool = False,
+        confidence: float = 0.0,
+    ) -> Text:
+        """Create a new text label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            text (str): The text to create
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Text: The created text label
+        """
+        text_label = Text(
+            example=example_id,
+            text=text,
+            manual=human_annotated,
+            prob=confidence,
+        )
+        return self._repository.create(project_id, text_label)
+
+    def update(
+        self,
+        project_id: int,
+        example_id: int,
+        label_id: int,
+        text: Optional[str] = None,
+        human_annotated: bool = None,
+        confidence: float = None,
+    ) -> Text:
+        """Update a text label
+
+        Args:
+            project_id (int): The id of the project
+            example_id (int): The id of the example
+            label_id (int): The id of the label
+            text (str): The text to update
+            human_annotated (bool): Whether the label is human annotated. Defaults to False.
+            confidence (float): The confidence of the label. Defaults to 0.0.
+
+        Returns:
+            Text: The updated text label
+        """
+        text_label = self.find_by_id(project_id, example_id, label_id)
+        text_label = Text(
+            id=text_label.id,
+            example=example_id,
+            text=text or text_label.text,
+            manual=human_annotated or text_label.manual,
+            prob=confidence or text_label.prob,
+        )
+        return self._repository.update(project_id, text_label)
