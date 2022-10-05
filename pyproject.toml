@@ -62,8 +62,9 @@ include = '\.pyi?$'
 [tool.flake8]
 max-line-length = 120
 max-complexity = 18
-ignore = "E203,E266,W503,DAR101,DAR201" # Todo: remove DAR*
+ignore = "E203,E266,W503"
 filename = "*.py"
+exclude = ".git,__pycache__,docs,build,dist,doccano_client/beta"
 
 [tool.isort]
 profile = "black"
@@ -74,6 +75,10 @@ multi_line_output = 3
 python_version = "3.8"
 ignore_missing_imports = true
 show_error_codes = true
+exclude = [
+    "doccano_client/__init__.py",
+    'doccano_client/beta',
+]
 
 [tool.taskipy.tasks]
 isort = "isort . -c"

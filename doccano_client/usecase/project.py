@@ -104,6 +104,7 @@ class ProjectUseCase:
         """Update a project
 
         Args:
+            project_id (int): The project id.
             name (str): The name of the project
             project_type (ProjectType): The type of the project
             description (str): The description of the project. Defaults to "".
