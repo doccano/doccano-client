@@ -3,9 +3,9 @@ from unittest import TestCase
 import pytest
 
 from ..client import DoccanoClient
-from ..models import Example, Label, Project
+from ..models import Example, Project, SpanType
 
-DOCCANO_ENDPOINT = "http://localhost:8000"  # TODO: Make this a pytest parameter or ENV variable
+DOCCANO_ENDPOINT = "http://localhost"  # TODO: Make this a pytest parameter or ENV variable
 DOCCANO_USER = "admin"  # TODO: Make this a pytest parameter or ENV variable
 DOCCANO_PASS = "password"  # TODO: Make this a pytest parameter or ENV variable
 
@@ -39,8 +39,8 @@ class IntegrationTests(TestCase):
         cls.example_controller = cls.examples_controller.create(cls.example)
         cls.new_example_id = cls.example_controller.id
 
-        cls.label = Label(text="company")
-        cls.label_controller = cls.project_controller.labels.create(cls.label)
+        cls.span_type = SpanType(text="company")
+        cls.span_type_controller = cls.project_controller.span_types.create(cls.span_type)
 
         # Generate a comment for the example.
         # Currently, we do not have a CommentsController.create method, which is
@@ -63,7 +63,7 @@ class IntegrationTests(TestCase):
         project_controller = self.projects_controller.get(self.new_project_id)
         self.assertEqual(project_controller, self.project_controller)
 
-    def test_examples_comments_annotations_controllers(self) -> None:
+    def test_examples_comments_spans_controllers(self) -> None:
         examples = self.examples_controller.all()
         self.assertEqual(len(list(examples)), 1)
         n_examples = self.examples_controller.count()
@@ -79,14 +79,11 @@ class IntegrationTests(TestCase):
         comments = list(comments_controller.all())
         self.assertEqual(comments[0].comment.text, "hi there i'm a comment")
 
-        # TODO: Right now, we can't create annotations intuitively in the API. Doccano v1.6.0
-        #       should once it's released. Add annotations creation to integration tests and
-        #       test structure so that we're exhaustively checking that endpoint.
-        annotations_controller = example.annotations
-        annotations = list(annotations_controller.all())
-        self.assertEqual(len(annotations), 0)
+        spans_controller = example.spans
+        spans = list(spans_controller.all())
+        self.assertEqual(len(spans), 0)
 
-    def test_labels_controller(self) -> None:
-        expected_label = Label(text="company")
-        label_controllers = list(self.project_controller.labels.all())
-        self.assertEqual(expected_label, label_controllers[0].label)
+    def test_span_types_controller(self) -> None:
+        expected_span_type = SpanType(text="company")
+        span_type_controllers = list(self.project_controller.span_types.all())
+        self.assertEqual(expected_span_type, span_type_controllers[0].span_type)

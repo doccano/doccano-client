@@ -2,7 +2,7 @@
 
 A beta version of a new design for the Doccano client, featuring more Pythonic interaction, as well as thorough testing and documentation.
 
-Currently tested for compatibility against Doccano v1.5.0-1.5.5.
+Currently tested for compatibility against Doccano v1.7.0
 
 ### Usage
 

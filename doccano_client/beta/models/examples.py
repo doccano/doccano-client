@@ -8,7 +8,7 @@ from dataclasses_json import DataClassJsonMixin
 class Example(DataClassJsonMixin):
     """Contains the data and operations relevant to a example on a Doccano project"""
 
-    text: str = ""
+    text: str
     meta: Dict[str, Any] = field(default_factory=dict)
     annotation_approver: Optional[str] = None
     comment_count: int = 0

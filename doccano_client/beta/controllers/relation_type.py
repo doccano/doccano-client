@@ -38,32 +38,35 @@ class RelationTypesController:
         return f"{self._project_url}/relation-types"
 
     def all(self) -> Iterable[RelationTypeController]:
-        """Return a sequence of all span-types for a given controller, which maps to a project
+        """Return a sequence of all relation-types for a given controller, which maps to a project
 
         Yields:
             RelationTypeController: The next relation type controller.
         """
         response = self.client_session.get(self.relation_types_url)
         verbose_raise_for_status(response)
-        label_dicts = response.json()
-        label_object_fields = set(label_field.name for label_field in fields(RelationType))
+        relation_type_dicts = response.json()
+        relation_type_object_fields = set(relation_type_field.name for relation_type_field in fields(RelationType))
 
-        for label_dict in label_dicts:
-            # Sanitize label_dict before converting to Label
-            sanitized_label_dict = {label_key: label_dict[label_key] for label_key in label_object_fields}
+        for relation_type_dict in relation_type_dicts:
+            # Sanitize relation_type_dict before converting to RelationType
+            sanitized_relation_type_dict = {
+                relation_type_key: relation_type_dict[relation_type_key]
+                for relation_type_key in relation_type_object_fields
+            }
 
             yield RelationTypeController(
-                relation_type=RelationType(**sanitized_label_dict),
-                id=label_dict["id"],
+                relation_type=RelationType(**sanitized_relation_type_dict),
+                id=relation_type_dict["id"],
                 relation_types_url=self.relation_types_url,
                 client_session=self.client_session,
             )
 
     def create(self, relation_type: RelationType) -> RelationTypeController:
-        """Create new label for Doccano project, assign session variables to label, return the id"""
-        label_json = asdict(relation_type)
+        """Create new relation_type for Doccano project, assign session variables to relation_type, return the id"""
+        relation_type_json = asdict(relation_type)
 
-        response = self.client_session.post(self.relation_types_url, json=label_json)
+        response = self.client_session.post(self.relation_types_url, json=relation_type_json)
         verbose_raise_for_status(response)
         response_id = response.json()["id"]
 
@@ -76,12 +79,14 @@ class RelationTypesController:
 
     def update(self, relation_type_controllers: Iterable[RelationTypeController]) -> None:
         """Updates the given relation_types in the remote project"""
-        for label_controller in relation_type_controllers:
-            label_json = asdict(label_controller.label)
-            label_json = {
-                label_key: label_value for label_key, label_value in label_json.items() if label_value is not None
+        for relation_type_controller in relation_type_controllers:
+            relation_type_json = asdict(relation_type_controller.relation_type)
+            relation_type_json = {
+                relation_type_key: relation_type_value
+                for relation_type_key, relation_type_value in relation_type_json.items()
+                if relation_type_value is not None
             }
-            label_json["id"] = label_controller.id
+            relation_type_json["id"] = relation_type_controller.id
 
-            response = self.client_session.put(label_controller.relation_type_url, json=label_json)
+            response = self.client_session.put(relation_type_controller.relation_type_url, json=relation_type_json)
             verbose_raise_for_status(response)
