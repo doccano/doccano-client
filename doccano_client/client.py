@@ -99,11 +99,11 @@ class DoccanoClient:
         self._data_export_repository = DataExportRepository(self._base_repository)
 
     def login(self, username: str, password: str) -> None:
-        """Login to a session with the Doccano instance related to the base url
+        """Login to a session with the Doccano instance related to the base url.
 
         Args:
-            username (str): The username of the user
-            password (str): The password of the user
+            username (str): The username of the user.
+            password (str): The password of the user.
         """
         self._base_repository.login(username, password)
 
@@ -181,26 +181,26 @@ class DoccanoClient:
             raise ValueError(f"Invalid type: {type}")
 
     def list_roles(self) -> List[Role]:
-        """Return all roles
+        """Return all roles.
 
         Returns:
-            List[Role]: The list of roles
+            List[Role]: The list of roles.
         """
         return self._role_repository.list()
 
     def get_profile(self) -> User:
-        """Return the profile of the logged in user
+        """Return the profile of the logged in user.
 
         Returns:
-            User: The profile of the logged in user
+            User: The profile of the logged in user.
         """
         return self._user_repository.get_profile()
 
     def search_users(self, name: str = "") -> List[User]:
-        """Search users by name
+        """Search users by name.
 
         Args:
-            name (str): The name of the user to search for
+            name (str): The name of the user to search for.
 
         Returns:
             List[User]: The list of the users.
@@ -208,18 +208,18 @@ class DoccanoClient:
         return self._user_repository.list(name=name)
 
     def find_user_by_name(self, name: str) -> User:
-        """Find a user by name
+        """Find a user by name.
 
         Args:
-            name (str): The name of the user
+            name (str): The name of the user.
 
         Returns:
-            User: The found user
+            User: The found user.
         """
         return self._user_repository.find_by_name(name)
 
     def list_projects(self) -> Iterator[Project]:
-        """Return all projects in which you are a member
+        """Return all projects in which you are a member.
 
         Yields:
             Project: The next project.
@@ -227,32 +227,32 @@ class DoccanoClient:
         yield from self.project.list()
 
     def find_project_by_id(self, project_id: int) -> Project:
-        """Find a project by id
+        """Find a project by id.
 
         Args:
-            project_id (int): The id of the project to find
+            project_id (int): The id of the project to find.
 
         Returns:
-            Project: The found project
+            Project: The found project.
         """
         return self.project.find_by_id(project_id)
 
     def get_progress(self, project_id: int) -> Progress:
-        """Get my progress
+        """Get the authenticated user's progress.
 
         Args:
-            project_id (int): The id of the project
+            project_id (int): The id of the project.
 
         Returns:
-            Progress: Your progress
+            Progress: The user's progress.
         """
         return self._metrics_repository.get_progress(project_id)
 
     def get_members_progress(self, project_id: int) -> List[MemberProgress]:
-        """Return all metricss in which you are a member
+        """Return all metricss in which you are a member.
 
         Args:
-            project_id (int): The id of the project
+            project_id (int): The id of the project.
 
         Returns:
             List[MemberProgress]: The list of the member progress.
@@ -260,17 +260,17 @@ class DoccanoClient:
         return self._metrics_repository.get_members_progress(project_id)
 
     def get_label_distribution(self, project_id: int, type: LABEL_TYPE) -> List[LabelDistribution]:
-        """Return label distribution
+        """Return label distribution.
 
         Args:
-            project_id (int): The id of the project
-            type (LABEL_TYPE): The type of the label
+            project_id (int): The id of the project.
+            type (LABEL_TYPE): The type of the label.
 
         Returns:
             LabelDistribution: The label distribution.
 
         Raises:
-            ValueError: If the type is invalid
+            ValueError: If the type is invalid.
         """
         if type == "category":
             return self._metrics_repository.get_category_distribution(project_id)
@@ -295,11 +295,11 @@ class DoccanoClient:
         use_relation: bool = False,
         tags: Optional[List[str]] = None,
     ) -> Project:
-        """Create a new project
+        """Create a new project.
 
         Args:
-            name (str): The name of the project
-            project_type (ProjectType): The type of the project
+            name (str): The name of the project.
+            project_type (ProjectType): The type of the project.
             description (str): The description of the project. Defaults to "".
             guideline (str): The annotation guideline. Defaults to "".
             random_order (bool): Whether to shuffle the uploaded data. Defaults to False.
@@ -311,7 +311,7 @@ class DoccanoClient:
             tags (Optional[List[str]], optional): The tags of the project. Defaults to None.
 
         Returns:
-            Project: The created project
+            Project: The created project.
         """
         return self.project.create(
             name=name,
@@ -342,24 +342,24 @@ class DoccanoClient:
         use_relation: bool = None,
         tags: Optional[List[str]] = None,
     ) -> Project:
-        """Update a project
+        """Update a project.
 
         Args:
             project_id (int): The project id.
-            name (str): The name of the project
-            project_type (ProjectType): The type of the project
-            description (str): The description of the project. Defaults to "".
-            guideline (str): The annotation guideline. Defaults to "".
-            random_order (bool): Whether to shuffle the uploaded data. Defaults to False.
-            collaborative_annotation (bool): If True, a data can be annotated by multiple users. Defaults to False.
-            single_class_classification (bool): If True, only one label can apply a data. Defaults to False.
-            allow_overlapping (bool): If True, span overlapping is allowed. Defaults to False.
-            grapheme_mode (bool): If True, count multi-byte characters as one character. Defaults to False.
-            use_relation (bool): If True, relation labeling is allowed. Defaults to False.
+            name (str): The name of the project.
+            project_type (ProjectType): The type of the project.
+            description (str): The description of the project. Defaults to None.
+            guideline (str): The annotation guideline. Defaults to None.
+            random_order (bool): Whether to shuffle the uploaded data. Defaults to None.
+            collaborative_annotation (bool): If True, a data can be annotated by multiple users. Defaults to None.
+            single_class_classification (bool): If True, only one label can apply a data. Defaults to None.
+            allow_overlapping (bool): If True, span overlapping is allowed. Defaults to None.
+            grapheme_mode (bool): If True, count multi-byte characters as one character. Defaults to None.
+            use_relation (bool): If True, relation labeling is allowed. Defaults to None.
             tags (Optional[List[str]], optional): The tags of the project. Defaults to None.
 
         Returns:
-            Project: The updated project
+            Project: The updated project.
         """
         return self.project.update(
             project_id=project_id,
@@ -377,35 +377,35 @@ class DoccanoClient:
         )
 
     def delete_project(self, project_id: int):
-        """Delete a project
+        """Delete a project.
 
         Args:
-            project_id (int): The project id
+            project_id (int): The project id.
         """
         self.project.delete(project_id)
 
     def list_label_types(self, project_id: int, type: LABEL_TYPE) -> List[LabelType]:
-        """Return all label types in a project
+        """Return all label types in a project.
 
         Args:
-            project_id (int): The project id
-            type (LABEL_TYPE): The type of the label type
+            project_id (int): The project id.
+            type (LABEL_TYPE): The type of the label type.
 
         Returns:
-            List[LabelType]: The list of label types
+            List[LabelType]: The list of label types.
         """
         return self._get_label_type_usecase(type).list(project_id)
 
     def find_label_type_by_id(self, project_id: int, label_type_id: int, type: LABEL_TYPE) -> LabelType:
-        """Find a label type by id
+        """Find a label type by id.
 
         Args:
-            project_id (int): The project id
-            label_type_id (int): The label type id
-            type (LABEL_TYPE): The type of the label type
+            project_id (int): The project id.
+            label_type_id (int): The label type id.
+            type (LABEL_TYPE): The type of the label type.
 
         Returns:
-            LabelType: The found label type
+            LabelType: The found label type.
         """
         return self._get_label_type_usecase(type).find_by_id(project_id, label_type_id)
 
@@ -418,18 +418,18 @@ class DoccanoClient:
         suffix_key: SUFFIX_KEY = None,
         color: Optional[str] = None,
     ) -> LabelType:
-        """Create a new label type
+        """Create a new label type.
 
         Args:
-            project_id (int): The project id
-            type (LABEL_TYPE): The type of the label type
-            text (str): The name of the label type
-            prefix_key (PREFIX_KEY): The prefix key of the label type
-            suffix_key (SUFFIX_KEY): The suffix key of the label type
-            color (str): The color of the label type. Defaults to "".
+            project_id (int): The project id.
+            type (LABEL_TYPE): The type of the label type.
+            text (str): The name of the label type.
+            prefix_key (PREFIX_KEY): The prefix key of the label type.
+            suffix_key (SUFFIX_KEY): The suffix key of the label type.
+            color (str): The color of the label type. Defaults to None.
 
         Returns:
-            LabelType: The created label type
+            LabelType: The created label type.
         """
         return self._get_label_type_usecase(type).create(
             project_id=project_id,
@@ -449,19 +449,19 @@ class DoccanoClient:
         suffix_key: SUFFIX_KEY | int = -1,
         color: str = None,
     ) -> LabelType:
-        """Update a label type
+        """Update a label type.
 
         Args:
-            project_id (int): The project id
-            type (LABEL_TYPE): The type of the label type
-            label_type_id (int): The label type id
-            text (str): The name of the label type
-            prefix_key (PREFIX_KEY): The prefix key of the label type
-            suffix_key (SUFFIX_KEY): The suffix key of the label type
-            color (str): The color of the label type. Defaults to "".
+            project_id (int): The project id.
+            type (LABEL_TYPE): The type of the label type.
+            label_type_id (int): The label type id.
+            text (str): The name of the label type.
+            prefix_key (PREFIX_KEY): The prefix key of the label type.
+            suffix_key (SUFFIX_KEY): The suffix key of the label type.
+            color (str): The color of the label type. Defaults to None.
 
         Returns:
-            LabelType: The updated label type
+            LabelType: The updated label type.
         """
         return self._get_label_type_usecase(type).update(
             project_id=project_id,
@@ -473,40 +473,40 @@ class DoccanoClient:
         )
 
     def delete_label_type(self, project_id: int, label_type_id: int, type: LABEL_TYPE):
-        """Delete a label type
+        """Delete a label type.
 
         Args:
-            project_id (int): The project id
-            label_type_id (int): The label type id
-            type (LABEL_TYPE): The type of the label type
+            project_id (int): The project id.
+            label_type_id (int): The label type id.
+            type (LABEL_TYPE): The type of the label type.
         """
         self._get_label_type_usecase(type).delete(project_id, label_type_id)
 
     def bulk_delete_label_types(self, project_id: int, label_type_ids: List[int], type: LABEL_TYPE):
-        """Delete multiple label types
+        """Delete multiple label types.
 
         Args:
-            project_id (int): The project id
-            label_type_ids (List[int]): The label type ids
-            type (LABEL_TYPE): The type of the label type
+            project_id (int): The project id.
+            label_type_ids (List[int]): The label type ids.
+            type (LABEL_TYPE): The type of the label type.
         """
         self._get_label_type_usecase(type).bulk_delete(project_id, label_type_ids)
 
     def upload_label_type(self, project_id: int, file_path: str, type: LABEL_TYPE):
-        """Upload a label type
+        """Upload a label type.
 
         Args:
-            project_id (int): The id of the project
-            file_path (str): The path to the file to upload
-            type (LABEL_TYPE): The type of the label type
+            project_id (int): The id of the project.
+            file_path (str): The path to the file to upload.
+            type (LABEL_TYPE): The type of the label type.
         """
         self._get_label_type_usecase(type).upload(project_id, file_path)
 
     def list_examples(self, project_id: int) -> Iterator[Example]:
-        """Return all examples
+        """Return all examples.
 
         Args:
-            project_id (int): The id of the project
+            project_id (int): The id of the project.
 
         Yields:
             Example: The examples in the project.
@@ -514,100 +514,100 @@ class DoccanoClient:
         yield from self.example.list(project_id)
 
     def find_example_by_id(self, project_id: int, example_id: int) -> Example:
-        """Find an example by id
+        """Find an example by id.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
 
         Returns:
-            Example: The found example
+            Example: The found example.
         """
         return self.example.find_by_id(project_id, example_id)
 
     def create_example(self, project_id: int, text: str, meta: Dict[str, Any] = None) -> Example:
-        """Create a new example
+        """Create a new example.
 
         Args:
-            project_id (int): The id of the project
-            text (str): The text of the example
-            meta (Dict[str, Any]): The meta data of the example
+            project_id (int): The id of the project.
+            text (str): The text of the example.
+            meta (Dict[str, Any]): The meta data of the example.
 
         Returns:
-            Example: The created example
+            Example: The created example.
         """
         return self.example.create(project_id, text, meta)
 
     def update_example(
         self, project_id: int, example_id: int, text: str = None, meta: Dict[str, Any] = None
     ) -> Example:
-        """Update an example
+        """Update an example.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            text (str): The text of the example
-            meta (Dict[str, Any]): The meta data of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            text (str): The text of the example.
+            meta (Dict[str, Any]): The meta data of the example.
 
         Returns:
-            Example: The updated example
+            Example: The updated example.
         """
         return self.example.update(project_id, example_id, text, meta)
 
     def delete_example(self, project_id: int, example_id: int):
-        """Delete an example
+        """Delete an example.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.example.delete(project_id, example_id)
 
     def bulk_delete_examples(self, project_id: int, example_ids: List[int]):
-        """Delete multiple examples
+        """Delete multiple examples.
 
         Args:
-            project_id (int): The id of the project
-            example_ids (List[int]): The ids of the examples
+            project_id (int): The id of the project.
+            example_ids (List[int]): The ids of the examples.
         """
         self.example.bulk_delete(project_id, example_ids)
 
     def delete_all_examples(self, project_id: int):
-        """Delete all examples
+        """Delete all examples.
 
         Args:
-            project_id (int): The id of the project
+            project_id (int): The id of the project.
         """
         self.example.delete_all(project_id)
 
     def update_example_state(self, project_id: int, example_id: int):
-        """Update the state of an example
+        """Update the state of an example.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.example.update_state(project_id, example_id)
 
     def find_comment_by_id(self, project_id: int, comment_id: int) -> Comment:
-        """Find a comment by id
+        """Find a comment by id.
 
         Args:
-            project_id (int): The id of the project
-            comment_id (int): The id of the comment
+            project_id (int): The id of the project.
+            comment_id (int): The id of the comment.
 
         Returns:
-            Comment: The found comment
+            Comment: The found comment.
         """
         return self.comment.find_by_id(project_id, comment_id)
 
     def list_comments(self, project_id: int, example_id: int, query: str = "") -> Iterator[Comment]:
-        """Return all comments
+        """Return all comments.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            query (str): The query string to filter comments
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            query (str): The query string to filter comments.
 
         Yields:
             Comment: The comments in the project.
@@ -615,54 +615,54 @@ class DoccanoClient:
         yield from self.comment.list(project_id, example_id, query)
 
     def create_comment(self, project_id: int, example_id: int, text: str) -> Comment:
-        """Create a new comment
+        """Create a new comment.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            text (str): The text of the comment
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            text (str): The text of the comment.
 
         Returns:
-            Comment: The created comment
+            Comment: The created comment.
         """
         return self.comment.create(project_id, example_id, text)
 
     def update_comment(self, project_id: int, comment_id: int, text: str) -> Comment:
-        """Update a comment
+        """Update a comment.
 
         Args:
-            project_id (int): The id of the project
-            comment_id (int): The id of the comment
-            text (str): The text of the comment
+            project_id (int): The id of the project.
+            comment_id (int): The id of the comment.
+            text (str): The text of the comment.
 
         Returns:
-            Comment: The updated comment
+            Comment: The updated comment.
         """
         return self.comment.update(project_id, comment_id, text)
 
     def delete_comment(self, project_id: int, comment_id: int):
-        """Delete a comment
+        """Delete a comment.
 
         Args:
-            project_id (int): The id of the project
-            comment_id (int): The id of the comment
+            project_id (int): The id of the project.
+            comment_id (int): The id of the comment.
         """
         self.comment.delete(project_id, comment_id)
 
     def bulk_delete_comments(self, project_id: int, comment_ids: List[int]):
-        """Delete multiple comments
+        """Delete multiple comments.
 
         Args:
-            project_id (int): The id of the project
-            comment_ids (List[int]): The ids of the comments
+            project_id (int): The id of the project.
+            comment_ids (List[int]): The ids of the comments.
         """
         self.comment.bulk_delete(project_id, comment_ids)
 
     def list_upload_options(self, project_id: int) -> List[DataImportOption]:
-        """Return all upload options
+        """Return all upload options.
 
         Args:
-            project_id (int): The id of the project
+            project_id (int): The id of the project.
 
         Returns:
             List[Option]: The list of the upload options.
@@ -670,10 +670,10 @@ class DoccanoClient:
         return self.data_import.list_options(project_id)
 
     def list_download_options(self, project_id: int) -> List[DataExportOption]:
-        """Return all download options
+        """Return all download options.
 
         Args:
-            project_id (int): The id of the project
+            project_id (int): The id of the project.
 
         Returns:
             List[Option]: The list of the download options.
@@ -689,15 +689,15 @@ class DoccanoClient:
         column_data: str = "text",
         column_label: str = "label",
     ) -> TaskStatus:
-        """Upload a file
+        """Upload a file.
 
         Args:
-            project_id (int): The id of the project
-            file_paths (List[str]): The list of the file paths
-            task (AvailableTask): The task of the upload
-            format (str): The format of the upload
-            column_data (str): The column name of the data
-            column_label (str): The column name of the label
+            project_id (int): The id of the project.
+            file_paths (List[str]): The list of the file paths.
+            task (AvailableTask): The task of the upload.
+            format (str): The format of the upload.
+            column_data (str): The column name of the data.
+            column_label (str): The column name of the label.
 
         Returns:
             TaskStatus: The status of the upload task.
@@ -705,36 +705,36 @@ class DoccanoClient:
         return self.data_import.upload(project_id, file_paths, task, format, column_data, column_label)
 
     def download(self, project_id: int, option: DataExportOption, only_approved=False, dir_name=".") -> pathlib.Path:
-        """Download a file
+        """Download a file.
 
         Args:
-            project_id (int): The id of the project
-            option (DataExportOption): The download option
-            only_approved (bool): Whether to export approved data only
-            dir_name (str): The directory to save the file
+            project_id (int): The id of the project.
+            option (DataExportOption): The download option.
+            only_approved (bool): Whether to export approved data only.
+            dir_name (str): The directory to save the file.
 
         Returns:
-            pathlib.Path: The path to the downloaded file
+            pathlib.Path: The path to the downloaded file.
         """
         return self.data_export.download(project_id, option, only_approved, dir_name)
 
     def find_member_by_id(self, project_id: int, member_id: int) -> Member:
-        """Find a member by id
+        """Find a member by id.
 
         Args:
-            project_id (int): The id of the project to find
-            member_id (int): The id of the member to find
+            project_id (int): The id of the project to find.
+            member_id (int): The id of the member to find.
 
         Returns:
-            Member: The found member
+            Member: The found member.
         """
         return self.member.find_by_id(project_id, member_id)
 
-    def list_member(self, project_id: int) -> List[Member]:
-        """Return all members
+    def list_members(self, project_id: int) -> List[Member]:
+        """Return all members.
 
         Args:
-            project_id (int): The id of the project
+            project_id (int): The id of the project.
 
         Returns:
             List[Member]: The members in the project.
@@ -747,15 +747,15 @@ class DoccanoClient:
         username: str,
         role_name: str,
     ) -> Member:
-        """Create a new member
+        """Create a new member.
 
         Args:
-            project_id (int): The id of the project
-            username (str): The username of the future member
-            role_name (str): The role of the future member
+            project_id (int): The id of the project.
+            username (str): The username of the future member.
+            role_name (str): The role of the future member.
 
         Returns:
-            Member: The created member
+            Member: The created member.
         """
         return self.member.add(project_id, username, role_name)
 
@@ -765,120 +765,120 @@ class DoccanoClient:
         member_id: int,
         role_name: str,
     ) -> Member:
-        """Update a member role
+        """Update a member role.
 
         Args:
-            project_id (int): The id of the project
-            member_id (int): The id of the member
-            role_name (str): The role of the member
+            project_id (int): The id of the project.
+            member_id (int): The id of the member.
+            role_name (str): The role of the member.
 
         Returns:
-            Member: The updated member
+            Member: The updated member.
         """
         return self.member.update(project_id, member_id, role_name)
 
     def delete_member(self, project_id: int, member_id: int):
-        """Delete a member
+        """Delete a member.
 
         Args:
-            project_id (int): The id of the project
-            member_id (int): The id of the member
+            project_id (int): The id of the project.
+            member_id (int): The id of the member.
         """
         self.member.delete(project_id, member_id)
 
     def bulk_delete_members(self, project_id: int, member_ids: List[int]):
-        """Delete multiple members
+        """Delete multiple members.
 
         Args:
-            project_id (int): The id of the project
-            member_ids (List[int]): The ids of the members
+            project_id (int): The id of the project.
+            member_ids (List[int]): The ids of the members.
         """
         self.member.bulk_delete(project_id, member_ids)
 
     def find_category_by_id(self, project_id: int, example_id: int, label_id: int) -> Category:
-        """Find a category by id
+        """Find a category by id.
 
         Args:
-            project_id (int): The id of the project to find
-            example_id (int): The id of the example
-            label_id (int): The id of the label to find
+            project_id (int): The id of the project to find.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label to find.
 
         Returns:
-            Category: The found category
+            Category: The found category.
         """
         return self.category.find_by_id(project_id, example_id, label_id)
 
     def find_span_by_id(self, project_id: int, example_id: int, label_id: int) -> Span:
-        """Find a span by id
+        """Find a span by id.
 
         Args:
-            project_id (int): The id of the project to find
-            example_id (int): The id of the example
-            label_id (int): The id of the label
+            project_id (int): The id of the project to find.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
 
         Returns:
-            Span: The found span
+            Span: The found span.
         """
         return self.span.find_by_id(project_id, example_id, label_id)
 
     def find_relation_by_id(self, project_id: int, example_id: int, label_id: int) -> Relation:
-        """Find a relation by id
+        """Find a relation by id.
 
         Args:
-            project_id (int): The id of the project to find
-            example_id (int): The id of the example
-            label_id (int): The id of the label
+            project_id (int): The id of the project to find.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
 
         Returns:
-            Relation: The found relation
+            Relation: The found relation.
         """
         return self.relation.find_by_id(project_id, example_id, label_id)
 
     def find_text_by_id(self, project_id: int, example_id: int, label_id: int) -> Text:
-        """Find a text by id
+        """Find a text by id.
 
         Args:
-            project_id (int): The id of the project to find
-            example_id (int): The id of the example
-            label_id (int): The id of the label
+            project_id (int): The id of the project to find.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
 
         Returns:
-            Text: The found text
+            Text: The found text.
         """
         return self.text.find_by_id(project_id, example_id, label_id)
 
     def find_segment_by_id(self, project_id: int, example_id: int, label_id: int) -> Segment:
-        """Find a segment by id
+        """Find a segment by id.
 
         Args:
-            project_id (int): The id of the project to find
-            example_id (int): The id of the example
-            label_id (int): The id of the label
+            project_id (int): The id of the project to find.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
 
         Returns:
-            Segment: The found segment
+            Segment: The found segment.
         """
         return self.segment.find_by_id(project_id, example_id, label_id)
 
     def find_bounding_box_by_id(self, project_id: int, example_id: int, label_id: int) -> BoundingBox:
-        """Find a bounding box by id
+        """Find a bounding box by id.
 
         Args:
-            project_id (int): The id of the project to find
-            example_id (int): The id of the example
-            label_id (int): The id of the label
+            project_id (int): The id of the project to find.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
 
         Returns:
-            BoundingBox: The found bounding box
+            BoundingBox: The found bounding box.
         """
         return self.bounding_box.find_by_id(project_id, example_id, label_id)
 
     def list_categories(self, project_id: int, example_id: int) -> List[Category]:
-        """Return all categories
+        """Return all categories.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
 
         Returns:
             List[Category]: The categories in the project.
@@ -886,11 +886,11 @@ class DoccanoClient:
         return self.category.list(project_id, example_id)
 
     def list_spans(self, project_id: int, example_id: int) -> List[Span]:
-        """Return all spans
+        """Return all spans.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
 
         Returns:
             List[Span]: The spans in the project.
@@ -898,11 +898,11 @@ class DoccanoClient:
         return self.span.list(project_id, example_id)
 
     def list_relations(self, project_id: int, example_id: int) -> List[Relation]:
-        """Return all relations
+        """Return all relations.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
 
         Returns:
             List[Relation]: The relations in the project.
@@ -910,11 +910,11 @@ class DoccanoClient:
         return self.relation.list(project_id, example_id)
 
     def list_texts(self, project_id: int, example_id: int) -> List[Text]:
-        """Return all texts
+        """Return all texts.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
 
         Returns:
             List[Text]: The texts in the project.
@@ -922,11 +922,11 @@ class DoccanoClient:
         return self.text.list(project_id, example_id)
 
     def list_segments(self, project_id: int, example_id: int) -> List[Segment]:
-        """Return all segments
+        """Return all segments.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
 
         Returns:
             List[Segment]: The segments in the project.
@@ -934,11 +934,11 @@ class DoccanoClient:
         return self.segment.list(project_id, example_id)
 
     def list_bounding_boxes(self, project_id: int, example_id: int) -> List[BoundingBox]:
-        """Return all bounding boxes
+        """Return all bounding boxes.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
 
         Returns:
             List[BoundingBox]: The bounding boxes in the project.
@@ -949,9 +949,9 @@ class DoccanoClient:
         """Delete a category.
 
         Args:
-            project_id (int): The project id
-            example_id (int): The id of the example
-            label_id (int): The label id
+            project_id (int): The project id.
+            example_id (int): The id of the example.
+            label_id (int): The label id.
         """
         self.category.delete(project_id, example_id, label_id)
 
@@ -959,9 +959,9 @@ class DoccanoClient:
         """Delete a span.
 
         Args:
-            project_id (int): The project id
-            example_id (int): The id of the example
-            label_id (int): The label id
+            project_id (int): The project id.
+            example_id (int): The id of the example.
+            label_id (int): The label id.
         """
         self.span.delete(project_id, example_id, label_id)
 
@@ -969,9 +969,9 @@ class DoccanoClient:
         """Delete a relation.
 
         Args:
-            project_id (int): The project id
-            example_id (int): The id of the example
-            label_id (int): The label id
+            project_id (int): The project id.
+            example_id (int): The id of the example.
+            label_id (int): The label id.
         """
         self.relation.delete(project_id, example_id, label_id)
 
@@ -979,9 +979,9 @@ class DoccanoClient:
         """Delete a text.
 
         Args:
-            project_id (int): The project id
-            example_id (int): The id of the example
-            label_id (int): The label id
+            project_id (int): The project id.
+            example_id (int): The id of the example.
+            label_id (int): The label id.
         """
         self.text.delete(project_id, example_id, label_id)
 
@@ -989,9 +989,9 @@ class DoccanoClient:
         """Delete a segment.
 
         Args:
-            project_id (int): The project id
-            example_id (int): The id of the example
-            label_id (int): The label id
+            project_id (int): The project id.
+            example_id (int): The id of the example.
+            label_id (int): The label id.
         """
         self.segment.delete(project_id, example_id, label_id)
 
@@ -999,80 +999,80 @@ class DoccanoClient:
         """Delete a bounding box.
 
         Args:
-            project_id (int): The project id
-            example_id (int): The id of the example
-            label_id (int): The label id
+            project_id (int): The project id.
+            example_id (int): The id of the example.
+            label_id (int): The label id.
         """
         self.bounding_box.delete(project_id, example_id, label_id)
 
-    def delete_all_category(self, project_id: int, example_id: int):
-        """Delete all categories
+    def delete_all_categories(self, project_id: int, example_id: int):
+        """Delete all categories.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.category.delete_all(project_id, example_id)
 
-    def delete_all_span(self, project_id: int, example_id: int):
-        """Delete all spans
+    def delete_all_spans(self, project_id: int, example_id: int):
+        """Delete all spans.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.span.delete_all(project_id, example_id)
 
-    def delete_all_relation(self, project_id: int, example_id: int):
-        """Delete all relations
+    def delete_all_relations(self, project_id: int, example_id: int):
+        """Delete all relations.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.relation.delete_all(project_id, example_id)
 
-    def delete_all_text(self, project_id: int, example_id: int):
-        """Delete all texts
+    def delete_all_texts(self, project_id: int, example_id: int):
+        """Delete all texts.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.text.delete_all(project_id, example_id)
 
-    def delete_all_segment(self, project_id: int, example_id: int):
-        """Delete all segments
+    def delete_all_segments(self, project_id: int, example_id: int):
+        """Delete all segments.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.segment.delete_all(project_id, example_id)
 
-    def delete_all_bounding_box(self, project_id: int, example_id: int):
-        """Delete all bounding boxes
+    def delete_all_bounding_boxes(self, project_id: int, example_id: int):
+        """Delete all bounding boxes.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
         """
         self.bounding_box.delete_all(project_id, example_id)
 
     def create_category(
         self, project_id: int, example_id: int, label: int | str, human_annotated=False, confidence=0.0
     ) -> Category:
-        """Create a new category label
+        """Create a new category label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            label (int | str): The label to create
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            label (int | str): The label to create.
             human_annotated (bool): Whether the label is human annotated. Defaults to False.
             confidence (float): The confidence of the label. Defaults to 0.0.
 
         Returns:
-            Category: The created category label
+            Category: The created category label.
         """
         return self.category.create(project_id, example_id, label, human_annotated, confidence)
 
@@ -1086,19 +1086,19 @@ class DoccanoClient:
         human_annotated: bool = False,
         confidence: float = 0.0,
     ) -> Span:
-        """Create a new span label
+        """Create a new span label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            start_offset (int): The start offset of the span
-            end_offset (int): The end offset of the span
-            label (int | str): The label to create
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            start_offset (int): The start offset of the span.
+            end_offset (int): The end offset of the span.
+            label (int | str): The label to create.
             human_annotated (bool): Whether the label is human annotated. Defaults to False.
             confidence (float): The confidence of the label. Defaults to 0.0.
 
         Returns:
-            Span: The created span label
+            Span: The created span label.
         """
         return self.span.create(project_id, example_id, start_offset, end_offset, label, human_annotated, confidence)
 
@@ -1112,19 +1112,19 @@ class DoccanoClient:
         human_annotated: bool = False,
         confidence: float = 0.0,
     ) -> Relation:
-        """Create a new relation label
+        """Create a new relation label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            from_id (int): The id of the from span
-            to_id (int): The id of the to span
-            label (int | str): The label to create
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            from_id (int): The id of the from span.
+            to_id (int): The id of the to span.
+            label (int | str): The label to create.
             human_annotated (bool): Whether the label is human annotated. Defaults to False.
             confidence (float): The confidence of the label. Defaults to 0.0.
 
         Returns:
-            Relation: The created relation label
+            Relation: The created relation label.
         """
         return self.relation.create(project_id, example_id, from_id, to_id, label, human_annotated, confidence)
 
@@ -1136,17 +1136,17 @@ class DoccanoClient:
         human_annotated: bool = False,
         confidence: float = 0.0,
     ) -> Text:
-        """Create a new text label
+        """Create a new text label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            text (str): The text to create
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            text (str): The text to create.
             human_annotated (bool): Whether the label is human annotated. Defaults to False.
             confidence (float): The confidence of the label. Defaults to 0.0.
 
         Returns:
-            Text: The created text label
+            Text: The created text label.
         """
         return self.text.create(project_id, example_id, text, human_annotated, confidence)
 
@@ -1162,21 +1162,21 @@ class DoccanoClient:
         human_annotated: bool = False,
         confidence: float = 0.0,
     ) -> BoundingBox:
-        """Create a new bounding box label
+        """Create a new bounding box label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            x (float): The x coordinate of the bounding box
-            y (float): The y coordinate of the bounding box
-            width (float): The width of the bounding box
-            height (float): The height of the bounding box
-            label (int | str): The label to create
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            x (float): The x coordinate of the bounding box.
+            y (float): The y coordinate of the bounding box.
+            width (float): The width of the bounding box.
+            height (float): The height of the bounding box.
+            label (int | str): The label to create.
             human_annotated (bool): Whether the label is human annotated. Defaults to False.
             confidence (float): The confidence of the label. Defaults to 0.0.
 
         Returns:
-            BoundingBox: The created bounding box label
+            BoundingBox: The created bounding box label.
         """
         return self.bounding_box.create(project_id, example_id, x, y, width, height, label, human_annotated, confidence)
 
@@ -1189,18 +1189,18 @@ class DoccanoClient:
         human_annotated: bool = False,
         confidence: float = 0.0,
     ) -> Segment:
-        """Create a new segment label
+        """Create a new segment label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            points (List[float]): The points of the segment
-            label (int | str): The label to create
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            points (List[float]): The points of the segment.
+            label (int | str): The label to create.
             human_annotated (bool): Whether the label is human annotated. Defaults to False.
             confidence (float): The confidence of the label. Defaults to 0.0.
 
         Returns:
-            Segment: The created segment label
+            Segment: The created segment label.
         """
         return self.segment.create(project_id, example_id, points, label, human_annotated, confidence)
 
@@ -1213,18 +1213,18 @@ class DoccanoClient:
         human_annotated: bool = None,
         confidence: float = None,
     ) -> Category:
-        """Update a category label
+        """Update a category label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            label_id (int): The id of the label
-            label (int | str): The label to create
-            human_annotated (bool): Whether the label is human annotated. Defaults to False.
-            confidence (float): The confidence of the label. Defaults to 0.0.
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
+            label (int | str): The label to create.
+            human_annotated (bool): Whether the label is human annotated. Defaults to None.
+            confidence (float): The confidence of the label. Defaults to None.
 
         Returns:
-            Category: The updated category label
+            Category: The updated category label.
         """
         return self.category.update(project_id, example_id, label_id, label, human_annotated, confidence)
 
@@ -1239,20 +1239,20 @@ class DoccanoClient:
         human_annotated: bool = None,
         confidence: float = None,
     ) -> Span:
-        """Update a span label
+        """Update a span label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            label_id (int): The id of the label
-            start_offset (int): The start offset of the span
-            end_offset (int): The end offset of the span
-            label (int | str): The label to create
-            human_annotated (bool): Whether the label is human annotated. Defaults to False.
-            confidence (float): The confidence of the label. Defaults to 0.0.
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
+            start_offset (int): The start offset of the span.
+            end_offset (int): The end offset of the span.
+            label (int | str): The label to create.
+            human_annotated (bool): Whether the label is human annotated. Defaults to None.
+            confidence (float): The confidence of the label. Defaults to None.
 
         Returns:
-            Span: The updated span label
+            Span: The updated span label.
         """
         return self.span.update(
             project_id, example_id, label_id, start_offset, end_offset, label, human_annotated, confidence
@@ -1269,20 +1269,20 @@ class DoccanoClient:
         human_annotated: bool = None,
         confidence: float = None,
     ) -> Relation:
-        """Update a relation label
+        """Update a relation label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            label_id (int): The id of the label
-            from_id (int): The id of the from span
-            to_id (int): The id of the to span
-            label (int | str): The label to create
-            human_annotated (bool): Whether the label is human annotated. Defaults to False.
-            confidence (float): The confidence of the label. Defaults to 0.0.
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
+            from_id (int): The id of the from span.
+            to_id (int): The id of the to span.
+            label (int | str): The label to create.
+            human_annotated (bool): Whether the label is human annotated. Defaults to None.
+            confidence (float): The confidence of the label. Defaults to None.
 
         Returns:
-            Relation: The updated relation label
+            Relation: The updated relation label.
         """
         return self.relation.update(
             project_id, example_id, label_id, from_id, to_id, label, human_annotated, confidence
@@ -1297,18 +1297,18 @@ class DoccanoClient:
         human_annotated: bool = None,
         confidence: float = None,
     ) -> Text:
-        """Update a text label
+        """Update a text label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            label_id (int): The id of the label
-            text (str): The text to update
-            human_annotated (bool): Whether the label is human annotated. Defaults to False.
-            confidence (float): The confidence of the label. Defaults to 0.0.
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
+            text (str): The text to update.
+            human_annotated (bool): Whether the label is human annotated. Defaults to None.
+            confidence (float): The confidence of the label. Defaults to None.
 
         Returns:
-            Text: The updated text label
+            Text: The updated text label.
         """
         return self.text.update(project_id, example_id, label_id, text, human_annotated, confidence)
 
@@ -1325,22 +1325,22 @@ class DoccanoClient:
         human_annotated: bool = None,
         confidence: float = None,
     ) -> BoundingBox:
-        """Update a bounding box label
+        """Update a bounding box label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            label_id (int): The id of the label
-            x (float): The x coordinate of the bounding box
-            y (float): The y coordinate of the bounding box
-            width (float): The width of the bounding box
-            height (float): The height of the bounding box
-            label (int | str): The label to create
-            human_annotated (bool): Whether the label is human annotated. Defaults to False.
-            confidence (float): The confidence of the label. Defaults to 0.0.
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
+            x (float): The x coordinate of the bounding box.
+            y (float): The y coordinate of the bounding box.
+            width (float): The width of the bounding box.
+            height (float): The height of the bounding box.
+            label (int | str): The label to create.
+            human_annotated (bool): Whether the label is human annotated. Defaults to None.
+            confidence (float): The confidence of the label. Defaults to None.
 
         Returns:
-            BoundingBox: The updated bounding box label
+            BoundingBox: The updated bounding box label.
         """
         return self.bounding_box.update(
             project_id, example_id, label_id, x, y, width, height, label, human_annotated, confidence
@@ -1356,18 +1356,18 @@ class DoccanoClient:
         human_annotated: bool = None,
         confidence: float = None,
     ) -> Segment:
-        """Update a segment label
+        """Update a segment label.
 
         Args:
-            project_id (int): The id of the project
-            example_id (int): The id of the example
-            label_id (int): The id of the label
-            points (List[float]): The points of the segment
-            label (int | str): The label to create
-            human_annotated (bool): Whether the label is human annotated. Defaults to False.
-            confidence (float): The confidence of the label. Defaults to 0.0.
+            project_id (int): The id of the project.
+            example_id (int): The id of the example.
+            label_id (int): The id of the label.
+            points (List[float]): The points of the segment.
+            label (int | str): The label to create.
+            human_annotated (bool): Whether the label is human annotated. Defaults to None.
+            confidence (float): The confidence of the label. Defaults to None.
 
         Returns:
-            Segment: The updated segment label
+            Segment: The updated segment label.
         """
         return self.segment.update(project_id, example_id, label_id, points, label, human_annotated, confidence)
