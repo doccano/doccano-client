@@ -34,14 +34,13 @@ class TestCommentUseCase:
         payload["example"] = example_id
         self.repository.create.assert_called_once_with(project_id, Comment.parse_obj(payload))
 
-    def test_update(self, payload):
+    def test_update(self):
         project_id = 0
-        example_id = 1
-        comment_id = 2
-        self.usecase.update(project_id, example_id, comment_id, **payload)
-        payload["id"] = comment_id
-        payload["example"] = example_id
-        self.repository.update.assert_called_once_with(project_id, Comment.parse_obj(payload))
+        comment = Comment(id=2, example=1, text="Test")
+        self.repository.find_by_id.return_value = comment
+        self.usecase.update(project_id, comment.id, text="New Comment")
+        comment.text = "New Comment"
+        self.repository.update.assert_called_once_with(project_id, comment)
 
     def test_delete(self):
         self.usecase.delete(0, 1)
