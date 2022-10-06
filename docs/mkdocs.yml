@@ -29,8 +29,13 @@ extra:
 plugins:
   - same-dir
   - mkdocstrings:
-      default_handler: crystal
-      watch: [doccano_client]
+      handlers:
+        python:
+          options:
+            show_root_heading: true
+            show_signature: false
+            show_root_full_path: false
+            heading_level: 3
 
 markdown_extensions:
   - pymdownx.highlight:

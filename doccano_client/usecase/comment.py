@@ -55,7 +55,6 @@ class CommentUseCase:
     def update(
         self,
         project_id: int,
-        example_id: int,
         comment_id: int,
         text: str,
     ) -> Comment:
@@ -63,14 +62,14 @@ class CommentUseCase:
 
         Args:
             project_id (int): The id of the project
-            example_id (int): The id of the example
             comment_id (int): The id of the comment
             text (str): The text of the comment
 
         Returns:
             Comment: The updated comment
         """
-        comment = Comment(id=comment_id, text=text, example=example_id)
+        comment = self.find_by_id(project_id, comment_id)
+        comment = Comment(id=comment.id, text=text, example=comment.example)
         return self._repository.update(project_id, comment)
 
     def delete(self, project_id: int, comment_id: int):

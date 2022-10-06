@@ -1,57 +1,132 @@
 # Usage
 
-## Login
+## Authentication
 
-```python
-from doccano_client.beta import DoccanoClient
+::: doccano_client.DoccanoClient.login
 
-client = DoccanoClient("your_instance_url_here")
-client.login(username="username", password="password")
-```
+## User
+
+::: doccano_client.DoccanoClient.get_profile
+::: doccano_client.DoccanoClient.search_users
+::: doccano_client.DoccanoClient.find_user_by_name
+
+## Role
+
+::: doccano_client.DoccanoClient.list_roles
 
 ## Project
 
-### Get a project
+::: doccano_client.DoccanoClient.find_project_by_id
+::: doccano_client.DoccanoClient.list_projects
+::: doccano_client.DoccanoClient.create_project
+::: doccano_client.DoccanoClient.update_project
+::: doccano_client.DoccanoClient.delete_project
 
-```python
-project_controller = client.projects.get(project_id=1)
-print(project_controller.project)
-```
+## Member
 
-### List projects
+::: doccano_client.DoccanoClient.find_member_by_id
+::: doccano_client.DoccanoClient.list_members
+::: doccano_client.DoccanoClient.add_member
+::: doccano_client.DoccanoClient.update_member
+::: doccano_client.DoccanoClient.delete_member
+::: doccano_client.DoccanoClient.bulk_delete_members
 
-```python
-projects_controller = client.projects.all()
-for controller in projects_controller:
-    print(controller.project.name)
-```
+## Label Type
 
-### Create a project
+::: doccano_client.DoccanoClient.find_label_type_by_id
+::: doccano_client.DoccanoClient.list_label_types
+::: doccano_client.DoccanoClient.create_label_type
+::: doccano_client.DoccanoClient.update_label_type
+::: doccano_client.DoccanoClient.delete_label_type
+::: doccano_client.DoccanoClient.bulk_delete_label_types
+::: doccano_client.DoccanoClient.upload_label_type
 
-```py
-from doccano_client.beta.models import Project, ProjectTypes
+## Example
 
-project = Project(
-    name="My Project",
-    description="My Project Description",
-    project_type=ProjectTypes.DOCUMENT_CLASSIFICATION,
-    guideline="Please write annotation guideline.",
-    random_order=False,
-    collaborative_annotation=False,
-    single_class_classification=False
-)
-client.projects.create(project)
-```
+::: doccano_client.DoccanoClient.find_example_by_id
+::: doccano_client.DoccanoClient.list_examples
+::: doccano_client.DoccanoClient.create_example
+::: doccano_client.DoccanoClient.update_example
+::: doccano_client.DoccanoClient.delete_example
+::: doccano_client.DoccanoClient.bulk_delete_examples
+::: doccano_client.DoccanoClient.delete_all_examples
+::: doccano_client.DoccanoClient.update_example_state
 
-| Argument  | Required | Description  |
-|---|---|---|
-| `name`  | Yes | The project name  |
-| `description`  | Yes | The project description  |
-| `project_type`  | Yes | The type of the project. Choices are `DOCUMENT_CLASSIFICATION`, `SEQUENCE_LABELING`, and `Seq2seq`  |
-| `guideline`  | No | The annotation guideline  |
-| `random_order`  | No | Whether to show data in random order |
-| `collaborative_annotation`  | No  | Share annotation with the project members |
-| `single_class_classification`  | No  | Only one label can apply. Valid for classification projects only. |
-| `allow_overlapping`  | No | Whether to allow overlapping spans. Valid for `SEQUENCE_LABELING` project only. |
-| `grapheme_mode`  | No  | Handle multi-byte character like emoji(🌷, 💩, 👍), CRLF(\r\n) as a character. Valid for `SEQUENCE_LABELING` project only. |
-| `use_relation`  | No  | Whether to use relation labeling. Valid for `SEQUENCE_LABELING` project only. |
+## Comment
+
+::: doccano_client.DoccanoClient.find_comment_by_id
+::: doccano_client.DoccanoClient.list_comments
+::: doccano_client.DoccanoClient.create_comment
+::: doccano_client.DoccanoClient.update_comment
+::: doccano_client.DoccanoClient.delete_comment
+::: doccano_client.DoccanoClient.bulk_delete_comments
+
+## Data Import
+
+::: doccano_client.DoccanoClient.list_upload_options
+::: doccano_client.DoccanoClient.upload
+
+## Data Export
+
+::: doccano_client.DoccanoClient.list_download_options
+::: doccano_client.DoccanoClient.download
+
+## Metrics
+
+::: doccano_client.DoccanoClient.get_progress
+::: doccano_client.DoccanoClient.get_members_progress
+::: doccano_client.DoccanoClient.get_label_distribution
+
+## Category
+
+::: doccano_client.DoccanoClient.find_category_by_id
+::: doccano_client.DoccanoClient.list_categories
+::: doccano_client.DoccanoClient.create_category
+::: doccano_client.DoccanoClient.update_category
+::: doccano_client.DoccanoClient.delete_category
+::: doccano_client.DoccanoClient.delete_all_categories
+
+## Span
+
+::: doccano_client.DoccanoClient.find_span_by_id
+::: doccano_client.DoccanoClient.list_spans
+::: doccano_client.DoccanoClient.create_span
+::: doccano_client.DoccanoClient.update_span
+::: doccano_client.DoccanoClient.delete_span
+::: doccano_client.DoccanoClient.delete_all_spans
+
+## Relation
+
+::: doccano_client.DoccanoClient.find_relation_by_id
+::: doccano_client.DoccanoClient.list_relations
+::: doccano_client.DoccanoClient.create_relation
+::: doccano_client.DoccanoClient.update_relation
+::: doccano_client.DoccanoClient.delete_relation
+::: doccano_client.DoccanoClient.delete_all_relations
+
+## Text
+
+::: doccano_client.DoccanoClient.find_text_by_id
+::: doccano_client.DoccanoClient.list_texts
+::: doccano_client.DoccanoClient.create_text
+::: doccano_client.DoccanoClient.update_text
+::: doccano_client.DoccanoClient.delete_text
+::: doccano_client.DoccanoClient.delete_all_texts
+
+## Bounding Box
+
+::: doccano_client.DoccanoClient.find_bounding_box_by_id
+::: doccano_client.DoccanoClient.list_bounding_boxes
+::: doccano_client.DoccanoClient.create_bounding_box
+::: doccano_client.DoccanoClient.update_bounding_box
+::: doccano_client.DoccanoClient.delete_bounding_box
+::: doccano_client.DoccanoClient.delete_all_bounding_boxes
+
+## Segment
+
+::: doccano_client.DoccanoClient.find_segment_by_id
+::: doccano_client.DoccanoClient.list_segments
+::: doccano_client.DoccanoClient.create_segment
+::: doccano_client.DoccanoClient.update_segment
+::: doccano_client.DoccanoClient.delete_segment
+::: doccano_client.DoccanoClient.delete_all_segments
