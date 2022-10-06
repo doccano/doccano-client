@@ -76,7 +76,6 @@ python_version = "3.8"
 ignore_missing_imports = true
 show_error_codes = true
 exclude = [
-    "doccano_client/__init__.py",
     'doccano_client/beta',
 ]
 
