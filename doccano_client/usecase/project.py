@@ -43,7 +43,7 @@ class ProjectUseCase:
         self,
         name: str,
         project_type: ProjectType,
-        description: str = "",
+        description: str,
         guideline: str = "",
         random_order: bool = False,
         collaborative_annotation: bool = False,
@@ -58,7 +58,7 @@ class ProjectUseCase:
         Args:
             name (str): The name of the project
             project_type (ProjectType): The type of the project
-            description (str): The description of the project. Defaults to "".
+            description (str): The description of the project.
             guideline (str): The annotation guideline. Defaults to "".
             random_order (bool): Whether to shuffle the uploaded data. Defaults to False.
             collaborative_annotation (bool): If True, a data can be annotated by multiple users. Defaults to False.
@@ -107,14 +107,14 @@ class ProjectUseCase:
             project_id (int): The project id.
             name (str): The name of the project
             project_type (ProjectType): The type of the project
-            description (str): The description of the project. Defaults to "".
-            guideline (str): The annotation guideline. Defaults to "".
-            random_order (bool): Whether to shuffle the uploaded data. Defaults to False.
-            collaborative_annotation (bool): If True, a data can be annotated by multiple users. Defaults to False.
-            single_class_classification (bool): If True, only one label can apply a data. Defaults to False.
-            allow_overlapping (bool): If True, span overlapping is allowed. Defaults to False.
-            grapheme_mode (bool): If True, count multi-byte characters as one character. Defaults to False.
-            use_relation (bool): If True, relation labeling is allowed. Defaults to False.
+            description (str): The description of the project. Defaults to None.
+            guideline (str): The annotation guideline. Defaults to None.
+            random_order (bool): Whether to shuffle the uploaded data. Defaults to None.
+            collaborative_annotation (bool): If True, a data can be annotated by multiple users. Defaults to None.
+            single_class_classification (bool): If True, only one label can apply a data. Defaults to None.
+            allow_overlapping (bool): If True, span overlapping is allowed. Defaults to None.
+            grapheme_mode (bool): If True, count multi-byte characters as one character. Defaults to None.
+            use_relation (bool): If True, relation labeling is allowed. Defaults to None.
             tags (Optional[List[str]], optional): The tags of the project. Defaults to None.
 
         Returns:
