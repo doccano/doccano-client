@@ -44,7 +44,7 @@ class TestCategoryTypeRepository:
             self.client.delete(self.project_id, response.id)
 
     def test_upload(self):
-        file_path = pathlib.Path(__file__).parent / "data/labels.json"
+        file_path = pathlib.Path(__file__).parent.parent / "data/labels.json"
         with vcr.use_cassette(str(cassettes_path / "label_type/upload.yaml"), mode="once"):
             self.client.upload(self.project_id, file_path)
         with vcr.use_cassette(str(cassettes_path / "label_type/list.yaml"), mode="once"):

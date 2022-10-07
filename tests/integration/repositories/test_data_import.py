@@ -16,7 +16,7 @@ class TestDataImportRepository:
             client.login(username="admin", password="password")
         cls.client = DataImportRepository(client)
         cls.project_id = 16
-        cls.file_path = pathlib.Path(__file__).parent / "data/classification.json"
+        cls.file_path = pathlib.Path(__file__).parent.parent / "data/classification.json"
 
     def test_list_options(self):
         with vcr.use_cassette(str(cassettes_path / "data_import/options.yaml"), mode="once"):
