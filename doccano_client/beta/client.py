@@ -9,10 +9,12 @@ class DoccanoClient:
 
     __slots__ = ["_base_url", "client_session"]
 
-    def __init__(self, base_url: str) -> None:
+    def __init__(self, base_url: str, verify: str = None) -> None:
         """Initialize a Doccano client with a base url and authorization token for headers"""
         self._base_url = base_url
         self.client_session = requests.Session()
+        if verify:
+            self.client_session.verify = verify
         headers = {
             "content-type": "application/json",
             "accept": "application/json",
