@@ -27,6 +27,25 @@ class DataExportRepository:
         options = [Option.parse_obj(label) for label in response.json()]
         return options
 
+    def find_option_by_name(self, project_id: int, name: str) -> Option:
+        """Find a download option by name
+
+        Args:
+            project_id (int): The id of the project
+            name (str): The name of the download option to find
+
+        Returns:
+            Option: The found download option
+
+        Raises:
+            ValueError: If the download option is not found
+        """
+        options = self.list_options(project_id)
+        for option in options:
+            if option.name == name:
+                return option
+        raise ValueError(f"Download option '{name}' not found")
+
     def schedule_download(self, project_id: int, option: Option, only_approved=False) -> str:
         """Schedule a download
 
@@ -60,7 +79,7 @@ class DataExportRepository:
         response = self._client.get(resource, params=params, stream=True)
         content_disposition = response.headers["Content-Disposition"]
         ATTRIBUTE = "filename="
-        file_name = content_disposition[content_disposition.find(ATTRIBUTE) + len(ATTRIBUTE) :]
+        file_name = content_disposition[content_disposition.find(ATTRIBUTE) + len(ATTRIBUTE) + 1 : -1]
         dir_path = pathlib.Path(dir_name)
         dir_path.mkdir(parents=True, exist_ok=True)
         file_path = dir_path / file_name
