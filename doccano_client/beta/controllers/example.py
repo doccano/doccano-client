@@ -6,9 +6,11 @@ from requests import Session
 from ..models.examples import Example
 from ..models.projects import Project
 from ..utils.response import verbose_raise_for_status
+from .category import CategoriesController
 from .comment import CommentsController
 from .relation import RelationsController
 from .span import SpansController
+from .text import TextsController
 
 EXAMPLES_PER_PAGE_LIMIT = 10
 
@@ -34,6 +36,11 @@ class ExampleController:
         return CommentsController(self.example_url, self.client_session)
 
     @property
+    def categories(self) -> CategoriesController:
+        """Return an CategoriesController mapped to this example"""
+        return CategoriesController(self.id, self.project, self.example_url, self.client_session)
+
+    @property
     def spans(self) -> SpansController:
         """Return an SpanController mapped to this example"""
         return SpansController(self.id, self.project, self.example_url, self.client_session)
@@ -42,6 +49,11 @@ class ExampleController:
     def relations(self) -> RelationsController:
         """Return an RelationController mapped to this example"""
         return RelationsController(self.id, self.project, self.example_url, self.client_session)
+
+    @property
+    def texts(self) -> TextsController:
+        """Return an TextsController mapped to this example"""
+        return TextsController(self.id, self.project, self.example_url, self.client_session)
 
 
 class ExamplesController:
@@ -126,8 +138,7 @@ class ExamplesController:
         """Upload new example for Doccano project, return the generated controller
 
         Args:
-            example: Example. The only fields that will be uploaded are text, annnotations,
-                and meta.
+            example: Example. Automatically assigns session variables.
 
         Returns:
             ExampleController. The ExampleController now wrapping around the newly created example

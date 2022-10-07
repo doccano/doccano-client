@@ -1,4 +1,4 @@
-from dataclasses import dataclass, fields
+from dataclasses import asdict, dataclass, fields
 from typing import Iterable
 
 from requests import Session
@@ -54,9 +54,9 @@ class RelationsController:
         relation_obj_fields = set(relation_field.name for relation_field in fields(Relation))
 
         for relation_dict in relation_dicts:
-            # Sanitize span_dict before converting to Example
+            # Sanitize relation_dict before converting to Example
             sanitized_relation_dict = {
-                relation_Key: relation_dict[relation_Key] for relation_Key in relation_obj_fields
+                relation_key: relation_dict[relation_key] for relation_key in relation_obj_fields
             }
 
             yield RelationController(
@@ -66,3 +66,26 @@ class RelationsController:
                 relations_url=self.relations_url,
                 client_session=self.client_session,
             )
+
+    def create(self, relation: Relation) -> RelationController:
+        """Create a new relation, return the generated controller
+
+        Args:
+            relation: Relation. Automatically assigns session variables.
+
+        Returns:
+            RelationController. The RelationController now wrapping around the newly created relation.
+        """
+        relation_json = asdict(relation)
+
+        response = self.client_session.post(self.relations_url, json=relation_json)
+        verbose_raise_for_status(response)
+        response_id = response.json()["id"]
+
+        return RelationController(
+            relation=relation,
+            project=self.project,
+            id=response_id,
+            relations_url=self.relations_url,
+            client_session=self.client_session,
+        )

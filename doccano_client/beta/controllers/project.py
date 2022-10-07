@@ -6,6 +6,7 @@ from requests import Session
 
 from ..models.projects import Project
 from ..utils.response import verbose_raise_for_status
+from .category_type import CategoryTypesController
 from .comment import CommentsController
 from .example import DocumentsController, ExamplesController
 from .label import LabelsController
@@ -45,6 +46,11 @@ class ProjectController:
     def comments(self) -> CommentsController:
         """Return a CommentsController mapped to this project"""
         return CommentsController(self.project_url, self.client_session)
+
+    @property
+    def category_types(self) -> CategoryTypesController:
+        """Return a CategoryTypesController mapped to this project"""
+        return CategoryTypesController(self.project_url, self.client_session)
 
     @property
     def span_types(self) -> SpanTypesController:
@@ -134,7 +140,10 @@ class ProjectsController:
 
             for project_dict in project_dicts["results"]:
                 # Sanitize project_dict before converting to Project
-                sanitized_project_dict = {proj_key: project_dict.get(proj_key) for proj_key in project_obj_fields}
+                sanitized_project_dict = {
+                    proj_key: (project_dict[proj_key] if proj_key in project_dict else False)
+                    for proj_key in project_obj_fields
+                }
 
                 yield ProjectController(
                     project=Project(**sanitized_project_dict),

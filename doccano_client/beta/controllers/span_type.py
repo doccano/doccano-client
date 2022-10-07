@@ -45,25 +45,27 @@ class SpanTypesController:
         """
         response = self.client_session.get(self.span_types_url)
         verbose_raise_for_status(response)
-        label_dicts = response.json()
-        label_object_fields = set(label_field.name for label_field in fields(SpanType))
+        span_type_dicts = response.json()
+        span_type_object_fields = set(span_type_field.name for span_type_field in fields(SpanType))
 
-        for label_dict in label_dicts:
-            # Sanitize label_dict before converting to Label
-            sanitized_label_dict = {label_key: label_dict[label_key] for label_key in label_object_fields}
+        for span_type_dict in span_type_dicts:
+            # Sanitize span_type_dict before converting to SpanType
+            sanitized_span_type_dict = {
+                span_type_key: span_type_dict[span_type_key] for span_type_key in span_type_object_fields
+            }
 
             yield SpanTypeController(
-                span_type=SpanType(**sanitized_label_dict),
-                id=label_dict["id"],
+                span_type=SpanType(**sanitized_span_type_dict),
+                id=span_type_dict["id"],
                 span_types_url=self.span_types_url,
                 client_session=self.client_session,
             )
 
     def create(self, span_type: SpanType) -> SpanTypeController:
-        """Create new label for Doccano project, assign session variables to label, return the id"""
-        label_json = asdict(span_type)
+        """Create new span_type for Doccano project, assign session variables to span_type, return the id"""
+        span_type_json = asdict(span_type)
 
-        response = self.client_session.post(self.span_types_url, json=label_json)
+        response = self.client_session.post(self.span_types_url, json=span_type_json)
         verbose_raise_for_status(response)
         response_id = response.json()["id"]
 
@@ -76,12 +78,14 @@ class SpanTypesController:
 
     def update(self, span_type_controllers: Iterable[SpanTypeController]) -> None:
         """Updates the given span_types in the remote project"""
-        for label_controller in span_type_controllers:
-            label_json = asdict(label_controller.label)
-            label_json = {
-                label_key: label_value for label_key, label_value in label_json.items() if label_value is not None
+        for span_type_controller in span_type_controllers:
+            span_type_json = asdict(span_type_controller.span_type)
+            span_type_json = {
+                span_type_key: span_type_value
+                for span_type_key, span_type_value in span_type_json.items()
+                if span_type_value is not None
             }
-            label_json["id"] = label_controller.id
+            span_type_json["id"] = span_type_controller.id
 
-            response = self.client_session.put(label_controller.span_type_url, json=label_json)
+            response = self.client_session.put(span_type_controller.span_type_url, json=span_type_json)
             verbose_raise_for_status(response)

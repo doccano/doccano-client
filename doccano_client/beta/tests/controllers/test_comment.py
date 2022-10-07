@@ -37,7 +37,7 @@ class CommentsControllerTest(TestCase):
     def test_controller_urls(self):
         self.assertEqual(
             self.comments_controller_from_example.comments_url,
-            "http://my_comments_url/v1/projects/23/examples/11/comments",
+            "http://my_comments_url/v1/projects/23/comments?example=11",
         )
         self.assertEqual(
             self.comments_controller_from_project.comments_url,
@@ -62,7 +62,9 @@ class CommentsControllerTest(TestCase):
         comment_controllers = self.comments_controller_from_example.all()
 
         total_comments = 0
-        expected_comment_id_dict = {comment_json["id"]: comment_json for comment_json in mocks.comments_get_json}
+        expected_comment_id_dict = {
+            comment_json["id"]: comment_json for comment_json in mocks.comments_get_json["results"]
+        }
         for comment_controller in comment_controllers:
             self.assertIn(comment_controller.id, expected_comment_id_dict)
             self.assertEqual(
@@ -75,7 +77,7 @@ class CommentsControllerTest(TestCase):
             )
             total_comments += 1
 
-        self.assertEqual(total_comments, len(mocks.comments_get_json))
+        self.assertEqual(total_comments, mocks.comments_get_json["count"])
 
     @responses.activate
     def test_all_from_project(self):
@@ -83,7 +85,9 @@ class CommentsControllerTest(TestCase):
         comment_controllers = self.comments_controller_from_project.all()
 
         total_comments = 0
-        expected_comment_id_dict = {comment_json["id"]: comment_json for comment_json in mocks.comments_get_json}
+        expected_comment_id_dict = {
+            comment_json["id"]: comment_json for comment_json in mocks.comments_get_json["results"]
+        }
         for comment_controller in comment_controllers:
             self.assertIn(comment_controller.id, expected_comment_id_dict)
             self.assertEqual(
@@ -96,7 +100,7 @@ class CommentsControllerTest(TestCase):
             )
             total_comments += 1
 
-        self.assertEqual(total_comments, len(mocks.comments_get_json))
+        self.assertEqual(total_comments, mocks.comments_get_json["count"])
 
     @responses.activate
     def test_all_with_bad_response(self):
