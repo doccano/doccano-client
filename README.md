@@ -1,6 +1,6 @@
 # doccano client
 
-A simple client wrapper for the doccano API.
+A simple client for the doccano API.
 
 ## Installation
 
@@ -25,6 +25,8 @@ user = doccano_client.get_profile()
 # list all projects
 projects = doccano_client.list_projects()
 ```
+
+Please see the [documentation](https://doccano.github.io/doccano-client/) for further details.
 
 ## Doccano API BETA Client
 
