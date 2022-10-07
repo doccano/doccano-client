@@ -3,26 +3,26 @@ from typing import Iterable
 
 from requests import Session
 
-from ..models import Project, Span
+from ..models import Project, Text
 from ..utils.response import verbose_raise_for_status
 
 
 @dataclass
-class SpanController:
-    """Wraps an Span."""
+class TextController:
+    """Wraps a Text."""
 
     id: int
-    span: Span
-    spans_url: str
+    text: Text
+    texts_url: str
     client_session: Session
     project: Project
 
 
-class SpansController:
+class TextsController:
     """Controls the creation and retrieval of individual annotations for an example."""
 
     def __init__(self, example_id: int, project: Project, example_url: str, client_session: Session):
-        """Initializes a SpansController instance
+        """Initializes a TextsController instance
 
         Args:
             example_id: int. The relevant example id to this annotations controller
@@ -37,52 +37,52 @@ class SpansController:
         self.client_session = client_session
 
     @property
-    def spans_url(self) -> str:
+    def texts_url(self) -> str:
         """Return an api url for annotations list of a example"""
-        return f"{self._example_url}/spans"
+        return f"{self._example_url}/texts"
 
-    def all(self) -> Iterable[SpanController]:
-        """Return a sequence of SpanControllers.
+    def all(self) -> Iterable[TextController]:
+        """Return a sequence of TextControllers.
 
         Yields:
-            SpanController: The next span controller.
+            TextController: The next text controller.
         """
-        response = self.client_session.get(self.spans_url)
+        response = self.client_session.get(self.texts_url)
         verbose_raise_for_status(response)
-        span_dicts = response.json()
-        span_obj_fields = set(span_field.name for span_field in fields(Span))
+        text_dicts = response.json()
+        text_obj_fields = set(text_field.name for text_field in fields(Text))
 
-        for span_dict in span_dicts:
-            # Sanitize span_dict before converting to Example
-            sanitized_span_dict = {span_key: span_dict[span_key] for span_key in span_obj_fields}
+        for text_dict in text_dicts:
+            # Sanitize text_dict before converting to Example
+            sanitized_text_dict = {text_key: text_dict[text_key] for text_key in text_obj_fields}
 
-            yield SpanController(
-                span=Span(**sanitized_span_dict),
+            yield TextController(
+                text=Text(**sanitized_text_dict),
                 project=self.project,
-                id=span_dict["id"],
-                spans_url=self.spans_url,
+                id=text_dict["id"],
+                texts_url=self.texts_url,
                 client_session=self.client_session,
             )
 
-    def create(self, span: Span) -> SpanController:
-        """Create a new span, return the generated controller
+    def create(self, text: Text) -> TextController:
+        """Create a new text, return the generated controller
 
         Args:
-            span: Span. Automatically assigns session variables.
+            text: Text. Automatically assigns session variables.
 
         Returns:
-            SpanController. The SpanController now wrapping around the newly created span.
+            TextController. The TextController now wrapping around the newly created text.
         """
-        span_json = asdict(span)
+        text_json = asdict(text)
 
-        response = self.client_session.post(self.spans_url, json=span_json)
+        response = self.client_session.post(self.texts_url, json=text_json)
         verbose_raise_for_status(response)
         response_id = response.json()["id"]
 
-        return SpanController(
-            span=span,
+        return TextController(
+            text=text,
             project=self.project,
             id=response_id,
-            spans_url=self.spans_url,
+            texts_url=self.texts_url,
             client_session=self.client_session,
         )

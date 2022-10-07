@@ -106,7 +106,7 @@ examples_regex = f".*/v1/projects/{projects.valid_project_ids_regex_insert}/exam
 examples_get_empty_response = responses.Response(
     method="GET",
     url=re.compile(examples_regex),
-    json={"count": 0, "next": None, "results": []},
+    json={"count": 0, "next": None, "previous": None, "results": []},
     status=200,
 )
 
