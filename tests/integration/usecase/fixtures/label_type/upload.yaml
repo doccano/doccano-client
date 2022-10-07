@@ -1,0 +1,174 @@
+interactions:
+- request:
+    body: '{"name": "test", "description": "test", "guideline": "", "project_type":
+      "DocumentClassification", "random_order": false, "collaborative_annotation":
+      false, "single_class_classification": false, "allow_overlapping": false, "grapheme_mode":
+      false, "use_relation": false, "tags": [], "resourcetype": "TextClassificationProject"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '326'
+      Cookie:
+      - csrftoken=8WsdoYOHMb9Cxy5nKV3Uj4FSWuYND2pnkTh6cognZUKF9sXFA0gBujvymKW6I5A7;
+        sessionid=05mdqwzdqazpupw2xq3w5m7p21gfrxzr
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 8WsdoYOHMb9Cxy5nKV3Uj4FSWuYND2pnkTh6cognZUKF9sXFA0gBujvymKW6I5A7
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects
+  response:
+    body:
+      string: '{"id":112,"name":"test","description":"test","guideline":"","project_type":"DocumentClassification","created_at":"2022-10-07T03:31:26.312401Z","updated_at":"2022-10-07T03:31:26.312420Z","random_order":false,"author":"admin","collaborative_annotation":false,"single_class_classification":false,"is_text_project":true,"can_define_label":true,"can_define_relation":false,"can_define_category":true,"can_define_span":false,"tags":[],"resourcetype":"TextClassificationProject"}'
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '472'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 07 Oct 2022 03:31:26 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+- request:
+    body: !!python/object/new:_io.BytesIO
+      state: !!python/tuple
+      - !!binary |
+        LS1lMjhmMWFhNzVhOTg0NjRiOTdkYzdlZjcyZDk2YTYyMg0KQ29udGVudC1EaXNwb3NpdGlvbjog
+        Zm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImxhYmVscy5qc29uIg0KQ29udGVudC1U
+        eXBlOiBhcHBsaWNhdGlvbi9qc29uDQoNClsKICB7CiAgICAiaWQiOiA0NCwKICAgICJ0ZXh0Ijog
+        IkRvZyIsCiAgICAicHJlZml4X2tleSI6IG51bGwsCiAgICAic3VmZml4X2tleSI6ICJhIiwKICAg
+        ICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGRjAwMDAiLAogICAgInRleHRfY29sb3IiOiAiI2ZmZmZm
+        ZiIsCiAgICAidGFza190eXBlIjogIkNhdGVnb3J5IgogIH0sCiAgewogICAgImlkIjogNDUsCiAg
+        ICAidGV4dCI6ICJDYXQiLAogICAgInByZWZpeF9rZXkiOiBudWxsLAogICAgInN1ZmZpeF9rZXki
+        OiAiYyIsCiAgICAiYmFja2dyb3VuZF9jb2xvciI6ICIjRkYwMDAwIiwKICAgICJ0ZXh0X2NvbG9y
+        IjogIiNmZmZmZmYiLAogICAgInRhc2tfdHlwZSI6ICJTcGFuIgogIH0KXQoNCi0tZTI4ZjFhYTc1
+        YTk4NDY0Yjk3ZGM3ZWY3MmQ5NmE2MjItLQ0K
+      - 0
+      - null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '540'
+      Content-Type:
+      - multipart/form-data; boundary=e28f1aa75a98464b97dc7ef72d96a622
+      Cookie:
+      - csrftoken=8WsdoYOHMb9Cxy5nKV3Uj4FSWuYND2pnkTh6cognZUKF9sXFA0gBujvymKW6I5A7;
+        sessionid=05mdqwzdqazpupw2xq3w5m7p21gfrxzr
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 8WsdoYOHMb9Cxy5nKV3Uj4FSWuYND2pnkTh6cognZUKF9sXFA0gBujvymKW6I5A7
+      accept:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects/112/category-type-upload
+  response:
+    body:
+      string: ''
+    headers:
+      Allow:
+      - POST, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '0'
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 07 Oct 2022 03:31:26 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=8WsdoYOHMb9Cxy5nKV3Uj4FSWuYND2pnkTh6cognZUKF9sXFA0gBujvymKW6I5A7;
+        sessionid=05mdqwzdqazpupw2xq3w5m7p21gfrxzr
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 8WsdoYOHMb9Cxy5nKV3Uj4FSWuYND2pnkTh6cognZUKF9sXFA0gBujvymKW6I5A7
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/projects/112/category-types
+  response:
+    body:
+      string: '[{"id":81,"text":"Dog","prefix_key":null,"suffix_key":"a","background_color":"#FF0000","text_color":"#ffffff"},{"id":82,"text":"Cat","prefix_key":null,"suffix_key":"c","background_color":"#FF0000","text_color":"#ffffff"}]'
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '221'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 07 Oct 2022 03:31:26 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

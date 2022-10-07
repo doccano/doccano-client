@@ -1,0 +1,56 @@
+interactions:
+- request:
+    body: '{"example": 14073, "prob": 0.0, "manual": false, "user": null, "label":
+      23}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '75'
+      Cookie:
+      - csrftoken=2l7fOzqiWuaMJnhgKOMfFFHnD5LiS4rrykhDCpq7yx6q9MsErDcSiyXI3VrKD9Xk;
+        sessionid=37zofuqk5a2vc105fcf4if0n0sjdzlay
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 2l7fOzqiWuaMJnhgKOMfFFHnD5LiS4rrykhDCpq7yx6q9MsErDcSiyXI3VrKD9Xk
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects/16/examples/14073/categories
+  response:
+    body:
+      string: '{"id":28,"prob":0.0,"user":1,"example":14073,"created_at":"2022-10-01T02:17:25.153190Z","updated_at":"2022-10-01T02:17:25.153211Z","label":23}'
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '142'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Sat, 01 Oct 2022 02:17:25 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+version: 1

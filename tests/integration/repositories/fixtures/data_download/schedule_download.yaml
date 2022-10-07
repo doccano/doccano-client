@@ -1,0 +1,55 @@
+interactions:
+- request:
+    body: '{"format": "JSONL", "exportApproved": false}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '44'
+      Cookie:
+      - csrftoken=FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ;
+        sessionid=rmbx2nr20xbrk8ofdi9u4ocgai6bze9g
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - FEvkld0o1MszakkYc27mcoDrcTxNvA0J9jjIzKW6OMzkxS0Zar9aK0aeOk3iALkQ
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/projects/16/download
+  response:
+    body:
+      string: '{"task_id":"3a17236c-1e34-4027-adee-8a1be6fe5e02"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '50'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Sun, 02 Oct 2022 07:57:46 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   build:
@@ -12,7 +13,7 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v2
       - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@1.16
+        uses: mhausenblas/mkdocs-deploy-gh-pages@1.25
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONFIG_FILE: docs/mkdocs.yml

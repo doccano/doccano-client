@@ -1,0 +1,66 @@
+interactions:
+- request:
+    body: !!python/object/new:_io.BytesIO
+      state: !!python/tuple
+      - !!binary |
+        LS0xNDYxODMzMmI1Mzg0YWE4OTcyYWYyZjBmZWNkODA1Yg0KQ29udGVudC1EaXNwb3NpdGlvbjog
+        Zm9ybS1kYXRhOyBuYW1lPSJmaWxlcG9uZCI7IGZpbGVuYW1lPSJjbGFzc2lmaWNhdGlvbi5qc29u
+        Ig0KDQp7InRleHQiOiAiZXhhbXBsZUEiLCAibGFiZWxzIjogWyJwb3NpdGl2ZSJdLCAibWV0YSI6
+        IHsid2lraVBhZ2VJRCI6IDF9fQp7InRleHQiOiAiZXhhbXBsZUIiLCAibGFiZWxzIjogWyJwb3Np
+        dGl2ZSIsICJuZWdhdGl2ZSJdLCAibWV0YSI6IHsid2lraVBhZ2VJRCI6IDJ9fQp7InRleHQiOiAi
+        ZXhhbXBsZUMiLCAibGFiZWxzIjogW10sICJtZXRhIjogeyJ3aWtpUGFnZUlEIjogM319Cg0KLS0x
+        NDYxODMzMmI1Mzg0YWE4OTcyYWYyZjBmZWNkODA1Yi0tDQo=
+      - 0
+      - null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '377'
+      Content-Type:
+      - multipart/form-data; boundary=14618332b5384aa8972af2f0fecd805b
+      Cookie:
+      - csrftoken=dt7iPmKOH48xSezmmypld4izNQtiMVcEA64Qf4a7sSVlTIToGyXjnsQHJRYHuy2b;
+        sessionid=fcjn46n6aqmya549fego0q7igo89cxks
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - dt7iPmKOH48xSezmmypld4izNQtiMVcEA64Qf4a7sSVlTIToGyXjnsQHJRYHuy2b
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/fp/process/
+  response:
+    body:
+      string: 5qT568LS6QvL33z3Ej4jEo
+    headers:
+      Allow:
+      - POST, OPTIONS
+      Connection:
+      - close
+      Content-Length:
+      - '22'
+      Content-Type:
+      - text/plain
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Sun, 02 Oct 2022 04:36:51 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - gunicorn
+      Vary:
+      - Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
