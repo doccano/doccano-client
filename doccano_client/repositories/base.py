@@ -1,6 +1,34 @@
 import requests
+from requests import Response, exceptions
 
-from ..beta.utils.response import verbose_raise_for_status
+
+class DoccanoAPIError(exceptions.HTTPError):
+    def __init__(self, response: Response):
+        """Initialize the exception with the response.
+
+        Args:
+            response (Response): The response to initialize the exception
+        """
+        super().__init__(str(response.json()), response=response)
+
+
+def verbose_raise_for_status(response: Response) -> Response:
+    """Output a bad response's text before raising for verbosity, return response otherwise.
+
+    Args:
+        response (Response): The response to raise for status
+
+    Returns:
+        Response: The response
+
+    Raises:
+        DoccanoAPIError: if request raises HTTPError.
+    """
+    try:
+        response.raise_for_status()
+    except exceptions.HTTPError as err:
+        raise DoccanoAPIError(err.response)
+    return response
 
 
 class BaseRepository:
