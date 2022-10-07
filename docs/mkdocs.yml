@@ -49,3 +49,4 @@ nav:
   - Overview: index.md
   - Install: install.md
   - Usage: usage.md
+  - CLI: cli.md
