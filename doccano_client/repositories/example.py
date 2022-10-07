@@ -89,7 +89,8 @@ class ExampleRepository:
         Args:
             project_id (int): The id of the project
         """
-        self._client.delete(f"projects/{project_id}/examples")
+        examples: List[int] = []
+        self.bulk_delete(project_id, examples)
 
     def bulk_delete(self, project_id: int, examples: List[int] | List[Example]):
         """Bulk delete examples

@@ -285,7 +285,7 @@ class DoccanoClient:
         self,
         name: str,
         project_type: ProjectType,
-        description: str = "",
+        description: str,
         guideline: str = "",
         random_order: bool = False,
         collaborative_annotation: bool = False,
@@ -300,7 +300,7 @@ class DoccanoClient:
         Args:
             name (str): The name of the project.
             project_type (ProjectType): The type of the project.
-            description (str): The description of the project. Defaults to "".
+            description (str): The description of the project.
             guideline (str): The annotation guideline. Defaults to "".
             random_order (bool): Whether to shuffle the uploaded data. Defaults to False.
             collaborative_annotation (bool): If True, a data can be annotated by multiple users. Defaults to False.
@@ -704,19 +704,19 @@ class DoccanoClient:
         """
         return self.data_import.upload(project_id, file_paths, task, format, column_data, column_label)
 
-    def download(self, project_id: int, option: DataExportOption, only_approved=False, dir_name=".") -> pathlib.Path:
+    def download(self, project_id: int, format: str, only_approved=False, dir_name=".") -> pathlib.Path:
         """Download a file.
 
         Args:
             project_id (int): The id of the project.
-            option (DataExportOption): The download option.
+            format (str): The format of the download.
             only_approved (bool): Whether to export approved data only.
             dir_name (str): The directory to save the file.
 
         Returns:
             pathlib.Path: The path to the downloaded file.
         """
-        return self.data_export.download(project_id, option, only_approved, dir_name)
+        return self.data_export.download(project_id, format, only_approved, dir_name)
 
     def find_member_by_id(self, project_id: int, member_id: int) -> Member:
         """Find a member by id.
