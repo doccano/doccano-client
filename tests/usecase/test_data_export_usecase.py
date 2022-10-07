@@ -20,7 +20,8 @@ class TestDataExportUseCase:
         task_id = "task_id"
         option = Option(name="test", format="JSONL")
         self.data_export_repository.schedule_download.return_value = task_id
-        self.usecase.download(project_id, option, only_approved=True, dir_name=".")
+        self.data_export_repository.find_option_by_name.return_value = option
+        self.usecase.download(project_id, "JSONL", only_approved=True, dir_name=".")
         self.data_export_repository.schedule_download.assert_called_once_with(project_id, option, True)
         self.task_status_repository.wait.assert_called_once_with(task_id)
         self.data_export_repository.download.assert_called_once_with(project_id, task_id, ".")
