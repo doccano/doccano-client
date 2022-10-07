@@ -3,12 +3,12 @@ from __future__ import annotations
 import pathlib
 from typing import List
 
-from doccano_client.models.data_export import Option
+from doccano_client.models.data_download import Option
 from doccano_client.repositories.base import BaseRepository
 
 
-class DataExportRepository:
-    """Repository for interacting with the Doccano data export API"""
+class DataDownloadRepository:
+    """Repository for interacting with the Doccano data download API"""
 
     def __init__(self, client: BaseRepository):
         self._client = client
@@ -52,7 +52,7 @@ class DataExportRepository:
         Args:
             project_id (int): The id of the project
             option (Option): The download option
-            only_approved (bool): Whether to export approved data only
+            only_approved (bool): Whether to download approved data only
 
         Returns:
             str: The celery task id

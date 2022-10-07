@@ -5,12 +5,12 @@ from typing import List
 
 from requests_toolbelt import MultipartEncoder
 
-from doccano_client.models.data_import import AvailableTask, Option
+from doccano_client.models.data_upload import AvailableTask, Option
 from doccano_client.repositories.base import BaseRepository
 
 
-class DataImportRepository:
-    """Repository for interacting with the Doccano data import API"""
+class DataUploadRepository:
+    """Repository for interacting with the Doccano data upload API"""
 
     def __init__(self, client: BaseRepository):
         self._client = client

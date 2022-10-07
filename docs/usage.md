@@ -61,12 +61,12 @@
 ::: doccano_client.DoccanoClient.delete_comment
 ::: doccano_client.DoccanoClient.bulk_delete_comments
 
-## Data Import
+## Data Upload
 
 ::: doccano_client.DoccanoClient.list_upload_options
 ::: doccano_client.DoccanoClient.upload
 
-## Data Export
+## Data Download
 
 ::: doccano_client.DoccanoClient.list_download_options
 ::: doccano_client.DoccanoClient.download

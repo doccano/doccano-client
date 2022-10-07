@@ -1,14 +1,14 @@
 from typing import List
 
-from doccano_client.models.data_import import AvailableTask, Option
+from doccano_client.models.data_upload import AvailableTask, Option
 from doccano_client.models.task_status import TaskStatus
-from doccano_client.repositories.data_import import DataImportRepository
+from doccano_client.repositories.data_upload import DataUploadRepository
 from doccano_client.repositories.task_status import TaskStatusRepository
 
 
-class DataImportUseCase:
-    def __init__(self, data_import_repository: DataImportRepository, task_status_repository: TaskStatusRepository):
-        self._data_import_repository = data_import_repository
+class DataUploadUseCase:
+    def __init__(self, data_upload_repository: DataUploadRepository, task_status_repository: TaskStatusRepository):
+        self._data_upload_repository = data_upload_repository
         self._task_status_repository = task_status_repository
 
     def list_options(self, project_id: int) -> List[Option]:
@@ -20,7 +20,7 @@ class DataImportUseCase:
         Returns:
             List[Option]: The list of the upload options.
         """
-        return self._data_import_repository.list_options(project_id)
+        return self._data_upload_repository.list_options(project_id)
 
     def upload(
         self,
@@ -44,8 +44,8 @@ class DataImportUseCase:
         Returns:
             TaskStatus: The status of the upload task.
         """
-        upload_ids = [self._data_import_repository.upload(file_path) for file_path in file_paths]
-        task_id = self._data_import_repository.ingest(
+        upload_ids = [self._data_upload_repository.upload(file_path) for file_path in file_paths]
+        task_id = self._data_upload_repository.ingest(
             project_id, upload_ids, task, format, column_data=column_data, column_label=column_label
         )
         return self._task_status_repository.wait(task_id)

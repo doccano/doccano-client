@@ -4,9 +4,9 @@ import pathlib
 from typing import Any, Dict, Iterator, List, Literal, Optional
 
 from doccano_client.models.comment import Comment
-from doccano_client.models.data_export import Option as DataExportOption
-from doccano_client.models.data_import import AvailableTask
-from doccano_client.models.data_import import Option as DataImportOption
+from doccano_client.models.data_download import Option as DataExportOption
+from doccano_client.models.data_upload import AvailableTask
+from doccano_client.models.data_upload import Option as DataImportOption
 from doccano_client.models.example import Example
 from doccano_client.models.label import (
     BoundingBox,
@@ -30,8 +30,8 @@ from doccano_client.models.task_status import TaskStatus
 from doccano_client.models.user import User
 from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.comment import CommentRepository
-from doccano_client.repositories.data_export import DataExportRepository
-from doccano_client.repositories.data_import import DataImportRepository
+from doccano_client.repositories.data_download import DataDownloadRepository
+from doccano_client.repositories.data_upload import DataUploadRepository
 from doccano_client.repositories.example import ExampleRepository
 from doccano_client.repositories.label import (
     BoundingBoxRepository,
@@ -54,8 +54,8 @@ from doccano_client.repositories.task_status import TaskStatusRepository
 from doccano_client.repositories.user import UserRepository
 from doccano_client.services.label_type import LabelTypeService
 from doccano_client.usecase.comment import CommentUseCase
-from doccano_client.usecase.data_export import DataExportUseCase
-from doccano_client.usecase.data_import import DataImportUseCase
+from doccano_client.usecase.data_download import DataDownloadUseCase
+from doccano_client.usecase.data_upload import DataUploadUseCase
 from doccano_client.usecase.example import ExampleUseCase
 from doccano_client.usecase.label import (
     BoundingBoxUseCase,
@@ -95,8 +95,8 @@ class DoccanoClient:
         self._text_repository = TextRepository(self._base_repository)
 
         self._task_status_repository = TaskStatusRepository(self._base_repository)
-        self._data_import_repository = DataImportRepository(self._base_repository)
-        self._data_export_repository = DataExportRepository(self._base_repository)
+        self._data_import_repository = DataUploadRepository(self._base_repository)
+        self._data_export_repository = DataDownloadRepository(self._base_repository)
 
     def login(self, username: str, password: str) -> None:
         """Login to a session with the Doccano instance related to the base url.
@@ -135,12 +135,12 @@ class DoccanoClient:
         return LabelTypeUseCase(self._relation_type_repository, service)
 
     @property
-    def data_import(self) -> DataImportUseCase:
-        return DataImportUseCase(self._data_import_repository, self._task_status_repository)
+    def data_import(self) -> DataUploadUseCase:
+        return DataUploadUseCase(self._data_import_repository, self._task_status_repository)
 
     @property
-    def data_export(self) -> DataExportUseCase:
-        return DataExportUseCase(self._data_export_repository, self._task_status_repository)
+    def data_export(self) -> DataDownloadUseCase:
+        return DataDownloadUseCase(self._data_export_repository, self._task_status_repository)
 
     @property
     def member(self) -> MemberUseCase:
