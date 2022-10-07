@@ -16,12 +16,7 @@ from doccano_client.models.label import (
     Span,
     Text,
 )
-from doccano_client.models.label_type import (
-    LABEL_TYPE,
-    PREFIX_KEY,
-    SUFFIX_KEY,
-    LabelType,
-)
+from doccano_client.models.label_type import PREFIX_KEY, SUFFIX_KEY, LabelType
 from doccano_client.models.member import Member
 from doccano_client.models.metrics import LabelDistribution, MemberProgress, Progress
 from doccano_client.models.project import Project
@@ -259,12 +254,14 @@ class DoccanoClient:
         """
         return self._metrics_repository.get_members_progress(project_id)
 
-    def get_label_distribution(self, project_id: int, type: LABEL_TYPE) -> List[LabelDistribution]:
+    def get_label_distribution(
+        self, project_id: int, type: Literal["category", "span", "relation"]
+    ) -> List[LabelDistribution]:
         """Return label distribution.
 
         Args:
             project_id (int): The id of the project.
-            type (LABEL_TYPE): The type of the label.
+            type (Literal["category", "span", "relation"]): The type of the label.
 
         Returns:
             LabelDistribution: The label distribution.
@@ -295,7 +292,10 @@ class DoccanoClient:
         use_relation: bool = False,
         tags: Optional[List[str]] = None,
     ) -> Project:
-        """Create a new project.
+        """Create a new project. `ProjectType` is one of the
+        `DocumentClassification`, `SequenceLabeling`, `Seq2seq`, `Speech2text`,
+        `ImageClassification`, `BoundingBox`, `Segmentation`, `ImageCaptioning`,
+        and `IntentDetectionAndSlotFilling`.
 
         Args:
             name (str): The name of the project.
@@ -342,7 +342,10 @@ class DoccanoClient:
         use_relation: bool = None,
         tags: Optional[List[str]] = None,
     ) -> Project:
-        """Update a project.
+        """Update a project. `ProjectType` is one of the
+        `DocumentClassification`, `SequenceLabeling`, `Seq2seq`, `Speech2text`,
+        `ImageClassification`, `BoundingBox`, `Segmentation`, `ImageCaptioning`,
+        and `IntentDetectionAndSlotFilling`.
 
         Args:
             project_id (int): The project id.
@@ -384,25 +387,27 @@ class DoccanoClient:
         """
         self.project.delete(project_id)
 
-    def list_label_types(self, project_id: int, type: LABEL_TYPE) -> List[LabelType]:
+    def list_label_types(self, project_id: int, type: Literal["category", "span", "relation"]) -> List[LabelType]:
         """Return all label types in a project.
 
         Args:
             project_id (int): The project id.
-            type (LABEL_TYPE): The type of the label type.
+            type (Literal["category", "span", "relation"]): The type of the label type.
 
         Returns:
             List[LabelType]: The list of label types.
         """
         return self._get_label_type_usecase(type).list(project_id)
 
-    def find_label_type_by_id(self, project_id: int, label_type_id: int, type: LABEL_TYPE) -> LabelType:
+    def find_label_type_by_id(
+        self, project_id: int, label_type_id: int, type: Literal["category", "span", "relation"]
+    ) -> LabelType:
         """Find a label type by id.
 
         Args:
             project_id (int): The project id.
             label_type_id (int): The label type id.
-            type (LABEL_TYPE): The type of the label type.
+            type (Literal["category", "span", "relation"]): The type of the label type.
 
         Returns:
             LabelType: The found label type.
@@ -412,7 +417,7 @@ class DoccanoClient:
     def create_label_type(
         self,
         project_id: int,
-        type: LABEL_TYPE,
+        type: Literal["category", "span", "relation"],
         text: str,
         prefix_key: PREFIX_KEY = None,
         suffix_key: SUFFIX_KEY = None,
@@ -422,7 +427,7 @@ class DoccanoClient:
 
         Args:
             project_id (int): The project id.
-            type (LABEL_TYPE): The type of the label type.
+            type (Literal["category", "span", "relation"]): The type of the label type.
             text (str): The name of the label type.
             prefix_key (PREFIX_KEY): The prefix key of the label type.
             suffix_key (SUFFIX_KEY): The suffix key of the label type.
@@ -442,8 +447,8 @@ class DoccanoClient:
     def update_label_type(
         self,
         project_id: int,
-        type: LABEL_TYPE,
         label_type_id: int,
+        type: Literal["category", "span", "relation"],
         text: str = None,
         prefix_key: PREFIX_KEY | int = -1,
         suffix_key: SUFFIX_KEY | int = -1,
@@ -453,8 +458,8 @@ class DoccanoClient:
 
         Args:
             project_id (int): The project id.
-            type (LABEL_TYPE): The type of the label type.
             label_type_id (int): The label type id.
+            type (Literal["category", "span", "relation"]): The type of the label type.
             text (str): The name of the label type.
             prefix_key (PREFIX_KEY): The prefix key of the label type.
             suffix_key (SUFFIX_KEY): The suffix key of the label type.
@@ -472,33 +477,35 @@ class DoccanoClient:
             color=color,
         )
 
-    def delete_label_type(self, project_id: int, label_type_id: int, type: LABEL_TYPE):
+    def delete_label_type(self, project_id: int, label_type_id: int, type: Literal["category", "span", "relation"]):
         """Delete a label type.
 
         Args:
             project_id (int): The project id.
             label_type_id (int): The label type id.
-            type (LABEL_TYPE): The type of the label type.
+            type (Literal["category", "span", "relation"]): The type of the label type.
         """
         self._get_label_type_usecase(type).delete(project_id, label_type_id)
 
-    def bulk_delete_label_types(self, project_id: int, label_type_ids: List[int], type: LABEL_TYPE):
+    def bulk_delete_label_types(
+        self, project_id: int, label_type_ids: List[int], type: Literal["category", "span", "relation"]
+    ):
         """Delete multiple label types.
 
         Args:
             project_id (int): The project id.
             label_type_ids (List[int]): The label type ids.
-            type (LABEL_TYPE): The type of the label type.
+            type (Literal["category", "span", "relation"]): The type of the label type.
         """
         self._get_label_type_usecase(type).bulk_delete(project_id, label_type_ids)
 
-    def upload_label_type(self, project_id: int, file_path: str, type: LABEL_TYPE):
+    def upload_label_type(self, project_id: int, file_path: str, type: Literal["category", "span", "relation"]):
         """Upload a label type.
 
         Args:
             project_id (int): The id of the project.
             file_path (str): The path to the file to upload.
-            type (LABEL_TYPE): The type of the label type.
+            type (Literal["category", "span", "relation"]): The type of the label type.
         """
         self._get_label_type_usecase(type).upload(project_id, file_path)
 

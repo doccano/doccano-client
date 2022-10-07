@@ -5,7 +5,6 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field, root_validator
 from pydantic.types import ConstrainedStr
 
-LABEL_TYPE = Literal["category", "span", "relation"]
 PREFIX_KEY = Literal["ctrl", "shift", "ctrl shift"]
 SUFFIX_KEY = Literal[
     "0",
