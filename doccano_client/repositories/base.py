@@ -74,6 +74,13 @@ class BaseRepository:
         verbose_raise_for_status(response)
         self._session.headers.update({"X-CSRFToken": self._session.cookies.get("csrftoken")})
 
+    def logout(self) -> None:
+        """Logout of the session"""
+        url = f"{self._base_url}/v1/auth/logout/"
+        response = self._session.post(url)
+        verbose_raise_for_status(response)
+        self._session.close()
+
     def get(self, resource: str, **kwargs) -> requests.Response:
         """Make a get request to the Doccano API
 
