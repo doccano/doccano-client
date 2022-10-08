@@ -102,6 +102,10 @@ class DoccanoClient:
         """
         self._base_repository.login(username, password)
 
+    def logout(self) -> None:
+        """Logout from the session."""
+        self._base_repository.logout()
+
     @property
     def project(self) -> ProjectUseCase:
         return ProjectUseCase(self._project_repository)

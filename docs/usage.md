@@ -3,6 +3,7 @@
 ## Authentication
 
 ::: doccano_client.DoccanoClient.login
+::: doccano_client.DoccanoClient.logout
 
 ## User
 
