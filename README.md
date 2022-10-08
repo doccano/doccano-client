@@ -1,5 +1,7 @@
 # doccano client
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cf90190126b948e09362048b63600b06)](https://www.codacy.com/gh/doccano/doccano-client/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=doccano/doccano-client&amp;utm_campaign=Badge_Grade) [![Tests](https://github.com/doccano/doccano-client/actions/workflows/ci.yml/badge.svg)](https://github.com/doccano/doccano-client/actions/workflows/ci.yml)
+
 A simple client for the doccano API.
 
 ## Installation
