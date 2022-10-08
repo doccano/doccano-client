@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Optional
+
 import requests
 from requests import Response, exceptions
 
@@ -34,9 +38,24 @@ def verbose_raise_for_status(response: Response) -> Response:
 class BaseRepository:
     """Base repository for interacting with the Doccano API"""
 
-    def __init__(self, base_url: str) -> None:
+    def __init__(self, base_url: str, verify: Optional[str | bool] = None) -> None:
+        """Initialize the repository with the base url
+
+        Args:
+            base_url (str): The base url of the Doccano instance
+            verify (str | bool): Either a boolean, in which case it controls whether we verify
+                the server's TLS certificate, or a string, in which case it must be a path
+                to a CA bundle to use. Defaults to ``True``. When set to
+                ``False``, requests will accept any TLS certificate presented by
+                the server, and will ignore hostname mismatches and/or expired
+                certificates, which will make your application vulnerable to
+                man-in-the-middle (MitM) attacks. Setting verify to ``False``
+                may be useful during local development or testing.
+        """
         self._base_url = base_url
         self._session = requests.Session()
+        if verify is not None:
+            self._session.verify = verify
         headers = {
             "content-type": "application/json",
             "accept": "application/json",

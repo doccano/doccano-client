@@ -1,5 +1,9 @@
 # Usage
 
+## Initialization
+
+::: doccano_client.DoccanoClient.__init__
+
 ## Authentication
 
 ::: doccano_client.DoccanoClient.login
