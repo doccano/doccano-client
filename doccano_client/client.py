@@ -66,8 +66,21 @@ from doccano_client.usecase.project import ProjectType, ProjectUseCase
 
 
 class DoccanoClient:
-    def __init__(self, base_url: str):
-        self._base_repository = BaseRepository(base_url)
+    def __init__(self, base_url: str, verify: Optional[str | bool] = None):
+        """Initialize the client.
+
+        Args:
+            base_url (str): The base url of the Doccano instance
+            verify (str | bool): Either a boolean, in which case it controls whether we verify
+                the server's TLS certificate, or a string, in which case it must be a path
+                to a CA bundle to use. Defaults to ``True``. When set to
+                ``False``, requests will accept any TLS certificate presented by
+                the server, and will ignore hostname mismatches and/or expired
+                certificates, which will make your application vulnerable to
+                man-in-the-middle (MitM) attacks. Setting verify to ``False``
+                may be useful during local development or testing.
+        """
+        self._base_repository = BaseRepository(base_url, verify=verify)
         self._user_repository = UserRepository(self._base_repository)
         self._role_repository = RoleRepository(self._base_repository)
         self._project_repository = ProjectRepository(self._base_repository)
