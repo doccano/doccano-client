@@ -13,7 +13,7 @@ class Option(BaseModel):
     properties: Dict[str, Any]
 
 
-class AvailableTask(str, Enum):
+class Task(str, Enum):
     DOCUMENT_CLASSIFICATION = "DocumentClassification"
     SEQUENCE_LABELING = "SequenceLabeling"
     SEQ2SEQ = "Seq2seq"

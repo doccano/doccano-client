@@ -5,8 +5,8 @@ from typing import Any, Dict, Iterator, List, Literal, Optional
 
 from doccano_client.models.comment import Comment
 from doccano_client.models.data_download import Option as DataExportOption
-from doccano_client.models.data_upload import AvailableTask
 from doccano_client.models.data_upload import Option as DataImportOption
+from doccano_client.models.data_upload import Task
 from doccano_client.models.example import Example
 from doccano_client.models.label import (
     BoundingBox,
@@ -708,17 +708,20 @@ class DoccanoClient:
         self,
         project_id: int,
         file_paths: List[str],
-        task: AvailableTask,
+        task: Task,
         format: str,
         column_data: str = "text",
         column_label: str = "label",
     ) -> TaskStatus:
-        """Upload a file.
+        """Upload a file. `task` is one of the
+        `DocumentClassification`, `SequenceLabeling`, `Seq2seq`, `Speech2text`,
+        `ImageClassification`, `BoundingBox`, `Segmentation`, `ImageCaptioning`,
+        , `IntentDetectionAndSlotFilling`, and `RelationExtraction`.
 
         Args:
             project_id (int): The id of the project.
             file_paths (List[str]): The list of the file paths.
-            task (AvailableTask): The task of the upload.
+            task (Task): The task of the upload.
             format (str): The format of the upload.
             column_data (str): The column name of the data.
             column_label (str): The column name of the label.

@@ -5,7 +5,7 @@ from typing import List
 
 from requests_toolbelt import MultipartEncoder
 
-from doccano_client.models.data_upload import AvailableTask, Option
+from doccano_client.models.data_upload import Option, Task
 from doccano_client.repositories.base import BaseRepository
 
 
@@ -56,13 +56,13 @@ class DataUploadRepository:
         headers = {"Content-Type": "text/plain", "Accept": "*/*"}
         self._client.delete(resource, data=upload_id, headers=headers)
 
-    def ingest(self, project_id: int, upload_ids: List[str], task: AvailableTask, format: str, **kwargs) -> str:
+    def ingest(self, project_id: int, upload_ids: List[str], task: Task, format: str, **kwargs) -> str:
         """Ingest the uploaded files into the project
 
         Args:
             project_id (int): The id of the project
             upload_ids (List[str]): The ids of the uploaded files
-            task (AvailableTask): The project's task name
+            task (Task): The project's task name
             format (str): The format of the uploaded files
             **kwargs: Additional keyword arguments like column_data and column_label
 

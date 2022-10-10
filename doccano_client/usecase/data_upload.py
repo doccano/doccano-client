@@ -1,6 +1,6 @@
 from typing import List
 
-from doccano_client.models.data_upload import AvailableTask, Option
+from doccano_client.models.data_upload import Option, Task
 from doccano_client.models.task_status import TaskStatus
 from doccano_client.repositories.data_upload import DataUploadRepository
 from doccano_client.repositories.task_status import TaskStatusRepository
@@ -26,7 +26,7 @@ class DataUploadUseCase:
         self,
         project_id: int,
         file_paths: List[str],
-        task: AvailableTask,
+        task: Task,
         format: str,
         column_data: str = "text",
         column_label: str = "label",
@@ -36,7 +36,7 @@ class DataUploadUseCase:
         Args:
             project_id (int): The id of the project
             file_paths (List[str]): The list of the file paths
-            task (AvailableTask): The task of the upload
+            task (Task): The task of the upload
             format (str): The format of the upload
             column_data (str): The column name of the data
             column_label (str): The column name of the label
