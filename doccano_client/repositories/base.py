@@ -70,7 +70,7 @@ class BaseRepository:
         Returns:
             str: The login url
         """
-        return f"{self._base_url}/v1/auth/login/"
+        return f"{self.api_url}/auth/login/"
 
     @property
     def api_url(self) -> str:
@@ -95,7 +95,7 @@ class BaseRepository:
 
     def logout(self) -> None:
         """Logout of the session"""
-        url = f"{self._base_url}/v1/auth/logout/"
+        url = f"{self.api_url}/auth/logout/"
         response = self._session.post(url)
         verbose_raise_for_status(response)
         self._session.close()
