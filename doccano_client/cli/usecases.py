@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import abc
 import json
+import pathlib
+import shutil
 from typing import Dict, Iterator
 
+import requests
 from tqdm import tqdm
 
 from doccano_client import DoccanoClient
@@ -20,6 +23,14 @@ def load_mapping(filepath: str, encoding="utf-8") -> dict[str, str]:
         if all(isinstance(value, str) for value in mapping.values()):
             raise ValueError("Value must be string.")
         return mapping
+
+
+def download_file(url: str, filename: str) -> pathlib.Path:
+    path = pathlib.Path(filename)
+    with requests.get(url, stream=True) as r:
+        with path.open(mode="wb") as f:
+            shutil.copyfileobj(r.raw, f)
+    return path
 
 
 class LabelAnnotator(abc.ABC):
@@ -61,7 +72,21 @@ class SpanAnnotator(LabelAnnotator):
             yield entity
 
 
+class ASRAnnotator(LabelAnnotator):
+    def annotate(self, project_id: int, filename: str = None):
+        # predict label and post it.
+        total = self.client.count_examples(project_id)
+        examples = self.client.list_examples(project_id)
+        for example in tqdm(examples, total=total):
+            audio_file = download_file(example.filename, example.upload_name)
+            text = self.estimator.predict(str(audio_file))
+            self.client.create_text(project_id, example.id, text)
+            audio_file.unlink()
+
+
 def build_annotator(task: str, client: DoccanoClient, estimator) -> LabelAnnotator:
     if task == "ner":
         return SpanAnnotator(client, estimator)
+    if task == "asr":
+        return ASRAnnotator(client, estimator)
     raise ValueError("There is no annotator.")
