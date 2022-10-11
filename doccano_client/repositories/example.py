@@ -25,6 +25,18 @@ class ExampleRepository:
         response = self._client.get(f"projects/{project_id}/examples/{example_id}")
         return Example.parse_obj(response.json())
 
+    def count(self, project_id: int) -> int:
+        """Count the number of examples
+
+        Args:
+            project_id (int): The id of the project
+
+        Returns:
+            int: The number of examples
+        """
+        response = self._client.get(f"projects/{project_id}/examples")
+        return response.json()["count"]
+
     def list(self, project_id: int) -> Iterator[Example]:
         """Return all examples in which you are a member
 

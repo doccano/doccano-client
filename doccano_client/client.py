@@ -549,6 +549,17 @@ class DoccanoClient:
         """
         return self.example.find_by_id(project_id, example_id)
 
+    def count_examples(self, project_id: int) -> int:
+        """Count the number of examples.
+
+        Args:
+            project_id (int): The id of the project.
+
+        Returns:
+            int: The number of examples.
+        """
+        return self.example.count(project_id)
+
     def create_example(self, project_id: int, text: str, meta: Dict[str, Any] = None) -> Example:
         """Create a new example.
 

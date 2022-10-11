@@ -20,6 +20,17 @@ class ExampleUseCase:
         """
         return self._repository.find_by_id(project_id, example_id)
 
+    def count(self, project_id: int) -> int:
+        """Count the number of examples
+
+        Args:
+            project_id (int): The id of the project
+
+        Returns:
+            int: The number of examples
+        """
+        return self._repository.count(project_id)
+
     def list(self, project_id: int) -> Iterator[Example]:
         """Return all examples
 
