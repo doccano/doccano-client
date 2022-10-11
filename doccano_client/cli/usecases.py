@@ -2,12 +2,11 @@ from __future__ import annotations
 
 import abc
 import json
-from typing import Iterable, Iterator
+from typing import Dict, Iterator
 
 from tqdm import tqdm
 
-from doccano_client.beta.controllers import ProjectController
-from doccano_client.beta.models import Span
+from doccano_client import DoccanoClient
 from doccano_client.cli.entity import Entity
 
 
@@ -24,29 +23,36 @@ def load_mapping(filepath: str, encoding="utf-8") -> dict[str, str]:
 
 
 class LabelAnnotator(abc.ABC):
-    def __init__(self, project: ProjectController, estimator):
-        self.project = project
+    def __init__(self, client: DoccanoClient, estimator):
+        self.client = client
         self.estimator = estimator
 
-    def annotate(self, mapping):
+    def annotate(self, project_id: int, filename: str = None):
         raise NotImplementedError()
 
 
 class SpanAnnotator(LabelAnnotator):
-    def annotate(self, filename: str | None):
-        span_types = self.project.span_types.all()
-        type_to_id = {span_type.span_type.text: span_type.id for span_type in span_types}
+    def annotate(self, project_id: int, filename: str = None):
+        span_types = self.client.list_label_types(project_id, type="span")
+        type_to_id: Dict[str, int] = {span_type.text: span_type.id for span_type in span_types}  # type: ignore
         mapping = load_mapping(filename) if filename else {}
 
         # predict label and post it.
-        total = self.project.examples.count()
-        for example in tqdm(self.project.examples.all(), total=total):
-            entities = self.estimator.predict(example.example.text)
+        total = self.client.count_examples(project_id)
+        examples = self.client.list_examples(project_id)
+        for example in tqdm(examples, total=total):
+            entities = self.estimator.predict(example.text)
             entities = self._convert_label_name(entities, mapping)
-            spans = self._convert_label_name_to_id(entities, type_to_id)
             # Todo: bulk create
-            for span in spans:
-                example.spans.create(span)
+            for entity in entities:
+                if entity.label in type_to_id:
+                    self.client.create_span(
+                        project_id,
+                        example.id,
+                        start_offset=entity.start_char,
+                        end_offset=entity.end_char,
+                        label=type_to_id[entity.label],
+                    )
 
     def _convert_label_name(self, entities: list[Entity], mapping: dict[str, str]) -> Iterator[Entity]:
         for entity in entities:
@@ -54,18 +60,8 @@ class SpanAnnotator(LabelAnnotator):
                 entity.label = mapping[entity.label]
             yield entity
 
-    def _convert_label_name_to_id(self, entities: Iterable[Entity], type_to_id: dict[str, int]) -> Iterator[Span]:
-        for entity in entities:
-            if entity.label in type_to_id:
-                yield Span(
-                    start_offset=entity.start_char,
-                    end_offset=entity.end_char,
-                    label=type_to_id[entity.label],
-                    prob=0,
-                )
 
-
-def build_annotator(task: str, project: ProjectController, estimator) -> LabelAnnotator:
+def build_annotator(task: str, client: DoccanoClient, estimator) -> LabelAnnotator:
     if task == "ner":
-        return SpanAnnotator(project, estimator)
+        return SpanAnnotator(client, estimator)
     raise ValueError("There is no annotator.")

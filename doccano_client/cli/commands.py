@@ -6,7 +6,7 @@ import os
 import sys
 from pathlib import Path
 
-from doccano_client.beta import DoccanoClient
+from doccano_client import DoccanoClient
 from doccano_client.cli.estimators import select_estimator_class
 from doccano_client.cli.usecases import build_annotator
 
@@ -40,10 +40,10 @@ def command_login(args) -> DoccanoClient:
 
 def command_predict(args):
     client = command_login(args)
-    project = client.projects.get(project_id=args.project)
     estimator = select_estimator_class(args.task, args.framework)(args.model)
-    annotator = build_annotator(args.task, project, estimator)
-    annotator.annotate(args.mapping)
+    annotator = build_annotator(args.task, client, estimator)
+    annotator.annotate(args.project, args.mapping)
+    client.logout()
 
 
 def command_help(args):
