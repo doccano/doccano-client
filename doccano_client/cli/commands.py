@@ -63,7 +63,7 @@ def main():
 
     # Create a parser for web server.
     parser_predict = subparsers.add_parser("predict", help="see `predict -h`")
-    parser_predict.add_argument("--task", type=str, choices=["ner"], required=True, help="task name")
+    parser_predict.add_argument("--task", type=str, choices=["ner", "asr"], required=True, help="task name")
     parser_predict.add_argument("--project", type=int, required=True, help="project id")
     parser_predict.add_argument("--model", type=str, required=True, help="model path")
     parser_predict.add_argument("--mapping", type=str, required=False, help="mapping file for label type")
