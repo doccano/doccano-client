@@ -26,7 +26,6 @@ spacy-partial-tagger = { version = "^0.9.1", optional = true }
 tqdm = { version = "^4.64.1", optional = true }
 pydantic = "^1.9.2"
 requests-toolbelt = "^0.9.1"
-whisper = {git = "https://github.com/openai/whisper.git", rev = "main", extras = ["whisper"]}
 ffmpeg-python = {version = "^0.2.0", extras = ["whisper"]}
 
 [tool.poetry.dev-dependencies]
@@ -48,7 +47,7 @@ mkdocstrings = {extras = ["python", "crystal"], version = "^0.19.0"}
 
 [tool.poetry.extras]
 spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
-whisper = ["whisper", "ffmpeg-python", "tqdm"]
+whisper = ["ffmpeg-python", "tqdm"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

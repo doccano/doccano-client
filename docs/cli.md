@@ -58,10 +58,10 @@ This feature is integrated with [spacy-partial-tagger](https://github.com/doccan
 
 ## Automatic Speech Recognition
 
-To use this feature, you need to install doccano-client as follows:
+To use this feature, you need to install whisper as follows:
 
 ```bash
-pip install doccano-client[whisper]
+pip install git+https://github.com/openai/whisper.git 
 ```
 
 In this feature, you can annotate audio file with OpenAI [Whisper](https://github.com/openai/whisper). For a list of available models, please see the official repository.

@@ -1284,24 +1284,6 @@ python-versions = ">=3.6"
 watchmedo = ["PyYAML (>=3.10)"]
 
 [[package]]
-name = "whisper"
-version = "1.0"
-description = ""
-category = "main"
-optional = false
-python-versions = "*"
-develop = false
-
-[package.extras]
-dev = ["pytest"]
-
-[package.source]
-type = "git"
-url = "https://github.com/openai/whisper.git"
-reference = "main"
-resolved_reference = "d18e9ea5dd2ca57c697e8e55f9e654f06ede25d0"
-
-[[package]]
 name = "wrapt"
 version = "1.14.1"
 description = "Module for decorators, wrappers and monkey patching."
@@ -1335,12 +1317,12 @@ docs = ["jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "jaraco.packaging (>=9)
 
 [extras]
 spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
-whisper = ["whisper", "tqdm"]
+whisper = ["ffmpeg-python", "tqdm"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d8f89e91c3a205dead912e506f793bb44ad4a9ab2a1fe7eeadded9a9ca8d0fec"
+content-hash = "1adf7f2ae26bfd5204c3d7002c7a16bfa45f4cd0e8722e538ed17c65bc24fd45"
 
 [metadata.files]
 attrs = []
@@ -1546,7 +1528,6 @@ urllib3 = []
 vcrpy = []
 wasabi = []
 watchdog = []
-whisper = []
 wrapt = []
 yarl = []
 zipp = []
