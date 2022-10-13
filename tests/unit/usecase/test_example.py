@@ -25,7 +25,7 @@ class TestExampleUseCase:
 
     def test_list(self):
         list(self.usecase.list(0))
-        self.repository.list.assert_called_once_with(0)
+        self.repository.list.assert_called_once_with(0, None)
 
     def test_create(self, payload):
         project_id = 0
