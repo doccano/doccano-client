@@ -526,16 +526,17 @@ class DoccanoClient:
         """
         self._get_label_type_usecase(type).upload(project_id, file_path)
 
-    def list_examples(self, project_id: int) -> Iterator[Example]:
+    def list_examples(self, project_id: int, is_confirmed: Optional[bool] = None) -> Iterator[Example]:
         """Return all examples.
 
         Args:
             project_id (int): The id of the project.
+            is_confirmed (bool, optional): Filter by confirmed state. Defaults to None.
 
         Yields:
             Example: The examples in the project.
         """
-        yield from self.example.list(project_id)
+        yield from self.example.list(project_id, is_confirmed)
 
     def find_example_by_id(self, project_id: int, example_id: int) -> Example:
         """Find an example by id.

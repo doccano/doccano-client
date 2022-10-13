@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Iterator, List
+from typing import Iterator, List, Optional
 
 from doccano_client.models.example import Example
 from doccano_client.repositories.base import BaseRepository
@@ -37,16 +37,20 @@ class ExampleRepository:
         response = self._client.get(f"projects/{project_id}/examples")
         return response.json()["count"]
 
-    def list(self, project_id: int) -> Iterator[Example]:
+    def list(self, project_id: int, is_confirmed: Optional[bool] = None) -> Iterator[Example]:
         """Return all examples in which you are a member
 
         Args:
             project_id (int): The id of the project
+            is_confirmed (bool, optional): Filter by confirmed state. Defaults to None.
 
         Yields:
             Example: The next example.
         """
-        response = self._client.get(f"projects/{project_id}/examples")
+        params = {}
+        if is_confirmed is not None:
+            params["confirmed"] = is_confirmed
+        response = self._client.get(f"projects/{project_id}/examples", params=params)
 
         while True:
             examples = response.json()

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterator, List
+from typing import Any, Dict, Iterator, List, Optional
 
 from doccano_client.models.example import Example
 from doccano_client.repositories.example import ExampleRepository
@@ -31,16 +31,17 @@ class ExampleUseCase:
         """
         return self._repository.count(project_id)
 
-    def list(self, project_id: int) -> Iterator[Example]:
+    def list(self, project_id: int, is_confirmed: Optional[bool] = None) -> Iterator[Example]:
         """Return all examples
 
         Args:
             project_id (int): The id of the project
+            is_confirmed (bool, optional): Filter by confirmed state. Defaults to None.
 
         Yields:
             Example: The examples in the project.
         """
-        yield from self._repository.list(project_id)
+        yield from self._repository.list(project_id, is_confirmed)
 
     def create(
         self,
