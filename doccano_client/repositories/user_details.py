@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-# from typing import List
-
 from doccano_client.models.user_details import UserDetails
 from doccano_client.repositories.base import BaseRepository
 
