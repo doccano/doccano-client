@@ -23,6 +23,7 @@ from doccano_client.models.project import Project
 from doccano_client.models.role import Role
 from doccano_client.models.task_status import TaskStatus
 from doccano_client.models.user import User
+from doccano_client.models.user_details import UserDetails
 from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.comment import CommentRepository
 from doccano_client.repositories.data_download import DataDownloadRepository
@@ -47,6 +48,7 @@ from doccano_client.repositories.project import ProjectRepository
 from doccano_client.repositories.role import RoleRepository
 from doccano_client.repositories.task_status import TaskStatusRepository
 from doccano_client.repositories.user import UserRepository
+from doccano_client.repositories.user_details import UserDetailsRepository
 from doccano_client.services.label_type import LabelTypeService
 from doccano_client.usecase.comment import CommentUseCase
 from doccano_client.usecase.data_download import DataDownloadUseCase
@@ -82,6 +84,7 @@ class DoccanoClient:
         """
         self._base_repository = BaseRepository(base_url, verify=verify)
         self._user_repository = UserRepository(self._base_repository)
+        self._user_details_respository = UserDetailsRepository(self._base_repository)
         self._role_repository = RoleRepository(self._base_repository)
         self._project_repository = ProjectRepository(self._base_repository)
         self._metrics_repository = MetricsRepository(self._base_repository)
@@ -207,6 +210,14 @@ class DoccanoClient:
             User: The profile of the logged in user.
         """
         return self._user_repository.get_profile()
+
+    def get_current_user_details(self) -> UserDetails:
+        """Return the Login Details of the logged in user
+
+        Returns:
+            UserDetails: User Login Details
+        """
+        return self._user_details_respository.get_current_user_details()
 
     def search_users(self, name: str = "") -> List[User]:
         """Search users by name.
