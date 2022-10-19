@@ -12,7 +12,8 @@ class PasswordLengthError(Exception):
     """
 
     def __init__(
-        self, message: str = "Password can't be greater than 128 characters or less than 2 character",
+        self,
+        message: str = "Password can't be greater than 128 characters or less than 2 character",
     ):
         self.message = message
         super().__init__(self.message)
@@ -26,7 +27,8 @@ class PasswordMismatchError(Exception):
     """
 
     def __init__(
-        self, message: str = "Please make sure the password and confirm_password parameters match",
+        self,
+        message: str = "Please make sure the password and confirm_password parameters match",
     ):
         self.message = message
         super().__init__(self.message)
