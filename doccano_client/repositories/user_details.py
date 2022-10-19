@@ -52,6 +52,7 @@ class UserDetailsRepository:
 
         Returns:
             PasswordChange: Message confirming password change.
+
         Raises:
             PasswordLengthError: If the password is longer than 128 chars or shorter than 2 chars
             PasswordMismatchError: If the password and confirm_password do not match
@@ -60,5 +61,8 @@ class UserDetailsRepository:
             raise PasswordLengthError()
         if password != confirm_password:
             raise PasswordMismatchError()
-        response = self._client.post("auth/password/change/", json={"new_password1": password, "new_password2": confirm_password})
+        response = self._client.post(
+            "auth/password/change/", 
+            json={"new_password1": password, "new_password2": confirm_password}
+        )
         return PasswordChange.parse_obj(response.json())

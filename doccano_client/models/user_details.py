@@ -10,7 +10,8 @@ class UserDetails(BaseModel):
     first_name: str
     last_name: str
 
+
 class PasswordChange(BaseModel):
     """Contains the data relevant to a password adjustment"""
-    
+
     detail: str
