@@ -230,7 +230,7 @@ class DoccanoClient:
             Not Sure Yet
         """
         return self._user_details_respository.change_current_user_password(
-            password=password, 
+            password=password,
             confirm_password=confirm_password
         )
 
