@@ -18,3 +18,16 @@ class UserDetailsRepository:
         """
         response = self._client.get("auth/user/")
         return UserDetails.parse_obj(response.json())
+
+    def change_current_user_password(self, password: str, confirm_password: str):
+        """Change the password of the Current User
+
+        Returns:
+            Not Sure Yet
+        """
+        if len(password) > 128:
+            raise Exception("Password can't be greater than 128 characters")
+        if password != confirm_password:
+            raise Exception("Please make sure the password and confirm_password parameters match")
+        response = self._client.post("auth/password/change/", "new_password1" = password, "new_password2" = confirm_password})
+        return response
