@@ -16,5 +16,5 @@ class UserDetailsRepository:
         Returns:
             UserDetails: The user login info.
         """
-        response = self._client.get("auth/user")
+        response = self._client.get("auth/user/")
         return UserDetails.parse_obj(response.json())
