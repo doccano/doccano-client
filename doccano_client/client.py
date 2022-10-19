@@ -222,6 +222,10 @@ class DoccanoClient:
     def change_current_user_password(self, password: str, confirm_password: str):
         """Change the current user's password
 
+        Args:
+            password (str): the new password to set for the current user
+            confirm_password(str): confirm the new password to set for the current user
+
         Returns:
             Not Sure Yet
         """
