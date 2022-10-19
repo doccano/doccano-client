@@ -62,7 +62,7 @@ class UserDetailsRepository:
         if password != confirm_password:
             raise PasswordMismatchError()
         response = self._client.post(
-            "auth/password/change/", 
+            "auth/password/change/",
             json={"new_password1": password, "new_password2": confirm_password}
         )
         return PasswordChange.parse_obj(response.json())
