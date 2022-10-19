@@ -229,8 +229,11 @@ class DoccanoClient:
         Returns:
             Not Sure Yet
         """
-        return self._user_details_respository.change_current_user_password(password=password, confirm_password=confirm_password)
-        
+        return self._user_details_respository.change_current_user_password(
+            password=password, 
+            confirm_password=confirm_password
+        )
+
     def search_users(self, name: str = "") -> List[User]:
         """Search users by name.
 
