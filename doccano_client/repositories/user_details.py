@@ -12,7 +12,7 @@ class PasswordLengthError(Exception):
     """
 
     def __init__(
-        self, message: str = "Password can't be greater than 128 characters or less than 2 character"
+        self, message: str = "Password can't be greater than 128 characters or less than 2 character",
     ):
         self.message = message
         super().__init__(self.message)
@@ -26,7 +26,7 @@ class PasswordMismatchError(Exception):
     """
 
     def __init__(
-        self, message: str = "Please make sure the password and confirm_password parameters match"
+        self, message: str = "Please make sure the password and confirm_password parameters match",
     ):
         self.message = message
         super().__init__(self.message)
@@ -69,6 +69,6 @@ class UserDetailsRepository:
             raise PasswordMismatchError()
         response = self._client.post(
             "auth/password/change/",
-            json={"new_password1": password, "new_password2": confirm_password}
+            json={"new_password1": password, "new_password2": confirm_password},
         )
         return PasswordChange.parse_obj(response.json())
