@@ -228,10 +228,6 @@ class DoccanoClient:
 
         Returns:
             Not Sure Yet
-
-        Raises:
-            PasswordLengthError: If the password is longer than 128 chars or shorter than 2 chars
-            PasswordMismatchError: If the password and confirm_password do not match
         """
         return self._user_details_respository.change_current_user_password(
             password=password, confirm_password=confirm_password
