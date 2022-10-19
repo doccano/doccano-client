@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from doccano_client.models.user_details import UserDetails
+from doccano_client.models.user_details import PasswordChange, UserDetails
 from doccano_client.repositories.base import BaseRepository
 
 
@@ -11,7 +11,10 @@ class PasswordLengthError(Exception):
         message -- explanation of the error
     """
 
-    def __init__(self, message: str = "Password can't be greater than 128 characters or less than 2 character"):
+    def __init__(
+        self,
+        message: str = "Password can't be greater than 128 characters or less than 2 character",
+    ):
         self.message = message
         super().__init__(self.message)
 
@@ -23,7 +26,10 @@ class PasswordMismatchError(Exception):
         message -- explanation of the error
     """
 
-    def __init__(self, message: str = "Please make sure the password and confirm_password parameters match"):
+    def __init__(
+        self,
+        message: str = "Please make sure the password and confirm_password parameters match",
+    ):
         self.message = message
         super().__init__(self.message)
 
@@ -43,7 +49,7 @@ class UserDetailsRepository:
         response = self._client.get("auth/user/")
         return UserDetails.parse_obj(response.json())
 
-    def change_current_user_password(self, password: str, confirm_password: str):
+    def change_current_user_password(self, password: str, confirm_password: str) -> PasswordChange:
         """Change the password of the Current User
 
         Args:
@@ -51,7 +57,7 @@ class UserDetailsRepository:
             confirm_password(str): confirm the new password to set for the current user
 
         Returns:
-            Not Sure Yet
+            PasswordChange: Message confirming password change.
 
         Raises:
             PasswordLengthError: If the password is longer than 128 chars or shorter than 2 chars
@@ -61,5 +67,8 @@ class UserDetailsRepository:
             raise PasswordLengthError()
         if password != confirm_password:
             raise PasswordMismatchError()
-        response = self._client.post("auth/password/change/", new_password1=password, new_password2=confirm_password)
-        return response
+        response = self._client.post(
+            "auth/password/change/",
+            json={"new_password1": password, "new_password2": confirm_password},
+        )
+        return PasswordChange.parse_obj(response.json())

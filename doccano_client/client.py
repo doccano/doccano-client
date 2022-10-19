@@ -23,7 +23,7 @@ from doccano_client.models.project import Project
 from doccano_client.models.role import Role
 from doccano_client.models.task_status import TaskStatus
 from doccano_client.models.user import User
-from doccano_client.models.user_details import UserDetails
+from doccano_client.models.user_details import PasswordChange, UserDetails
 from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.comment import CommentRepository
 from doccano_client.repositories.data_download import DataDownloadRepository
@@ -219,7 +219,7 @@ class DoccanoClient:
         """
         return self._user_details_respository.get_current_user_details()
 
-    def change_current_user_password(self, password: str, confirm_password: str):
+    def change_current_user_password(self, password: str, confirm_password: str) -> PasswordChange:
         """Change the current user's password
 
         Args:
@@ -227,7 +227,7 @@ class DoccanoClient:
             confirm_password(str): confirm the new password to set for the current user
 
         Returns:
-            Not Sure Yet
+            PasswordChange: Message confirming password change.
         """
         return self._user_details_respository.change_current_user_password(
             password=password, confirm_password=confirm_password
