@@ -34,6 +34,9 @@ class Span(Label):
             raise ValueError("start_offset must be less than end_offset.")
         return values
 
+    def to_tuple(self) -> tuple:
+        return self.start_offset, self.end_offset, self.label
+
 
 class Relation(Label):
     from_id: int
