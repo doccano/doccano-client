@@ -49,9 +49,7 @@ class UserDetailsRepository:
         response = self._client.get("auth/user/")
         return UserDetails.parse_obj(response.json())
 
-    def change_current_user_password(
-        self, password: str, confirm_password: str
-    ) -> PasswordChange:
+    def change_current_user_password(self, password: str, confirm_password: str) -> PasswordChange:
         """Change the password of the Current User
 
         Args:
