@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from doccano_client.models.user_details import UserDetails
+from doccano_client.models.user_details import PasswordChange, UserDetails
 from doccano_client.repositories.base import BaseRepository
 
 
@@ -43,7 +43,7 @@ class UserDetailsRepository:
         response = self._client.get("auth/user/")
         return UserDetails.parse_obj(response.json())
 
-    def change_current_user_password(self, password: str, confirm_password: str):
+    def change_current_user_password(self, password: str, confirm_password: str) -> PasswordChange:
         """Change the password of the Current User
 
         Args:
@@ -51,8 +51,7 @@ class UserDetailsRepository:
             confirm_password(str): confirm the new password to set for the current user
 
         Returns:
-            Not Sure Yet
-
+            PasswordChange: Message confirming password change.
         Raises:
             PasswordLengthError: If the password is longer than 128 chars or shorter than 2 chars
             PasswordMismatchError: If the password and confirm_password do not match
@@ -61,5 +60,5 @@ class UserDetailsRepository:
             raise PasswordLengthError()
         if password != confirm_password:
             raise PasswordMismatchError()
-        response = self._client.post("auth/password/change/", new_password1=password, new_password2=confirm_password)
-        return response
+        response = self._client.post("auth/password/change/", json={"new_password1": password, "new_password2": confirm_password})
+        return PasswordChange.parse_obj(response.json())
