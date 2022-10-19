@@ -34,5 +34,5 @@ class UserDetailsRepository:
             raise Exception("Password can't be greater than 128 characters")
         if password != confirm_password:
             raise Exception("Please make sure the password and confirm_password parameters match")
-        response = self._client.post("auth/password/change/", "new_password1" = password, "new_password2" = confirm_password})
+        response = self._client.post("auth/password/change/", "new_password1" = password, "new_password2" = confirm_password)
         return response
