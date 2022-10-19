@@ -36,3 +36,4 @@ class UserDetailsRepository:
             raise Exception("Please make sure the password and confirm_password parameters match")
         response = self._client.post("auth/password/change/", new_password1 = password, new_password2 = confirm_password)
         return response
+        
