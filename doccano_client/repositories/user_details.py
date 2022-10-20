@@ -49,7 +49,9 @@ class UserDetailsRepository:
         response = self._client.get("auth/user/")
         return UserDetails.parse_obj(response.json())
 
-    def update_current_user_details(self, username: str = None, first_name: str = None, last_name: str = None) -> UserDetails:
+    def update_current_user_details(
+        self, username: str = None, first_name: str = None, last_name: str = None
+    ) -> UserDetails:
         """Update either username, first name or last name of the current user. 
            If any args are left as None the current info will be kept
 
@@ -57,6 +59,7 @@ class UserDetailsRepository:
             username (str): The username to change the current user to.
             first_name (str): The first name to change the current user to.
             last_name (str): The last name to change the current user to
+
         Returns:
             UserDetails: the updated user login info
         """
@@ -68,7 +71,9 @@ class UserDetailsRepository:
                 first_name = current_user_details.first_name
             if last_name is None:
                 last_name = current_user_details.last_name
-        response = self._client.post("auth/user/", json={"username": username, "first_name": first_name, "last_name": last_name})
+        response = self._client.post(
+            "auth/user/", json={"username": username, "first_name": first_name, "last_name": last_name}
+        )
         return UserDetails.parse_obj(response.json())
 
     def change_current_user_password(self, password: str, confirm_password: str) -> PasswordChange:
