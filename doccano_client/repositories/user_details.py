@@ -52,7 +52,7 @@ class UserDetailsRepository:
     def update_current_user_details(
         self, username: str = None, first_name: str = None, last_name: str = None
     ) -> UserDetails:
-        """Update either username, first name or last name of the current user. 
+        """Update either username, first name or last name of the current user.
            If any args are left as None the current info will be kept
 
         Args:
