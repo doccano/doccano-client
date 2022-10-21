@@ -26,7 +26,8 @@ spacy-partial-tagger = { version = "^0.9.1", optional = true }
 tqdm = { version = "^4.64.1", optional = true }
 pydantic = "^1.9.2"
 requests-toolbelt = "^0.9.1"
-ffmpeg-python = {version = "^0.2.0", extras = ["whisper"]}
+ffmpeg-python = { version = "^0.2.0", optional = true }
+seqal = { version = "^0.3.4", optional = true }
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
@@ -48,6 +49,7 @@ mkdocstrings = {extras = ["python", "crystal"], version = "^0.19.0"}
 [tool.poetry.extras]
 spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
 whisper = ["ffmpeg-python", "tqdm"]
+al = ["spacy", "seqal"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

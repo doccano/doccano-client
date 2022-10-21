@@ -22,6 +22,9 @@ class Progress(BaseModel):
     remaining: int
     completed: int
 
+    def is_finished(self) -> bool:
+        return self.remaining == 0
+
 
 class MemberProgress(BaseModel):
     username: str

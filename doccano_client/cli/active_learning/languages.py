@@ -1,0 +1,35 @@
+# fastText embeddings
+# https://github.com/flairNLP/flair/blob/cebd2b1c81be4507f62e967f8a2e7701e332dbd3/resources/docs/embeddings/CLASSIC_WORD_EMBEDDINGS.md
+LANGUAGES = [
+    "en",  # English
+    "de",  # German
+    "nl",  # Dutch
+    "fr",  # French
+    "it",  # Italian
+    "es",  # Spanish
+    "pt",  # Portuguese
+    "ro",  # Romanian
+    "ca",  # Catalan
+    "sv",  # Swedish
+    "da",  # Danish
+    "no",  # Norwegian
+    "fi",  # Finnish
+    "pl",  # Polish
+    "cz",  # Czech
+    "sk",  # Slovak
+    "sl",  # Slovenian
+    "sr",  # Serbian
+    "hr",  # Croatian
+    "bg",  # Bulgarian
+    "ru",  # Russian
+    "ar",  # Arabic
+    "he",  # Hebrew
+    "tr",  # Turkish
+    "fa",  # Persian
+    "ja",  # Japanese
+    "ko",  # Korean
+    "zh",  # Chinese
+    "hi",  # Hindi
+    "id",  # Indonesian
+    "eu",  # Basque
+]
