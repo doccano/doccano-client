@@ -71,3 +71,34 @@ docli predict asr \
   --project <project_id> \
   --model base
 ```
+
+## Active Learning
+
+To use this feature, you need to install doccano-client as follows:
+
+```bash
+pip install doccano-client[al]
+```
+
+First, you need to login to doccano:
+
+```bash
+docli login \
+  --host http://127.0.0.1:8000 \
+  --username admin \
+  --password password
+```
+
+Then, you can use active learning as follows:
+
+```bash
+docli teach \
+  --task <ner> \
+  --project <project_id> \
+  --lang [en] \
+  --query_strategy [MNLP] \
+  --train_frequency [50] \
+  --transformer_model [bert-base-uncased]
+```
+
+Currently, only `ner` is supported as a task.
