@@ -10,7 +10,8 @@ def least_confidence(
     tagger: SequenceTagger,
 ) -> np.ndarray:
     log_probs = tagger.log_probability(sentences)
-    scores = 1 - np.exp(log_probs)
+    # scores = 1 - np.exp(log_probs)
+    scores = np.exp(log_probs)
     return scores
 
 
