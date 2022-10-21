@@ -1,7 +1,7 @@
+from typing import Any, Dict
+
 from flair.data import Corpus
 from flair.embeddings import TransformerWordEmbeddings, WordEmbeddings
-from flair.trainers import ModelTrainer
-from seqal.tagger import SequenceTagger
 
 from .languages import LANGUAGES
 
@@ -14,7 +14,7 @@ def get_tagger_params(
     use_rnn: bool = False,
     use_crf: bool = True,
     **kwargs,
-):
+) -> Dict[str, Any]:
     if lang not in LANGUAGES and transformer_model is None:
         raise ValueError(f"Language {lang} is not available")
 
@@ -41,7 +41,7 @@ def get_trainer_params(
     mini_batch_size: int = 32,
     shuffle: bool = True,
     **kwargs,
-):
+) -> Dict[str, Any]:
     trainer_params = {
         "max_epochs": max_epochs,
         "learning_rate": learning_rate,
@@ -50,20 +50,3 @@ def get_trainer_params(
         "shuffle": shuffle,
     }
     return trainer_params
-
-
-def make_tagger(corpus: Corpus):
-    tagger_params = get_tagger_params(corpus)
-    tagger = SequenceTagger(**tagger_params)
-    return tagger
-
-
-def make_trainer(tagger: SequenceTagger, corpus: Corpus):
-    trainer = ModelTrainer(tagger, corpus)
-    return trainer
-
-
-def train(tagger, trainer, dir_path):
-    trainer_params = get_trainer_params()
-    trainer.train(dir_path, **trainer_params)
-    return tagger

@@ -1,13 +1,14 @@
 import time
 from typing import List, Literal, Optional, Tuple
 
+from flair.trainers import ModelTrainer
 from seqal.tagger import SequenceTagger
 
 from doccano_client import DoccanoClient
 
 from .preparation import DATASET_DIR, prepare_datasets
 from .strategies import get_query_strategy
-from .trainer import get_tagger_params, get_trainer_params, make_trainer
+from .trainer import get_tagger_params, get_trainer_params
 
 
 def execute_one_iteration(
@@ -24,7 +25,7 @@ def execute_one_iteration(
     tagger = SequenceTagger(**tagger_params)
 
     # Prepare trainer
-    trainer = make_trainer(tagger, labeled_dataset)
+    trainer = ModelTrainer(tagger, labeled_dataset)
     trainer_params = get_trainer_params(max_epochs=1)
 
     trainer.train(DATASET_DIR, **trainer_params)

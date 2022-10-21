@@ -104,7 +104,7 @@ def main():
     parser_teach.add_argument(
         "--train_frequency",
         type=int,
-        default=100,
+        default=50,
         help="How often to train during annotation (number of confirmed examples)",
     )
     parser_teach.set_defaults(handler=command_teach)
