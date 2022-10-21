@@ -14,8 +14,6 @@ from doccano_client.models.label import Span
 from .models import Examples, NERDataset
 
 DOCCANO_HOME = pathlib.Path(os.path.expanduser(os.environ.get("DOCCANO_HOME", "~/doccano")))
-DATASET_DIR = DOCCANO_HOME / "dataset"
-pathlib.Path(DATASET_DIR).mkdir(parents=True, exist_ok=True)
 
 
 class UnlabeledDataset:
@@ -35,23 +33,23 @@ class UnlabeledDataset:
 
 
 def download_dataset(client: DoccanoClient, project_id: int) -> NERDataset:
-    project_dir = DATASET_DIR / str(project_id)
-    if not project_dir.exists():
+    dataset_dir = DOCCANO_HOME / str(project_id) / "dataset"
+    if not dataset_dir.exists():
         print(f"Downloading dataset for project {project_id}")
-        project_dir.mkdir(parents=True, exist_ok=True)
+        dataset_dir.mkdir(parents=True, exist_ok=True)
         examples = Examples(client.list_examples(project_id))
         dataset = NERDataset(examples)
-        dataset.save(project_dir)
+        dataset.save(dataset_dir)
     else:
         print(f"Loading dataset for project {project_id}")
-        dataset = NERDataset.load(project_dir)
+        dataset = NERDataset.load(dataset_dir)
 
     for example in client.list_examples(project_id, is_confirmed=True):
         if not dataset.has_spans(example.id):
             spans = client.list_spans(project_id, example.id)  # type: ignore
             dataset.add_spans(example.id, spans)
             dataset.confirm(example.id)
-    dataset.save(project_dir)
+    dataset.save(dataset_dir)
     return dataset
 
 
@@ -71,7 +69,7 @@ def prepare_datasets(client: DoccanoClient, project_id: int, lang: str = "en"):
 
     # convert dataset to conll format
     nlp = make_nlp(lang)
-    save_dir = DATASET_DIR / str(project_id)
+    save_dir = DOCCANO_HOME / str(project_id) / "dataset"
     export_examples_to_conll(nlp, train_dataset, save_dir / "train.txt")
     export_examples_to_conll(nlp, test_dataset, save_dir / "test.txt")
 
