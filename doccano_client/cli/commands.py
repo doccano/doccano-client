@@ -57,6 +57,7 @@ def command_teach(args):
         lang=args.lang,
         query_strategy_name=args.query_strategy,
         transformer_model=args.transformer_model,
+        train_frequency=args.train_frequency,
     )
     client.logout()
 
