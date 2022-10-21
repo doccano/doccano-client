@@ -1,0 +1,64 @@
+import time
+from typing import List, Literal, Optional, Tuple
+
+from seqal.tagger import SequenceTagger
+
+from doccano_client import DoccanoClient
+
+from .preparation import DATASET_DIR, prepare_datasets
+from .strategies import get_query_strategy
+from .trainer import get_tagger_params, get_trainer_params, make_trainer
+
+
+def execute_one_iteration(
+    client: DoccanoClient,
+    project_id: int,
+    lang: str = "en",
+    query_strategy_name: Literal["LC", "MNLP"] = "MNLP",
+    transformer_model: Optional[str] = None,
+) -> Tuple[List[float], List[int]]:
+    labeled_dataset, unlabeled_dataset = prepare_datasets(client, project_id, lang=lang)
+
+    # Prepare tagger
+    tagger_params = get_tagger_params(labeled_dataset, lang=lang, transformer_model=transformer_model)
+    tagger = SequenceTagger(**tagger_params)
+
+    # Prepare trainer
+    trainer = make_trainer(tagger, labeled_dataset)
+    trainer_params = get_trainer_params(max_epochs=1)
+
+    trainer.train(DATASET_DIR, **trainer_params)
+
+    # Query unlabeled dataset
+    query_strategy = get_query_strategy(query_strategy_name)
+    scores = query_strategy(unlabeled_dataset.sentences, tagger)
+    return scores, unlabeled_dataset.ids
+
+
+def execute_active_learning(
+    client: DoccanoClient,
+    project_id: int,
+    lang: str = "en",
+    query_strategy_name: Literal["LC", "MNLP"] = "MNLP",
+    transformer_model: Optional[str] = None,
+    train_frequency: int = 100,
+):
+    prev_completed = 0
+    while True:
+        progress = client.get_progress(project_id)
+        if progress.is_finished():
+            break
+        if progress.completed - prev_completed >= train_frequency:
+            prev_completed = progress.completed
+            print("Training...")
+            scores, example_ids = execute_one_iteration(
+                client,
+                project_id=project_id,
+                lang=lang,
+                query_strategy_name=query_strategy_name,
+                transformer_model=transformer_model,
+            )
+            print("Update confidence scores...")
+            for score, example_id in zip(scores, example_ids):
+                client.update_example(project_id, example_id, meta={"confidence": score})
+        time.sleep(10)

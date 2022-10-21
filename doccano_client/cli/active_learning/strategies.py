@@ -24,9 +24,9 @@ def maximum_normalized_log_probability(
     return normed_log_probs
 
 
-def get_sampling_algorithm(sampler: Literal["MNLP", "LC"] = "MNLP"):
-    if sampler == "LC":
+def get_query_strategy(query_strategy: Literal["MNLP", "LC"] = "MNLP"):
+    if query_strategy == "LC":
         return least_confidence
-    elif sampler == "MNLP":
+    elif query_strategy == "MNLP":
         return maximum_normalized_log_probability
-    raise ValueError(f"Sampler {sampler} is not available")
+    raise ValueError(f"Query strategy {query_strategy} is not available")

@@ -3,41 +3,7 @@ from flair.embeddings import TransformerWordEmbeddings, WordEmbeddings
 from flair.trainers import ModelTrainer
 from seqal.tagger import SequenceTagger
 
-# fastText embeddings
-# https://github.com/flairNLP/flair/blob/cebd2b1c81be4507f62e967f8a2e7701e332dbd3/resources/docs/embeddings/CLASSIC_WORD_EMBEDDINGS.md
-available_languages = [
-    "en",  # English
-    "de",  # German
-    "nl",  # Dutch
-    "fr",  # French
-    "it",  # Italian
-    "es",  # Spanish
-    "pt",  # Portuguese
-    "ro",  # Romanian
-    "ca",  # Catalan
-    "sv",  # Swedish
-    "da",  # Danish
-    "no",  # Norwegian
-    "fi",  # Finnish
-    "pl",  # Polish
-    "cz",  # Czech
-    "sk",  # Slovak
-    "sl",  # Slovenian
-    "sr",  # Serbian
-    "hr",  # Croatian
-    "bg",  # Bulgarian
-    "ru",  # Russian
-    "ar",  # Arabic
-    "he",  # Hebrew
-    "tr",  # Turkish
-    "fa",  # Persian
-    "ja",  # Japanese
-    "ko",  # Korean
-    "zh",  # Chinese
-    "hi",  # Hindi
-    "id",  # Indonesian
-    "eu",  # Basque
-]
+from .languages import LANGUAGES
 
 
 def get_tagger_params(
@@ -49,7 +15,7 @@ def get_tagger_params(
     use_crf: bool = True,
     **kwargs,
 ):
-    if lang not in available_languages and transformer_model is None:
+    if lang not in LANGUAGES and transformer_model is None:
         raise ValueError(f"Language {lang} is not available")
 
     if transformer_model:

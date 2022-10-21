@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from doccano_client import DoccanoClient
+from doccano_client.cli.active_learning.languages import LANGUAGES
 from doccano_client.cli.estimators import select_estimator_class
 from doccano_client.cli.usecases import build_annotator
 
@@ -46,6 +47,20 @@ def command_predict(args):
     client.logout()
 
 
+def command_teach(args):
+    from .active_learning.manager import execute_active_learning
+
+    client = command_login(args)
+    execute_active_learning(
+        client,
+        project_id=args.project,
+        lang=args.lang,
+        query_strategy_name=args.query_strategy,
+        transformer_model=args.transformer_model,
+    )
+    client.logout()
+
+
 def command_help(args):
     print(parser.parse_args([args.command, "--help"]))
 
@@ -69,6 +84,30 @@ def main():
     parser_predict.add_argument("--mapping", type=str, required=False, help="mapping file for label type")
     parser_predict.add_argument("--framework", default="spacy", choices=["spacy"], help="framework to predict output")
     parser_predict.set_defaults(handler=command_predict)
+
+    # Create a parser for active learning
+    parser_teach = subparsers.add_parser("teach", help="see `teach -h`")
+    parser_teach.add_argument("--task", type=str, choices=["ner"], required=True, help="task name")
+    parser_teach.add_argument("--project", type=int, required=True, help="project id")
+    parser_teach.add_argument("--lang", type=str, choices=LANGUAGES, default="en", required=True, help="language code")
+    parser_teach.add_argument(
+        "--query_strategy",
+        type=str,
+        choices=["LC", "MNLP"],
+        default="MNLP",
+        required=True,
+        help="query strategy. LC is least confidence, MNLP is maximum normalized log-probability.",
+    )
+    parser_teach.add_argument(
+        "--transformer_model", type=str, required=False, help="transformer model name(e.g. bert-base-uncased)"
+    )
+    parser_teach.add_argument(
+        "--train_frequency",
+        type=int,
+        default=100,
+        help="How often to train during annotation (number of confirmed examples)",
+    )
+    parser_teach.set_defaults(handler=command_teach)
 
     # Create a parser for help.
     parser_help = subparsers.add_parser("help", help="see `help -h`")
