@@ -67,6 +67,6 @@ def execute_active_learning(
             )
             print("Update confidence scores...")
             for score, example_id in tqdm(zip(scores, example_ids)):
-                client.update_example(project_id, example_id, meta={"confidence": score})
+                client.update_example(project_id, example_id, score=score)
             print("Update completed.")
         time.sleep(10)

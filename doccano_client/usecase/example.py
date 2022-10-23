@@ -47,6 +47,7 @@ class ExampleUseCase:
         self,
         project_id: int,
         text: str,
+        score: float = 100.0,
         meta: Dict[str, Any] = None,
     ) -> Example:
         """Create a new example
@@ -54,6 +55,7 @@ class ExampleUseCase:
         Args:
             project_id (int): The id of the project
             text (str): The text of the example
+            score (float): The confidence score of the example
             meta (Dict[str, Any]): The meta data of the example
 
         Returns:
@@ -61,7 +63,7 @@ class ExampleUseCase:
         """
         if meta is None:
             meta = {}
-        example = Example(text=text, meta=meta)
+        example = Example(text=text, score=score, meta=meta)
         return self._repository.create(project_id, example)
 
     def update(
@@ -69,6 +71,7 @@ class ExampleUseCase:
         project_id: int,
         example_id: int,
         text: str = None,
+        score: float = None,
         meta: Dict[str, Any] = None,
     ) -> Example:
         """Update a example
@@ -77,6 +80,7 @@ class ExampleUseCase:
             project_id (int): The id of the project
             example_id (int): The id of the example
             text (str): The text of the example
+            score (float): The confidence score of the example
             meta (Dict[str, Any]): The meta data of the example
 
         Returns:
@@ -86,6 +90,7 @@ class ExampleUseCase:
         example = Example(
             id=example_id,
             text=text if text is not None else example.text,
+            score=score if score is not None else example.score,
             meta=meta if meta is not None else example.meta,
         )
         return self._repository.update(project_id, example)
