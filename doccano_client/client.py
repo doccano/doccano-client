@@ -586,21 +586,22 @@ class DoccanoClient:
         """
         return self.example.count(project_id)
 
-    def create_example(self, project_id: int, text: str, meta: Dict[str, Any] = None) -> Example:
+    def create_example(self, project_id: int, text: str, score: float = 100, meta: Dict[str, Any] = None) -> Example:
         """Create a new example.
 
         Args:
             project_id (int): The id of the project.
             text (str): The text of the example.
+            score (float): The confidence score of the example. Defaults to 100.
             meta (Dict[str, Any]): The meta data of the example.
 
         Returns:
             Example: The created example.
         """
-        return self.example.create(project_id, text, meta)
+        return self.example.create(project_id, text, score, meta)
 
     def update_example(
-        self, project_id: int, example_id: int, text: str = None, meta: Dict[str, Any] = None
+        self, project_id: int, example_id: int, text: str = None, score: float = None, meta: Dict[str, Any] = None
     ) -> Example:
         """Update an example.
 
@@ -608,12 +609,13 @@ class DoccanoClient:
             project_id (int): The id of the project.
             example_id (int): The id of the example.
             text (str): The text of the example.
+            score (float): The confidence score of the example.
             meta (Dict[str, Any]): The meta data of the example.
 
         Returns:
             Example: The updated example.
         """
-        return self.example.update(project_id, example_id, text, meta)
+        return self.example.update(project_id, example_id, text, score, meta)
 
     def delete_example(self, project_id: int, example_id: int):
         """Delete an example.
