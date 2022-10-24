@@ -106,7 +106,7 @@ class UserDetailsRepository:
         Args:
             username (str): the username of the user thats to be created
             password (str): the password to set for the new user
-            confirm_password(str): confirm the password to set for the new user
+            confirm_password (str): confirm the password to set for the new user
 
         Returns:
             Not Sure Yet
@@ -121,6 +121,6 @@ class UserDetailsRepository:
             raise PasswordMismatchError()
         response = self._client.post(
             "auth/user/add/",
-            json={"username": username, "password1": password, "password2": confirm_password, "_save": "Save"}
+            json={"username": username, "password1": password, "password2": confirm_password, "_save": "Save"},
         )
         return response.json()
