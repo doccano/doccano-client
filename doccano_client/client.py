@@ -233,6 +233,25 @@ class DoccanoClient:
             password=password, confirm_password=confirm_password
         )
 
+    def update_current_user_details(
+        self, username: str = None, first_name: str = None, last_name: str = None
+    ) -> UserDetails:
+        """Update either username, first name or last name of the current user.
+           If any args are left as None the current info will be kept
+
+        Args:
+            username (str): The username to change the current user to.
+            first_name (str): The first name to change the current user to.
+            last_name (str): The last name to change the current user to
+
+        Returns:
+            UserDetails: the updated user login info
+        """
+        pass
+        return self._user_details_respository.update_current_user_details(
+            username=username, first_name=first_name, last_name=last_name
+        )
+
     def search_users(self, name: str = "") -> List[User]:
         """Search users by name.
 
