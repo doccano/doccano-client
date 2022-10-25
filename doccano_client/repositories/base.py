@@ -52,7 +52,7 @@ class BaseRepository:
                 man-in-the-middle (MitM) attacks. Setting verify to ``False``
                 may be useful during local development or testing.
         """
-        self._base_url = base_url
+        self._base_url = base_url.rstrip("/")
         self._session = requests.Session()
         if verify is not None:
             self._session.verify = verify
