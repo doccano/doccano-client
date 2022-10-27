@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "doccano-client"
-version = "1.2.4"
+version = "1.2.5"
 description = "A simple client for doccano API."
 authors = ["Hironsan <hiroki.nakayama.py@gmail.com>"]
 license = "MIT"
