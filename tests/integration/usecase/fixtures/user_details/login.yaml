@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: '{"username": "admin", "password": "foobarbaz"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '46'
+      User-Agent:
+      - python-requests/2.28.1
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: POST
+    uri: http://localhost:8000/v1/auth/login/
+  response:
+    body:
+      string: '{"key":"c87a4797facf8591eab4d69bac9461bf030be57c"}'
+    headers:
+      Allow:
+      - POST, OPTIONS
+      Content-Length:
+      - '50'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 27 Oct 2022 05:26:19 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.8.15
+      Set-Cookie:
+      - csrftoken=1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun;
+        expires=Thu, 26 Oct 2023 05:26:19 GMT; Max-Age=31449600; Path=/; SameSite=Lax
+      - sessionid=prauleg5y1gzxdagjyq4zgt7yccz7puj; expires=Thu, 10 Nov 2022 05:26:19
+        GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
