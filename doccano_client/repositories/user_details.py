@@ -57,7 +57,7 @@ class UserDetailsRepository:
             username (str): the username of the user thats to be created
             password (str): the password to set for the new user
         Returns:
-            Not Sure Yet
+            UserDetails: the newly created user login info
         """
         response = self._client.post(
             "v1/users/creation/",
