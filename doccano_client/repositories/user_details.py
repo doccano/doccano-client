@@ -50,7 +50,7 @@ class UserDetailsRepository:
             json={"new_password1": password_change.new_password, "new_password2": password_change.confirm_password},
         )
         return PasswordUpdated.parse_obj(response.json())
-    
+
     def create_user(self, username: str, password: str) -> UserDetails:
         """Create new user
 
