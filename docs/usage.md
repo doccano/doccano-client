@@ -19,6 +19,7 @@
 ::: doccano_client.DoccanoClient.get_profile
 ::: doccano_client.DoccanoClient.change_current_user_password
 ::: doccano_client.DoccanoClient.update_current_user_details
+::: doccano_client.DoccanoClient.create_user
 
 ## Role
 
