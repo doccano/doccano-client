@@ -39,7 +39,7 @@ name = "blis"
 version = "0.9.1"
 description = "The Blis BLAS-like linear algebra library, as a self-contained C-extension."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -50,7 +50,7 @@ name = "bpemb"
 version = "0.3.4"
 description = "Byte-pair embeddings in 275 languages"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -73,7 +73,7 @@ name = "catalogue"
 version = "2.0.8"
 description = "Super lightweight function registries for your library"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -119,7 +119,7 @@ name = "confection"
 version = "0.0.1"
 description = "The sweetest config system for Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -131,7 +131,7 @@ name = "conllu"
 version = "4.5.2"
 description = "CoNLL-U Parser parses a CoNLL-U formatted string into a nested python dictionary"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -139,7 +139,7 @@ name = "contourpy"
 version = "1.0.5"
 description = "Python library for calculating contours of 2D quadrilateral grids"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -157,7 +157,7 @@ name = "cycler"
 version = "0.11.0"
 description = "Composable style cycles"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -165,7 +165,7 @@ name = "cymem"
 version = "2.0.6"
 description = "Manage calls to calloc/free through Cython"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -197,7 +197,7 @@ name = "deprecated"
 version = "1.2.13"
 description = "Python @deprecated decorator to deprecate old python classes, functions or methods."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.dependencies]
@@ -211,7 +211,7 @@ name = "ffmpeg-python"
 version = "0.2.0"
 description = "Python bindings for FFmpeg - with complex filtering support"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -225,7 +225,7 @@ name = "filelock"
 version = "3.8.0"
 description = "A platform independent file lock."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.extras]
@@ -237,7 +237,7 @@ name = "flair"
 version = "0.10"
 description = "A very simple framework for state-of-the-art NLP"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -285,7 +285,7 @@ name = "fonttools"
 version = "4.37.4"
 description = "Tools to manipulate font files"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.extras]
@@ -307,7 +307,7 @@ name = "ftfy"
 version = "6.1.1"
 description = "Fixes mojibake and other problems with Unicode, after the fact"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7,<4"
 
 [package.dependencies]
@@ -318,7 +318,7 @@ name = "future"
 version = "0.18.2"
 description = "Clean single-source support for Python 3 and 2"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
@@ -326,7 +326,7 @@ name = "gdown"
 version = "3.12.2"
 description = "Google Drive direct download of big files."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -340,7 +340,7 @@ name = "gensim"
 version = "4.2.0"
 description = "Python framework for fast Vector Space Modelling"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -384,7 +384,7 @@ name = "huggingface-hub"
 version = "0.9.1"
 description = "Client library to download and publish models, datasets and other repos on the huggingface.co hub"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7.0"
 
 [package.dependencies]
@@ -455,7 +455,7 @@ name = "janome"
 version = "0.4.2"
 description = "Japanese morphological analysis engine."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -477,7 +477,7 @@ name = "joblib"
 version = "1.2.0"
 description = "Lightweight pipelining with Python functions"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [[package]]
@@ -485,7 +485,7 @@ name = "kiwisolver"
 version = "1.4.4"
 description = "A fast implementation of the Cassowary constraint solver"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [[package]]
@@ -493,7 +493,7 @@ name = "konoha"
 version = "4.6.3"
 description = "A tiny sentence/word tokenizer for Japanese text written in Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6.1,<4.0.0"
 
 [package.dependencies]
@@ -518,7 +518,7 @@ name = "langcodes"
 version = "3.3.0"
 description = "Tools for labeling human languages with IETF language tags"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.extras]
@@ -529,7 +529,7 @@ name = "langdetect"
 version = "1.0.9"
 description = "Language detection library ported from Google's language-detection."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -540,7 +540,7 @@ name = "lxml"
 version = "4.9.1"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, != 3.4.*"
 
 [package.extras]
@@ -615,7 +615,7 @@ name = "matplotlib"
 version = "3.6.1"
 description = "Python plotting package"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.8"
 
 [package.dependencies]
@@ -773,7 +773,7 @@ name = "more-itertools"
 version = "8.8.0"
 description = "More routines for operating on iterables, beyond itertools"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.5"
 
 [[package]]
@@ -781,7 +781,7 @@ name = "mpld3"
 version = "0.3"
 description = "D3 Viewer for Matplotlib"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -805,7 +805,7 @@ name = "murmurhash"
 version = "1.0.8"
 description = "Cython bindings for MurmurHash"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -847,7 +847,7 @@ name = "overrides"
 version = "3.1.0"
 description = "A decorator to automatically detect mismatch when overriding a method."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -860,6 +860,25 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
+
+[[package]]
+name = "pandas"
+version = "1.5.1"
+description = "Powerful data structures for data analysis, time series, and statistics"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+numpy = [
+    {version = ">=1.21.0", markers = "python_version >= \"3.10\""},
+    {version = ">=1.20.3", markers = "python_version < \"3.10\""},
+]
+python-dateutil = ">=2.8.1"
+pytz = ">=2020.1"
+
+[package.extras]
+test = ["pytest-xdist (>=1.31)", "pytest (>=6.0)", "hypothesis (>=5.5.3)"]
 
 [[package]]
 name = "partial-tagger"
@@ -885,7 +904,7 @@ name = "pathy"
 version = "0.6.2"
 description = "pathlib.Path subclasses for local and cloud bucket storage"
 category = "main"
-optional = false
+optional = true
 python-versions = ">= 3.6"
 
 [package.dependencies]
@@ -903,7 +922,7 @@ name = "pillow"
 version = "9.2.0"
 description = "Python Imaging Library (Fork)"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.extras]
@@ -939,7 +958,7 @@ name = "preshed"
 version = "3.0.7"
 description = "Cython hash table that trusts the keys are pre-hashed"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1046,7 +1065,7 @@ name = "pysocks"
 version = "1.7.1"
 description = "A Python SOCKS client module. See https://github.com/Anorov/PySocks for more information."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -1089,6 +1108,14 @@ optional = true
 python-versions = ">=3.7"
 
 [[package]]
+name = "pytz"
+version = "2022.5"
+description = "World timezone definitions, modern and historical"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pyyaml"
 version = "6.0"
 description = "YAML parser and emitter for Python"
@@ -1112,7 +1139,7 @@ name = "regex"
 version = "2022.9.13"
 description = "Alternative regular expression module, to replace re."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -1165,7 +1192,7 @@ name = "scikit-learn"
 version = "1.1.2"
 description = "A set of python modules for machine learning and data mining"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.8"
 
 [package.dependencies]
@@ -1185,7 +1212,7 @@ name = "scipy"
 version = "1.9.2"
 description = "Fundamental algorithms for scientific computing in Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.8"
 
 [package.dependencies]
@@ -1201,7 +1228,7 @@ name = "segtok"
 version = "1.5.11"
 description = "sentence segmentation and word tokenization tools"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1212,7 +1239,7 @@ name = "sentencepiece"
 version = "0.1.95"
 description = "SentencePiece python wrapper"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1220,7 +1247,7 @@ name = "seqal"
 version = "0.3.4"
 description = "Sequence labeling active learning framework for Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.8,<4.0"
 
 [package.dependencies]
@@ -1234,7 +1261,7 @@ name = "setuptools-scm"
 version = "7.0.5"
 description = "the blessed package to manage your versions by scm tags"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -1259,7 +1286,7 @@ name = "smart-open"
 version = "5.2.1"
 description = "Utils for streaming large files (S3, HDFS, GCS, Azure Blob Storage, gzip, bz2...)"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.extras]
@@ -1276,7 +1303,7 @@ name = "spacy"
 version = "3.4.1"
 description = "Industrial-strength Natural Language Processing (NLP) in Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1338,7 +1365,7 @@ name = "spacy-legacy"
 version = "3.0.10"
 description = "Legacy registered functions for spaCy backwards compatibility"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -1346,7 +1373,7 @@ name = "spacy-loggers"
 version = "1.0.3"
 description = "Logging utilities for SpaCy"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1401,7 +1428,7 @@ name = "sqlitedict"
 version = "2.0.0"
 description = "Persistent dict in Python, backed up by sqlite3 and pickle, multithread-safe."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1409,7 +1436,7 @@ name = "srsly"
 version = "2.4.4"
 description = "Modern high-performance serialization utilities for Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1420,7 +1447,7 @@ name = "tabulate"
 version = "0.9.0"
 description = "Pretty-print tabular data"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.extras]
@@ -1445,7 +1472,7 @@ name = "thinc"
 version = "8.1.1"
 description = "A refreshing functional take on deep learning, compatible with your favorite libraries"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1485,7 +1512,7 @@ name = "threadpoolctl"
 version = "3.1.0"
 description = "threadpoolctl"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -1493,7 +1520,7 @@ name = "tokenizers"
 version = "0.12.1"
 description = "Fast and Customizable Tokenizers"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.extras]
@@ -1513,7 +1540,7 @@ name = "torch"
 version = "1.12.1"
 description = "Tensors and Dynamic neural networks in Python with strong GPU acceleration"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7.0"
 
 [package.dependencies]
@@ -1524,7 +1551,7 @@ name = "tqdm"
 version = "4.64.1"
 description = "Fast, Extensible Progress Meter"
 category = "main"
-optional = false
+optional = true
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
 [package.dependencies]
@@ -1541,7 +1568,7 @@ name = "transformers"
 version = "4.21.3"
 description = "State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7.0"
 
 [package.dependencies]
@@ -1602,7 +1629,7 @@ name = "typer"
 version = "0.4.2"
 description = "Typer, build great CLIs. Easy to code. Based on Python type hints."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1685,7 +1712,7 @@ name = "wasabi"
 version = "0.10.1"
 description = "A lightweight console printing and formatting toolkit"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1704,7 +1731,7 @@ name = "wcwidth"
 version = "0.2.5"
 description = "Measures the displayed width of unicode strings in a terminal"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1712,7 +1739,7 @@ name = "wikipedia-api"
 version = "0.5.4"
 description = "Python Wrapper for Wikipedia"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1751,13 +1778,14 @@ testing = ["pytest-mypy (>=0.9.1)", "pytest-black (>=0.3.7)", "func-timeout", "j
 docs = ["jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "jaraco.packaging (>=9)", "sphinx"]
 
 [extras]
+al = ["spacy", "seqal"]
 spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
 whisper = ["ffmpeg-python", "tqdm"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "9eccff9b94ba2b7eb61c7cb5b8befe35cda83b30d23332128fef797765a41c17"
+content-hash = "17918dac6743b41d5b18528140250cd714e6212b9291541143b85b985e498933"
 
 [metadata.files]
 attrs = []
@@ -1910,6 +1938,7 @@ packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
 ]
+pandas = []
 partial-tagger = []
 pathspec = []
 pathy = []
@@ -1945,6 +1974,7 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 pytokenizations = []
+pytz = []
 pyyaml = []
 pyyaml-env-tag = []
 regex = []

@@ -3,6 +3,7 @@ import pathlib
 import time
 from typing import List, Literal, Optional, Tuple
 
+import pandas as pd
 from flair.trainers import ModelTrainer
 from seqal.tagger import SequenceTagger
 from tqdm import tqdm
@@ -70,6 +71,13 @@ def finish_active_learning(eval_file: pathlib.Path, patience: int) -> bool:
     return current_score < max_score and current_score_index - max_score_index > patience
 
 
+def show_results(eval_file: pathlib.Path):
+    with eval_file.open() as f:
+        results = json.load(f)
+    df = pd.DataFrame(results)
+    print(df.to_markdown(index=False))
+
+
 def execute_active_learning(
     client: DoccanoClient,
     project_id: int,
@@ -103,6 +111,7 @@ def execute_active_learning(
             number_of_data.append(progress.completed)
             f1_scores.append(f1_micro)
             eval_file = save_evaluation_result(project_id, number_of_data, f1_scores)
+            show_results(eval_file)
             if finish_active_learning(eval_file, patience):
                 break
         time.sleep(10)
