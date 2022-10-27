@@ -53,9 +53,11 @@ class UserDetailsRepository:
 
      def create_user(self, username: str, password: str):
         """Create new user
+        
         Args:
             username (str): the username of the user thats to be created
             password (str): the password to set for the new user
+        
         Returns:
             UserDetails: the newly created user login info
         """
