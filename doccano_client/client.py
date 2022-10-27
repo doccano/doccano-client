@@ -246,7 +246,7 @@ class DoccanoClient:
             username=username, first_name=first_name, last_name=last_name
         )
 
-    def create_user(self, username: str = "", password: str = " ") -> UserDetails:
+    def create_user(self, username: str, password: str) -> UserDetails:
         """Create new user
 
         Args:
