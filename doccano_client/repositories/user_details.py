@@ -8,7 +8,7 @@ class PasswordLengthError(Exception):
     """Exception raised for errors where the password doesn't have the correct length.
 
     Attributes:
-        message -- explanation of the error
+        message (str): explanation of the error
     """
 
     def __init__(
@@ -23,7 +23,7 @@ class PasswordMismatchError(Exception):
     """Exception raised for errors where the password and confirm password doesn't match.
 
     Attributes:
-        message -- explanation of the error
+        message (str): explanation of the error
     """
 
     def __init__(
