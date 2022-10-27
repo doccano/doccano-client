@@ -221,7 +221,7 @@ class DoccanoClient:
 
         Args:
             password (str): the new password to set for the current user
-            confirm_password(str): confirm the new password to set for the current user
+            confirm_password (str): confirm the new password to set for the current user
 
         Returns:
             PasswordUpdated: Message confirming password change.
