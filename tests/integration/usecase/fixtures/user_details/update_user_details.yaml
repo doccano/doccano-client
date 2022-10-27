@@ -1,0 +1,253 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun;
+        sessionid=prauleg5y1gzxdagjyq4zgt7yccz7puj
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/auth/user/
+  response:
+    body:
+      string: '{"pk":9,"username":"admin","email":"","first_name":"","last_name":""}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, HEAD, OPTIONS
+      Content-Length:
+      - '69'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 27 Oct 2022 05:26:19 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.8.15
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"pk": 9, "username": "admin1", "email": "", "first_name": "", "last_name":
+      ""}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '79'
+      Cookie:
+      - csrftoken=1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun;
+        sessionid=prauleg5y1gzxdagjyq4zgt7yccz7puj
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: PUT
+    uri: http://localhost:8000/v1/auth/user/
+  response:
+    body:
+      string: '{"pk":9,"username":"admin1","email":"","first_name":"","last_name":""}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, HEAD, OPTIONS
+      Content-Length:
+      - '70'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 27 Oct 2022 05:26:19 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.8.15
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun;
+        sessionid=prauleg5y1gzxdagjyq4zgt7yccz7puj
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/auth/user/
+  response:
+    body:
+      string: '{"pk":9,"username":"admin1","email":"","first_name":"","last_name":""}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, HEAD, OPTIONS
+      Content-Length:
+      - '70'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 27 Oct 2022 05:26:19 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.8.15
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - csrftoken=1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun;
+        sessionid=prauleg5y1gzxdagjyq4zgt7yccz7puj
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: GET
+    uri: http://localhost:8000/v1/auth/user/
+  response:
+    body:
+      string: '{"pk":9,"username":"admin1","email":"","first_name":"","last_name":""}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, HEAD, OPTIONS
+      Content-Length:
+      - '70'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 27 Oct 2022 05:26:19 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.8.15
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"pk": 9, "username": "admin", "email": "", "first_name": "", "last_name":
+      ""}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '78'
+      Cookie:
+      - csrftoken=1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun;
+        sessionid=prauleg5y1gzxdagjyq4zgt7yccz7puj
+      User-Agent:
+      - python-requests/2.28.1
+      X-CSRFToken:
+      - 1maJEoZrCA1kd0Nfr0oWeZYuVVPFo1sziTKwuMSkSi5Cn3WdgrBLyMkS0teizEun
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      referer:
+      - http://localhost:8000
+    method: PUT
+    uri: http://localhost:8000/v1/auth/user/
+  response:
+    body:
+      string: '{"pk":9,"username":"admin","email":"","first_name":"","last_name":""}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, HEAD, OPTIONS
+      Content-Length:
+      - '69'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 27 Oct 2022 05:26:19 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.8.15
+      Vary:
+      - Accept, Origin, Cookie
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -23,7 +23,7 @@ from doccano_client.models.project import Project
 from doccano_client.models.role import Role
 from doccano_client.models.task_status import TaskStatus
 from doccano_client.models.user import User
-from doccano_client.models.user_details import PasswordChange, UserDetails
+from doccano_client.models.user_details import PasswordUpdated, UserDetails
 from doccano_client.repositories.base import BaseRepository
 from doccano_client.repositories.comment import CommentRepository
 from doccano_client.repositories.data_download import DataDownloadRepository
@@ -65,6 +65,7 @@ from doccano_client.usecase.label import (
 from doccano_client.usecase.label_type import LabelTypeUseCase
 from doccano_client.usecase.member import MemberUseCase
 from doccano_client.usecase.project import ProjectType, ProjectUseCase
+from doccano_client.usecase.user_details import UserDetailsUseCase
 
 
 class DoccanoClient:
@@ -84,7 +85,7 @@ class DoccanoClient:
         """
         self._base_repository = BaseRepository(base_url, verify=verify)
         self._user_repository = UserRepository(self._base_repository)
-        self._user_details_respository = UserDetailsRepository(self._base_repository)
+        self._user_details_repository = UserDetailsRepository(self._base_repository)
         self._role_repository = RoleRepository(self._base_repository)
         self._project_repository = ProjectRepository(self._base_repository)
         self._metrics_repository = MetricsRepository(self._base_repository)
@@ -185,6 +186,10 @@ class DoccanoClient:
     def text(self) -> TextUseCase:
         return TextUseCase(self._text_repository)
 
+    @property
+    def user_details(self) -> UserDetailsUseCase:
+        return UserDetailsUseCase(self._user_details_repository)
+
     def _get_label_type_usecase(self, type: Literal["category", "span", "relation"]) -> LabelTypeUseCase:
         if type == "category":
             return self.category_type
@@ -211,15 +216,7 @@ class DoccanoClient:
         """
         return self._user_repository.get_profile()
 
-    def get_current_user_details(self) -> UserDetails:
-        """Return the Login Details of the logged in user
-
-        Returns:
-            UserDetails: User Login Details
-        """
-        return self._user_details_respository.get_current_user_details()
-
-    def change_current_user_password(self, password: str, confirm_password: str) -> PasswordChange:
+    def change_current_user_password(self, password: str, confirm_password: str) -> PasswordUpdated:
         """Change the current user's password
 
         Args:
@@ -227,11 +224,9 @@ class DoccanoClient:
             confirm_password(str): confirm the new password to set for the current user
 
         Returns:
-            PasswordChange: Message confirming password change.
+            PasswordUpdated: Message confirming password change.
         """
-        return self._user_details_respository.change_current_user_password(
-            password=password, confirm_password=confirm_password
-        )
+        return self.user_details.change_current_user_password(password=password, confirm_password=confirm_password)
 
     def update_current_user_details(
         self, username: str = None, first_name: str = None, last_name: str = None
@@ -247,7 +242,7 @@ class DoccanoClient:
         Returns:
             UserDetails: the updated user login info
         """
-        return self._user_details_respository.update_current_user_details(
+        return self.user_details.update_current_user_details(
             username=username, first_name=first_name, last_name=last_name
         )
 
