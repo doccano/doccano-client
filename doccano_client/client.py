@@ -247,7 +247,6 @@ class DoccanoClient:
         Returns:
             UserDetails: the updated user login info
         """
-        pass
         return self._user_details_respository.update_current_user_details(
             username=username, first_name=first_name, last_name=last_name
         )
