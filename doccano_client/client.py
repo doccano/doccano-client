@@ -245,7 +245,7 @@ class DoccanoClient:
         return self.user_details.update_current_user_details(
             username=username, first_name=first_name, last_name=last_name
         )
-    
+
     def create_user(self, username: str = "", password: str = " ") -> UserDetails:
         """Create new user
 
