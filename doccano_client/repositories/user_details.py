@@ -62,7 +62,7 @@ class UserDetailsRepository:
             UserDetails: the newly created user login info
         """
         response = self._client.post(
-            "v1/users/creation/",
+            "users/creation/",
             json={"username": username, "password1": password, "password2": password},
         )
         return UserDetails.parse_obj(response.json())
