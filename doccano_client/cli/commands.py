@@ -58,6 +58,7 @@ def command_teach(args):
         query_strategy_name=args.query_strategy,
         transformer_model=args.transformer_model,
         train_frequency=args.train_frequency,
+        patience=args.patience,
     )
     client.logout()
 
@@ -107,6 +108,12 @@ def main():
         type=int,
         default=50,
         help="How often to train during annotation (number of confirmed examples)",
+    )
+    parser_teach.add_argument(
+        "--patience",
+        type=int,
+        default=-1,
+        help="The number of training with no improvement",
     )
     parser_teach.set_defaults(handler=command_teach)
 
