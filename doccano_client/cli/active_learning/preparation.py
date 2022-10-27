@@ -65,7 +65,7 @@ def prepare_datasets(client: DoccanoClient, project_id: int, lang: str = "en"):
     dataset = download_dataset(client, project_id)
 
     # split train/test dataset
-    train_dataset, test_dataset = dataset.labeled.split(test_size=0.5)
+    train_dataset, test_dataset = dataset.labeled.split()
 
     # convert dataset to conll format
     nlp = make_nlp(lang)
