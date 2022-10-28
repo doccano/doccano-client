@@ -98,7 +98,7 @@ docli teach \
   --lang [en] \
   --query_strategy [MNLP] \
   --train_frequency [50] \
-  --transformer_model [bert-base-uncased]
+  --transformer_model [bert-base-uncased] \
   --patience [-1]
 ```
 
