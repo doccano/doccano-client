@@ -23,7 +23,7 @@ def verbose_raise_for_status(response: Response) -> Response:
     try:
         response.raise_for_status()
     except exceptions.HTTPError as err:
-        raise DoccanoAPIError(err.response)
+        raise DoccanoAPIError(str(err), err.response)
     return response
 
 
