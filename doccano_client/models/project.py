@@ -13,8 +13,6 @@ MappingIntStrAny = Mapping[IntStr, Any]
 
 
 class ProjectType(str, Enum):
-    """Constants pointing to the types of project resource types"""
-
     DOCUMENT_CLASSIFICATION = "DocumentClassification"
     SEQUENCE_LABELING = "SequenceLabeling"
     SEQ2SEQ = "Seq2seq"

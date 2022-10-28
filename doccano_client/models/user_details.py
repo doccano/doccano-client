@@ -1,10 +1,10 @@
+from typing import Dict
+
 from pydantic import BaseModel, root_validator
 from pydantic.types import ConstrainedStr
 
 
 class UserDetails(BaseModel):
-    """Contains the data relevant to a user on a Doccano project"""
-
     pk: int
     username: str
     email: str
@@ -13,8 +13,6 @@ class UserDetails(BaseModel):
 
 
 class PasswordUpdated(BaseModel):
-    """Contains the data relevant to a password adjustment"""
-
     detail: str
 
 
@@ -29,7 +27,7 @@ class PasswordChange(BaseModel):
     confirm_password: Password
 
     @root_validator
-    def new_password_matches_confirm_password(cls, values):
+    def new_password_matches_confirm_password(cls, values: Dict[str, Password]):
         new_password = values.get("new_password")
         confirm_password = values.get("confirm_password")
         if new_password != confirm_password:
