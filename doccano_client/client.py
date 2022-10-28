@@ -246,6 +246,18 @@ class DoccanoClient:
             username=username, first_name=first_name, last_name=last_name
         )
 
+    def create_user(self, username: str, password: str) -> User:
+        """Create new user.
+
+        Args:
+            username (str): the username of the user to be created
+            password (str): the password to set for the new user
+
+        Returns:
+            User: The UserDetails of the newly created user
+        """
+        return self._user_repository.create_user(username=username, password=password)
+
     def search_users(self, name: str = "") -> List[User]:
         """Search users by name.
 
