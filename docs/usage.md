@@ -13,13 +13,13 @@
 
 ::: doccano_client.DoccanoClient.search_users
 ::: doccano_client.DoccanoClient.find_user_by_name
+::: doccano_client.DoccanoClient.create_user
 
 ## User Details
 
 ::: doccano_client.DoccanoClient.get_profile
 ::: doccano_client.DoccanoClient.change_current_user_password
 ::: doccano_client.DoccanoClient.update_current_user_details
-::: doccano_client.DoccanoClient.create_user
 
 ## Role
 

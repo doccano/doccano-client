@@ -51,3 +51,19 @@ class UserRepository:
             if user.username == name:
                 return user
         raise ValueError(f"User '{name}' not found")
+
+    def create_user(self, username: str, password: str) -> User:
+        """Create new user.
+
+        Args:
+            username (str): the username of the user to be created
+            password (str): the password to set for the new user
+
+        Returns:
+            User: the newly created user info
+        """
+        response = self._client.post(
+            "users/create",
+            json={"username": username, "password1": password, "password2": password},
+        )
+        return User.parse_obj(response.json())

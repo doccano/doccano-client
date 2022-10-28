@@ -50,19 +50,3 @@ class UserDetailsRepository:
             json={"new_password1": password_change.new_password, "new_password2": password_change.confirm_password},
         )
         return PasswordUpdated.parse_obj(response.json())
-
-    def create_user(self, username: str, password: str) -> UserDetails:
-        """Create new user
-
-        Args:
-            username (str): the username of the user thats to be created
-            password (str): the password to set for the new user
-
-        Returns:
-            UserDetails: the newly created user login info
-        """
-        response = self._client.post(
-            "users/creation",
-            json={"username": username, "password1": password, "password2": password},
-        )
-        return UserDetails.parse_obj(response.json())
