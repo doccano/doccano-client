@@ -254,7 +254,7 @@ class DoccanoClient:
             password (str): the password to set for the new user
 
         Returns:
-            User: The UserDetails of the newly created user
+            User: the newly created user info
         """
         return self._user_repository.create_user(username=username, password=password)
 
