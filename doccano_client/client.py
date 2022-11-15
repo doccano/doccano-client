@@ -611,7 +611,7 @@ class DoccanoClient:
         """
         return self.example.count(project_id)
 
-    def create_example(self, project_id: int, text: str, score: float = 100, meta: Dict[str, Any] = None) -> Example:
+    def create_example(self, project_id: int, text: str, score: float = 100.0, meta: Dict[str, Any] = None) -> Example:
         """Create a new example.
 
         Args:
