@@ -12,4 +12,4 @@ class Example(BaseModel):
     is_confirmed: bool = False
     filename: str = ""
     upload_name: str = ""
-    score: float = 100
+    score: float = 100.0
