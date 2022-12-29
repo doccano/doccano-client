@@ -53,17 +53,11 @@ class MembersControllerTest(TestCase):
         member_controllers = self.members_controller.all()
 
         total_members = 0
-        expected_member_id_dict = {
-            member_json["id"]: member_json for member_json in mocks.members_get_json
-        }
+        expected_member_id_dict = {member_json["id"]: member_json for member_json in mocks.members_get_json}
         for member_controller in member_controllers:
             self.assertIn(member_controller.id, expected_member_id_dict)
-            self.assertEqual(
-                member_controller.member.user, expected_member_id_dict[member_controller.id]["user"]
-            )
-            self.assertEqual(
-                member_controller.member.role, expected_member_id_dict[member_controller.id]["role"]
-            )
+            self.assertEqual(member_controller.member.user, expected_member_id_dict[member_controller.id]["user"])
+            self.assertEqual(member_controller.member.role, expected_member_id_dict[member_controller.id]["role"])
             self.assertIs(member_controller.client_session, self.members_controller.client_session)
             total_members += 1
 
