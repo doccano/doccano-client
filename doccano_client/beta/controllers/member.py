@@ -48,10 +48,7 @@ class MembersController:
 
         for member_dict in member_dicts:
             # Sanitize member_dict before converting to Member
-            sanitized_member_dict = {
-                member_key: member_dict[member_key]
-                for member_key in member_object_fields
-            }
+            sanitized_member_dict = {member_key: member_dict[member_key] for member_key in member_object_fields}
 
             yield MemberController(
                 member=Member(**sanitized_member_dict),
@@ -80,9 +77,7 @@ class MembersController:
         for member_controller in member_controllers:
             member_json = asdict(member_controller.member)
             member_json = {
-                member_key: member_value
-                for member_key, member_value in member_json.items()
-                if member_value is not None
+                member_key: member_value for member_key, member_value in member_json.items() if member_value is not None
             }
             member_json["id"] = member_controller.id
 
