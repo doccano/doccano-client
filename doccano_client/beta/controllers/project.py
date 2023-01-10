@@ -10,6 +10,7 @@ from .category_type import CategoryTypesController
 from .comment import CommentsController
 from .example import DocumentsController, ExamplesController
 from .label import LabelsController
+from .member import MembersController
 from .relation_type import RelationTypesController
 from .span_type import SpanTypesController
 
@@ -46,6 +47,11 @@ class ProjectController:
     def comments(self) -> CommentsController:
         """Return a CommentsController mapped to this project"""
         return CommentsController(self.project_url, self.client_session)
+
+    @property
+    def members(self) -> MembersController:
+        """Return a MembersController mapped to this project"""
+        return MembersController(self.project_url, self.client_session)
 
     @property
     def category_types(self) -> CategoryTypesController:

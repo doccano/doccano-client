@@ -9,6 +9,7 @@ from .category_type import CategoryType
 from .comments import Comment
 from .examples import Document, Example
 from .labels import LABEL_COLOR_CYCLE, Label
+from .members import Member
 from .projects import Project, ProjectTypes
 from .relation import Relation
 from .relation_type import RelationType
@@ -28,6 +29,7 @@ __all__ = [
     "Example",
     "Label",
     "LABEL_COLOR_CYCLE",
+    "Member",
     "ProjectTypes",
     "Project",
     "Relation",

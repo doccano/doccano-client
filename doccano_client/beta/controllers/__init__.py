@@ -9,6 +9,7 @@ from .example import (
     ExamplesController,
 )
 from .label import LabelController, LabelsController
+from .member import MemberController, MembersController
 from .project import ProjectController, ProjectsController
 from .relation import RelationController, RelationsController
 from .relation_type import RelationTypeController, RelationTypesController
@@ -33,6 +34,8 @@ __all__ = [
     "ExamplesController",
     "LabelController",
     "LabelsController",
+    "MemberController",
+    "MembersController",
     "ProjectController",
     "ProjectsController",
     "SpanController",
