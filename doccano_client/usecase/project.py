@@ -1,4 +1,4 @@
-from typing import Iterator, List, Literal, Optional
+from typing import Dict, Iterator, List, Literal, Optional
 
 from doccano_client.models.project import Project
 from doccano_client.repositories.project import ProjectRepository
@@ -51,7 +51,7 @@ class ProjectUseCase:
         allow_overlapping: bool = False,
         grapheme_mode: bool = False,
         use_relation: bool = False,
-        tags: Optional[List[str]] = None,
+        tags: Optional[List[Dict[str, str]]] = None,
     ) -> Project:
         """Create a new project
 
@@ -66,7 +66,7 @@ class ProjectUseCase:
             allow_overlapping (bool): If True, span overlapping is allowed. Defaults to False.
             grapheme_mode (bool): If True, count multi-byte characters as one character. Defaults to False.
             use_relation (bool): If True, relation labeling is allowed. Defaults to False.
-            tags (Optional[List[str]], optional): The tags of the project. Defaults to None.
+            tags (Optional[List[Dict[str, str]]], optional): The tags of the project. Defaults to None.
 
         Returns:
             Project: The created project
@@ -99,7 +99,7 @@ class ProjectUseCase:
         allow_overlapping: bool = None,
         grapheme_mode: bool = None,
         use_relation: bool = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[List[Dict[str, str]]] = None,
     ) -> Project:
         """Update a project
 
@@ -115,7 +115,7 @@ class ProjectUseCase:
             allow_overlapping (bool): If True, span overlapping is allowed. Defaults to None.
             grapheme_mode (bool): If True, count multi-byte characters as one character. Defaults to None.
             use_relation (bool): If True, relation labeling is allowed. Defaults to None.
-            tags (Optional[List[str]], optional): The tags of the project. Defaults to None.
+            tags (Optional[List[Dict[str, str]]], optional): The tags of the project. Defaults to None.
 
         Returns:
             Project: The updated project
