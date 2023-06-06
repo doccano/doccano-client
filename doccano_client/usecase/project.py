@@ -1,4 +1,4 @@
-from typing import Dict, Iterator, List, Literal, Optional
+from typing import Iterator, List, Literal, Optional
 
 from doccano_client.models.project import Project
 from doccano_client.repositories.project import ProjectRepository

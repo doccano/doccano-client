@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Iterator, Dict, Any
+from typing import Any, Dict, Iterator
 
 from doccano_client.models.project import Project
 from doccano_client.repositories.base import BaseRepository
@@ -21,7 +21,7 @@ class ProjectRepository:
         Returns:
             Project: The converted project
         """
-        response["tags"] = [tag["text"] for tag in response["tags"]]
+        response["tags"] = [tag["text"] for tag in response.get("tags", [])]
         return Project.parse_obj(response)
 
     def _to_persistent(self, project: Project) -> Dict[str, Any]:
