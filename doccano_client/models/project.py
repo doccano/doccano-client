@@ -47,7 +47,7 @@ class Project(BaseModel):
     allow_overlapping: bool = False
     grapheme_mode: bool = False
     use_relation: bool = False
-    tags: List[DictStrAny] = []
+    tags: List[str] = []
 
     def dict(
         self,
