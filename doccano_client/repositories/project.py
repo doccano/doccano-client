@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Iterator
+from typing import Any, Dict, Iterator
 
 from doccano_client.models.project import Project
 from doccano_client.repositories.base import BaseRepository
@@ -12,6 +12,31 @@ class ProjectRepository:
     def __init__(self, client: BaseRepository):
         self._client = client
 
+    def _to_domain(self, response: Dict[str, Any]) -> Project:
+        """Convert a response to a domain object
+
+        Args:
+            response (Dict[str, Any]): The response to convert
+
+        Returns:
+            Project: The converted project
+        """
+        response["tags"] = [tag["text"] for tag in response.get("tags", [])]
+        return Project.parse_obj(response)
+
+    def _to_persistent(self, project: Project) -> Dict[str, Any]:
+        """Convert a domain object to a persistent object
+
+        Args:
+            project (Project): The project to convert
+
+        Returns:
+            Dict[str, Any]: The converted project
+        """
+        project_dict = project.dict()
+        project_dict["tags"] = [{"text": tag} for tag in project_dict["tags"]]
+        return project_dict
+
     def find_by_id(self, project_id: int) -> Project:
         """Find a project by id
 
@@ -22,7 +47,7 @@ class ProjectRepository:
             Project: The found project
         """
         response = self._client.get(f"projects/{project_id}")
-        return Project.parse_obj(response.json())
+        return self._to_domain(response.json())
 
     def list(self) -> Iterator[Project]:
         """Return all projects in which you are a member
@@ -35,7 +60,7 @@ class ProjectRepository:
         while True:
             projects = response.json()
             for project in projects["results"]:
-                yield Project.parse_obj(project)
+                yield self._to_domain(project)
 
             if projects["next"] is None:
                 break
@@ -51,8 +76,10 @@ class ProjectRepository:
         Returns:
             Project: The created project
         """
-        response = self._client.post("projects", json=project.dict(exclude={"id"}))
-        return Project.parse_obj(response.json())
+        payload = self._to_persistent(project)
+        payload.pop("id", None)
+        response = self._client.post("projects", json=payload)
+        return self._to_domain(response.json())
 
     def update(self, project: Project) -> Project:
         """Update a project
@@ -64,8 +91,9 @@ class ProjectRepository:
             Project: The updated project
         """
         resource = f"projects/{project.id}"
-        response = self._client.put(resource, json=project.dict())
-        return Project.parse_obj(response.json())
+        payload = self._to_persistent(project)
+        response = self._client.put(resource, json=payload)
+        return self._to_domain(response.json())
 
     def delete(self, project: Project | int):
         """Delete a project
