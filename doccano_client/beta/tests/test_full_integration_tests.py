@@ -1,13 +1,17 @@
 from unittest import TestCase
 
 import pytest
+from dotenv import load_dotenv
 
 from ..client import DoccanoClient
 from ..models import Example, Project, SpanType
+import os
 
-DOCCANO_ENDPOINT = "http://localhost"  # TODO: Make this a pytest parameter or ENV variable
-DOCCANO_USER = "admin"  # TODO: Make this a pytest parameter or ENV variable
-DOCCANO_PASS = "password"  # TODO: Make this a pytest parameter or ENV variable
+load_dotenv()
+
+DOCCANO_ENDPOINT = os.getenv("DOCCANO_ENDPOINT", "http://localhost")
+DOCCANO_USER = os.getenv("DOCCANO_USER", "admin")
+DOCCANO_PASS = os.getenv("DOCCANO_PASS", "password")
 
 
 @pytest.mark.localintegrationtest
