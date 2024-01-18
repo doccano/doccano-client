@@ -25,9 +25,13 @@ def get_next_url(base_url: str, initial_url: str, response_data: dict) -> Option
     if response_data.get('next') is None:
         return None
     next_url = response_data['next']
-    resource = initial_url[len(base_url) :]
-    _, next_suffix = next_url.split(resource)
-    return base_url + resource + next_suffix
+    try:
+        resource = initial_url[len(base_url) :]
+        _, next_suffix = next_url.split(resource)
+        return base_url + resource + next_suffix
+    except ValueError:
+        # fallback to returning the unmodified next url
+        return next_url
 
 
 def verbose_raise_for_status(response: Response) -> Response:
