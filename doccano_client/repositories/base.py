@@ -22,9 +22,9 @@ def get_next_url(base_url: str, initial_url: str, response_data: dict) -> Option
         The adjusted url to get the next page or None when no next page is available
 
     """
-    if response_data.get('next') is None:
+    if response_data.get("next") is None:
         return None
-    next_url = response_data['next']
+    next_url = response_data["next"]
     try:
         resource = initial_url[len(base_url) :]
         _, next_suffix = next_url.split(resource)
