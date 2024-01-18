@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Dict, Iterator
 
 from doccano_client.models.project import Project
-from doccano_client.repositories.base import BaseRepository
+from doccano_client.repositories.base import BaseRepository, get_next_url
 
 
 class ProjectRepository:
@@ -56,16 +56,19 @@ class ProjectRepository:
             Project: The next project.
         """
         response = self._client.get("projects")
+        initial_url = response.url
 
         while True:
             projects = response.json()
             for project in projects["results"]:
                 yield self._to_domain(project)
 
-            if projects["next"] is None:
+            next_page = get_next_url(self._client.api_url, initial_url, projects)
+
+            if next_page is None:
                 break
             else:
-                response = self._client.get(projects["next"])
+                response = self._client.get(next_page)
 
     def create(self, project: Project) -> Project:
         """Create a new project
