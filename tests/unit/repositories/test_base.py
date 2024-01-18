@@ -1,5 +1,3 @@
-from unittest.mock import MagicMock
-
 import pytest
 
 from doccano_client.repositories.base import get_next_url
