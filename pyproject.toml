@@ -47,6 +47,7 @@ mkdocs-material = "^8.5.3"
 mkdocs-same-dir = "^0.1.1"
 vcrpy = "^4.2.1"
 mkdocstrings = {extras = ["python", "crystal"], version = "^0.19.0"}
+python-dotenv = "^1.0.0"
 
 [tool.poetry.extras]
 spacy = ["spacy", "spacy-partial-tagger", "tqdm"]
