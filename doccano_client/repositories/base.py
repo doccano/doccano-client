@@ -8,6 +8,32 @@ from requests import Response, exceptions
 from doccano_client.exceptions import DoccanoAPIError
 
 
+def get_next_url(base_url: str, initial_url: str, response_data: dict) -> Optional[str]:
+    """
+    Get the "next" url from the response object correcting for issues when the API is running
+    at the non-default ports
+
+    Args:
+        base_url: the base url of the doccano instance which is passed when creating the doccano client
+        initial_url: the url which was used for the first non-paged request
+        response_data: the json payload from the reponse
+
+    Returns:
+        The adjusted url to get the next page or None when no next page is available
+
+    """
+    if response_data.get("next") is None:
+        return None
+    next_url = response_data["next"]
+    try:
+        resource = initial_url[len(base_url) :]
+        _, next_suffix = next_url.split(resource)
+        return base_url + resource + next_suffix
+    except ValueError:
+        # fallback to returning the unmodified next url
+        return next_url
+
+
 def verbose_raise_for_status(response: Response) -> Response:
     """Output a bad response's text before raising for verbosity, return response otherwise.
 
